@@ -2,13 +2,14 @@
 import student.TestCase;
 
 public class PointsDatabaseTest extends TestCase {
-    
+
     private PointsDatabase pdb;
-    
+
     public void setUp() {
         pdb = new PointsDatabase();
     }
-    
+
+
     public void testInit() {
         systemOut().clearHistory();
         System.out.println("Pass");
