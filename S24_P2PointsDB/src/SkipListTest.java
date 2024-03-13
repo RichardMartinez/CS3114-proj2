@@ -16,13 +16,13 @@ import student.TestableRandom;
 
 public class SkipListTest extends TestCase {
 
-    private SkipList<String, Rectangle> sl;
+    private SkipList<String, Point> sl;
 
     /**
      * Set up new SkipList for each test
      */
     public void setUp() {
-        sl = new SkipList<String, Rectangle>();
+        sl = new SkipList<String, Point>();
     }
 
 
@@ -32,7 +32,7 @@ public class SkipListTest extends TestCase {
      */
     public void testRandomLevelOne() {
         TestableRandom.setNextBooleans(false);
-        sl = new SkipList<String, Rectangle>();
+        sl = new SkipList<String, Point>();
         int randomLevelValue = sl.randomLevel();
 
         // This returns 1 because the first preset
@@ -51,7 +51,7 @@ public class SkipListTest extends TestCase {
      */
     public void testRandomLevelFour() {
         TestableRandom.setNextBooleans(true, true, true, false, true, false);
-        sl = new SkipList<String, Rectangle>();
+        sl = new SkipList<String, Point>();
         int randomLevelValue = sl.randomLevel();
 
         // This returns 4 because the fourth preset
@@ -73,21 +73,21 @@ public class SkipListTest extends TestCase {
         TestableRandom.setNextBooleans(null);
 
         // sl is a default constructed SkipList
-        Rectangle rec = new Rectangle(10, 10, 5, 5);
+        Point pt = new Point(10, 10);
         String name = "HelloWorld";
-        KVPair<String, Rectangle> pair = new KVPair<String, Rectangle>(name,
-            rec);
+        KVPair<String, Point> pair = new KVPair<String, Point>(name,
+            pt);
         sl.insert(pair);
 
-        rec = new Rectangle(20, 20, 5, 5);
+        pt = new Point(20, 20);
         name = "HelloWorld2";
-        pair = new KVPair<String, Rectangle>(name, rec);
+        pair = new KVPair<String, Point>(name, pt);
         sl.insert(pair);
 
         // Iterator and Test KVPairs
-        Iterator<KVPair<String, Rectangle>> it = sl.iterator();
+        Iterator<KVPair<String, Point>> it = sl.iterator();
 
-        KVPair<String, Rectangle> elem;
+        KVPair<String, Point> elem;
         elem = it.next();
         assertEquals(elem.getKey(), "HelloWorld");
         elem = it.next();
@@ -104,21 +104,21 @@ public class SkipListTest extends TestCase {
         TestableRandom.setNextBooleans(true, true, false, true, false);
 
         // sl is a default constructed SkipList
-        Rectangle rec = new Rectangle(1, 0, 2, 4);
+        Point pt = new Point(1, 0);
         String name = "a";
-        KVPair<String, Rectangle> pair = new KVPair<String, Rectangle>(name,
-            rec);
+        KVPair<String, Point> pair = new KVPair<String, Point>(name,
+            pt);
         sl.insert(pair);
 
-        rec = new Rectangle(2, 0, 4, 8);
+        pt = new Point(2, 0);
         name = "b";
-        pair = new KVPair<String, Rectangle>(name, rec);
+        pair = new KVPair<String, Point>(name, pt);
         sl.insert(pair);
 
         String expectedOutput = "SkipList dump:\n"
             + "Node with depth 3, Value null\n"
-            + "Node with depth 3, Value (a, 1, 0, 2, 4)\n"
-            + "Node with depth 2, Value (b, 2, 0, 4, 8)\n"
+            + "Node with depth 3, Value (a, 1, 0)\n"
+            + "Node with depth 2, Value (b, 2, 0)\n"
             + "SkipList size is: 2\n";
 
         systemOut().clearHistory();
@@ -154,21 +154,21 @@ public class SkipListTest extends TestCase {
         TestableRandom.setNextBooleans(null);
 
         // sl is a default constructed SkipList
-        Rectangle rec = new Rectangle(1, 0, 2, 4);
+        Point pt = new Point(1, 0);
         String name = "a";
-        KVPair<String, Rectangle> pair = new KVPair<String, Rectangle>(name,
-            rec);
+        KVPair<String, Point> pair = new KVPair<String, Point>(name,
+            pt);
         sl.insert(pair);
 
-        rec = null;
+        pt = null;
         name = "b";
-        pair = new KVPair<String, Rectangle>(name, rec);
+        pair = new KVPair<String, Point>(name, pt);
         sl.insert(pair);
 
         // Iterator and Test KVPairs
-        Iterator<KVPair<String, Rectangle>> it = sl.iterator();
+        Iterator<KVPair<String, Point>> it = sl.iterator();
 
-        KVPair<String, Rectangle> elem;
+        KVPair<String, Point> elem;
         elem = it.next();
         assertEquals(elem.getKey(), "a");
         assertNotNull(elem.getValue());
@@ -186,21 +186,21 @@ public class SkipListTest extends TestCase {
         TestableRandom.setNextBooleans(true, true, false, true, false);
 
         // sl is a default constructed SkipList
-        Rectangle rec = new Rectangle(1, 0, 2, 4);
+        Point pt = new Point(1, 0);
         String name = "a";
-        KVPair<String, Rectangle> pair = new KVPair<String, Rectangle>(name,
-            rec);
+        KVPair<String, Point> pair = new KVPair<String, Point>(name,
+            pt);
         sl.insert(pair);
 
-        rec = new Rectangle(2, 0, 4, 8);
+        pt = new Point(2, 0);
         name = "b";
-        pair = new KVPair<String, Rectangle>(name, rec);
+        pair = new KVPair<String, Point>(name, pt);
         sl.insert(pair);
 
         // Iterator and Test KVPairs
-        Iterator<KVPair<String, Rectangle>> it = sl.iterator();
+        Iterator<KVPair<String, Point>> it = sl.iterator();
 
-        KVPair<String, Rectangle> elem;
+        KVPair<String, Point> elem;
         elem = it.next();
         assertEquals(elem.getKey(), "a");
 
@@ -222,31 +222,31 @@ public class SkipListTest extends TestCase {
         // Reset Random
         TestableRandom.setNextBooleans(null);
 
-        Rectangle rec;
+        Point pt;
         String name;
-        KVPair<String, Rectangle> pair;
+        KVPair<String, Point> pair;
 
-        rec = new Rectangle(10, 10, 15, 15);
+        pt = new Point(10, 10);
         name = "a";
-        pair = new KVPair<String, Rectangle>(name, rec);
+        pair = new KVPair<String, Point>(name, pt);
         sl.insert(pair);
 
-        rec = new Rectangle(1, 2, 3, 4);
+        pt = new Point(1, 2);
         name = "b";
-        pair = new KVPair<String, Rectangle>(name, rec);
+        pair = new KVPair<String, Point>(name, pt);
         sl.insert(pair);
 
-        rec = new Rectangle(50, 21, 52, 1);
+        pt = new Point(50, 21);
         name = "a";
-        pair = new KVPair<String, Rectangle>(name, rec);
+        pair = new KVPair<String, Point>(name, pt);
         sl.insert(pair);
 
-        ArrayList<KVPair<String, Rectangle>> list = sl.search("a");
+        ArrayList<KVPair<String, Point>> list = sl.search("a");
 
         assertEquals(list.size(), 2);
 
-        Iterator<KVPair<String, Rectangle>> it = list.iterator();
-        KVPair<String, Rectangle> elem;
+        Iterator<KVPair<String, Point>> it = list.iterator();
+        KVPair<String, Point> elem;
         elem = it.next();
         assertEquals(elem.getKey(), "a");
         elem = it.next();
@@ -270,33 +270,33 @@ public class SkipListTest extends TestCase {
         // Set Random to be 1, 1, 2, 2
         TestableRandom.setNextBooleans(false, false, true, false, true, false);
 
-        Rectangle rec;
+        Point pt;
         String name;
-        KVPair<String, Rectangle> pair;
+        KVPair<String, Point> pair;
 
-        rec = new Rectangle(10, 10, 15, 15);
+        pt = new Point(10, 10);
         name = "a";
-        pair = new KVPair<String, Rectangle>(name, rec);
+        pair = new KVPair<String, Point>(name, pt);
         sl.insert(pair);
 
-        rec = new Rectangle(1, 2, 3, 4);
+        pt = new Point(1, 2);
         name = "b";
-        pair = new KVPair<String, Rectangle>(name, rec);
+        pair = new KVPair<String, Point>(name, pt);
         sl.insert(pair);
 
-        rec = new Rectangle(10, 20, 30, 40);
+        pt = new Point(10, 20);
         name = "c";
-        pair = new KVPair<String, Rectangle>(name, rec);
+        pair = new KVPair<String, Point>(name, pt);
         sl.insert(pair);
 
-        rec = new Rectangle(15, 25, 35, 45);
+        pt = new Point(15, 25);
         name = "d";
-        pair = new KVPair<String, Rectangle>(name, rec);
+        pair = new KVPair<String, Point>(name, pt);
         sl.insert(pair);
 
         assertTrue(sl.size() == 4);
 
-        KVPair<String, Rectangle> success;
+        KVPair<String, Point> success;
 
         success = sl.remove("b");
         assertNotNull(success);
@@ -320,34 +320,34 @@ public class SkipListTest extends TestCase {
         // Set Random to be 1, 1, 2, 2
         TestableRandom.setNextBooleans(false, false, true, false, true, false);
 
-        Rectangle rec;
+        Point pt;
         String name;
-        KVPair<String, Rectangle> pair;
+        KVPair<String, Point> pair;
 
-        rec = new Rectangle(10, 10, 15, 15);
+        pt = new Point(10, 10);
         name = "a";
-        pair = new KVPair<String, Rectangle>(name, rec);
+        pair = new KVPair<String, Point>(name, pt);
         sl.insert(pair);
 
-        rec = new Rectangle(1, 2, 3, 4);
+        pt = new Point(1, 2);
         name = "b";
-        pair = new KVPair<String, Rectangle>(name, rec);
+        pair = new KVPair<String, Point>(name, pt);
         sl.insert(pair);
 
-        rec = new Rectangle(10, 20, 30, 40);
+        pt = new Point(10, 20);
         name = "c";
-        pair = new KVPair<String, Rectangle>(name, rec);
+        pair = new KVPair<String, Point>(name, pt);
         sl.insert(pair);
 
-        rec = new Rectangle(15, 25, 35, 45);
+        pt = new Point(15, 25);
         name = "d";
-        pair = new KVPair<String, Rectangle>(name, rec);
+        pair = new KVPair<String, Point>(name, pt);
         sl.insert(pair);
 
         System.out.println("BEFORE DUMP:");
         sl.dump();
 
-        KVPair<String, Rectangle> success;
+        KVPair<String, Point> success;
 
         assertTrue(sl.size() == 4);
 
@@ -376,35 +376,35 @@ public class SkipListTest extends TestCase {
      * Test a simple remove case
      */
     public void testSimpleRemove() {
-        Rectangle rec;
+        Point pt;
         String name;
-        KVPair<String, Rectangle> pair;
+        KVPair<String, Point> pair;
 
         assertTrue(sl.size() == 0);
 
-        rec = new Rectangle(10, 10, 15, 15);
+        pt = new Point(10, 10);
         name = "a";
-        pair = new KVPair<String, Rectangle>(name, rec);
+        pair = new KVPair<String, Point>(name, pt);
         sl.insert(pair);
 
         assertTrue(sl.size() == 1);
 
-        KVPair<String, Rectangle> success;
+        KVPair<String, Point> success;
 
         success = sl.remove("a");
         assertNotNull(success);
         assertTrue(sl.size() == 0);
     }
 
-
     /**
      * Test searching an empty list returns
      * empty arraylist
      */
     public void testSearchEmptyList() {
-        ArrayList<KVPair<String, Rectangle>> list = sl.search("a");
+        ArrayList<KVPair<String, Point>> list = sl.search("a");
 
         assertTrue(list.size() == 0);
     }
-
+    
+    
 }
