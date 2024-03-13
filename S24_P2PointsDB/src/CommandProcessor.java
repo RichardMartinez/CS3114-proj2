@@ -13,7 +13,7 @@ public class CommandProcessor {
     // the database object to manipulate the
     // commands that the command processor
     // feeds to it
-    //private Database data;
+    private Database data;
 
     /**
      * The constructor for the command processor requires a database instance to
@@ -21,7 +21,7 @@ public class CommandProcessor {
      * commands to.
      */
     public CommandProcessor() {
-        //data = new Database();
+        data = new Database();
     }
 
 
@@ -41,8 +41,6 @@ public class CommandProcessor {
      *            a single line from the text file
      */
     public void processor(String line) {
-        System.out.print("Processor: ");
-        System.out.println(line);
         
         // converts the string of the line into an
         // array of its space (" ") delimited elements
@@ -54,7 +52,7 @@ public class CommandProcessor {
         // their Integer equivalent, trimming the whitespace
         if (command.equals("insert")) {
             // Calls insert
-
+            data.insert();  // TODO: Add KVPair Param
         }
         // calls the appropriate remove method based on the
         // number of white space delimited strings in the line
@@ -63,12 +61,15 @@ public class CommandProcessor {
             int numParam = arr.length - 1;
             if (numParam == 1) {
                 // Calls remove by name
-
+                String name = arr[1];
+                data.remove(name);
             }
             else if (numParam == 2) {
                 // Calls remove by coordinate, converting string
                 // integers into their Integer equivalent minus whitespace
-
+                int x = Integer.parseInt(arr[1]);
+                int y = Integer.parseInt(arr[2]);
+                data.remove(x, y);
             }
             else {
                 System.out.println("Invalid command.");
@@ -77,23 +78,28 @@ public class CommandProcessor {
         else if (command.equals("regionsearch")) {
             // calls the regionsearch method for a set of coordinates
             // the string integers in the line will be trimmed of whitespace
-
+            int x = Integer.parseInt(arr[1]);
+            int y = Integer.parseInt(arr[2]);
+            int w = Integer.parseInt(arr[3]);
+            int h = Integer.parseInt(arr[4]);
+            data.regionsearch(x, y, w, h);
         }
         else if (command.equals("duplicates")) {
             // calls the intersections method, no parameters to be passed
             // (see the intersections JavaDoc in the
             // Database class for more information)
-
+            data.duplicates();
         }
         else if (command.equals("search")) {
             // calls the search method for a name of object
-
+            String name = arr[1];
+            data.search(name);
         }
         else if (command.equals("dump")) {
             // calls the dump method for the database, takes no parameters
             // (see the dump() JavaDoc in the
             // Database class for more information)
-
+            data.dump();
         }
         else {
             // the first white space delimited string in the line is not
