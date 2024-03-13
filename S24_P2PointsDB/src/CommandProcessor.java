@@ -41,7 +41,7 @@ public class CommandProcessor {
      *            a single line from the text file
      */
     public void processor(String line) {
-        
+
         // converts the string of the line into an
         // array of its space (" ") delimited elements
         String[] arr = line.split("\\s{1,}");
@@ -52,7 +52,7 @@ public class CommandProcessor {
         // their Integer equivalent, trimming the whitespace
         if (command.equals("insert")) {
             // Calls insert
-            data.insert();  // TODO: Add KVPair Param
+            data.insert(); // TODO: Add KVPair Param
         }
         // calls the appropriate remove method based on the
         // number of white space delimited strings in the line

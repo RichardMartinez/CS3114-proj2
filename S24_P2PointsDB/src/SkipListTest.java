@@ -75,8 +75,7 @@ public class SkipListTest extends TestCase {
         // sl is a default constructed SkipList
         Point pt = new Point(10, 10);
         String name = "HelloWorld";
-        KVPair<String, Point> pair = new KVPair<String, Point>(name,
-            pt);
+        KVPair<String, Point> pair = new KVPair<String, Point>(name, pt);
         sl.insert(pair);
 
         pt = new Point(20, 20);
@@ -106,8 +105,7 @@ public class SkipListTest extends TestCase {
         // sl is a default constructed SkipList
         Point pt = new Point(1, 0);
         String name = "a";
-        KVPair<String, Point> pair = new KVPair<String, Point>(name,
-            pt);
+        KVPair<String, Point> pair = new KVPair<String, Point>(name, pt);
         sl.insert(pair);
 
         pt = new Point(2, 0);
@@ -118,8 +116,7 @@ public class SkipListTest extends TestCase {
         String expectedOutput = "SkipList dump:\n"
             + "Node with depth 3, Value null\n"
             + "Node with depth 3, Value (a, 1, 0)\n"
-            + "Node with depth 2, Value (b, 2, 0)\n"
-            + "SkipList size is: 2\n";
+            + "Node with depth 2, Value (b, 2, 0)\n" + "SkipList size is: 2\n";
 
         systemOut().clearHistory();
         sl.dump();
@@ -156,8 +153,7 @@ public class SkipListTest extends TestCase {
         // sl is a default constructed SkipList
         Point pt = new Point(1, 0);
         String name = "a";
-        KVPair<String, Point> pair = new KVPair<String, Point>(name,
-            pt);
+        KVPair<String, Point> pair = new KVPair<String, Point>(name, pt);
         sl.insert(pair);
 
         pt = null;
@@ -188,8 +184,7 @@ public class SkipListTest extends TestCase {
         // sl is a default constructed SkipList
         Point pt = new Point(1, 0);
         String name = "a";
-        KVPair<String, Point> pair = new KVPair<String, Point>(name,
-            pt);
+        KVPair<String, Point> pair = new KVPair<String, Point>(name, pt);
         sl.insert(pair);
 
         pt = new Point(2, 0);
@@ -396,6 +391,7 @@ public class SkipListTest extends TestCase {
         assertTrue(sl.size() == 0);
     }
 
+
     /**
      * Test searching an empty list returns
      * empty arraylist
@@ -405,6 +401,5 @@ public class SkipListTest extends TestCase {
 
         assertTrue(list.size() == 0);
     }
-    
-    
+
 }

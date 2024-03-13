@@ -9,8 +9,8 @@ import java.util.Scanner;
 // either my original work, or was derived by me from the
 // source code published in the textbook for this course.
 // - I have not discussed coding details about this project with
-// anyone other than the my partner, instructor, ACM/UPE tutors 
-// or the TAs assigned to this course. 
+// anyone other than the my partner, instructor, ACM/UPE tutors
+// or the TAs assigned to this course.
 // I understand that I may discuss the concepts
 // of this program with other students, and that another student
 // may help me debug my program so long as neither of us writes
@@ -38,7 +38,7 @@ public class PointsDatabase {
      * 
      * TODO: Description
      */
-    
+
     /**
      * The entry point of the application.
      *
@@ -48,13 +48,13 @@ public class PointsDatabase {
      */
     public static void main(String[] args) {
         System.out.println("This is working PDB");
-        
+
         if (args.length < 1) {
             String out = "Invalid file. No filename in command line arguments";
             System.out.println(out);
             return;
         }
-        
+
         // the file containing the commands
         File file = null;
 

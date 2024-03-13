@@ -25,19 +25,19 @@ public class Database {
     // a string for the name of the rectangle and then
     // a rectangle object, these are stored in a KVPair,
     // see the KVPair class for more information
-    //private SkipList<String, Rectangle> list;
+    // private SkipList<String, Rectangle> list;
 
     // This is an Iterator object over the SkipList
     // to loop through it from outside the class.
     // You will need to define an extra Iterator for the intersections method.
-    //private Iterator<KVPair<String, Rectangle>> itr1;
+    // private Iterator<KVPair<String, Rectangle>> itr1;
 
     /**
      * The constructor for this class initializes a SkipList object with String
      * and Rectangle a its parameters.
      */
     public Database() {
-        //list = new SkipList<String, Rectangle>();
+        // list = new SkipList<String, Rectangle>();
     }
 
 
@@ -52,7 +52,7 @@ public class Database {
      */
     public void insert() {
         // Param: KVPair<String, Point> pair
-        
+
         // Delegates the decision mostly to SkipList, only
         // writing the correct message to the console from
         // that
@@ -82,7 +82,7 @@ public class Database {
      *            y-coordinate of the point to be removed
      */
     public void remove(int x, int y) {
-        
+
     }
 
 
@@ -110,7 +110,7 @@ public class Database {
      * Report all points that have duplicate coordinates
      */
     public void duplicates() {
-        
+
     }
 
 
@@ -122,7 +122,7 @@ public class Database {
      *            name of the Rectangle to be searched for
      */
     public void search(String name) {
-        
+
     }
 
 
@@ -132,7 +132,7 @@ public class Database {
      * will all be delegated to the SkipList.
      */
     public void dump() {
-        
+
     }
 
 }

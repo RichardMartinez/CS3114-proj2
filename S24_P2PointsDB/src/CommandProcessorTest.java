@@ -12,7 +12,7 @@ import student.TestCase;
  * @version 1
  */
 public class CommandProcessorTest extends TestCase {
-    
+
     private CommandProcessor cmdProc;
 
     /**
@@ -24,9 +24,10 @@ public class CommandProcessorTest extends TestCase {
     public void setUp() {
         cmdProc = new CommandProcessor();
     }
-    
+
+
     // TODO
     public void test() {
-        
+
     }
 }

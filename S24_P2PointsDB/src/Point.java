@@ -45,6 +45,7 @@ public class Point {
         return y;
     }
 
+
     /**
      * Checks, if the invoking point has the same coordinates as pt.
      * 
@@ -54,7 +55,7 @@ public class Point {
      *         not
      */
     public boolean equals(Point pt) {
-        // Need same x, same y, same w, same h
+        // Need same x, same y
         boolean sameX = this.getX() == pt.getX();
         boolean sameY = this.getY() == pt.getY();
 
@@ -95,9 +96,9 @@ public class Point {
     public boolean isInvalid() {
         boolean xInside = insideWorldBox(x);
         boolean yInside = insideWorldBox(y);
-        
+
         boolean valid = (xInside && yInside);
-        
+
         return !valid;
     }
 
