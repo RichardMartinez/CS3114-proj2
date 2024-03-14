@@ -21,23 +21,16 @@ import java.util.Iterator;
  */
 public class Database {
 
-    // this is the SkipList object that we are using
-    // a string for the name of the rectangle and then
-    // a rectangle object, these are stored in a KVPair,
-    // see the KVPair class for more information
-    // private SkipList<String, Rectangle> list;
-
-    // This is an Iterator object over the SkipList
-    // to loop through it from outside the class.
-    // You will need to define an extra Iterator for the intersections method.
-    // private Iterator<KVPair<String, Rectangle>> itr1;
+    // private SkipList<String, Point> list;
+    // private PRQuadTree tree;
 
     /**
      * The constructor for this class initializes a SkipList object with String
      * and Rectangle a its parameters.
      */
     public Database() {
-        // list = new SkipList<String, Rectangle>();
+        // list = new SkipList<String, Point>();
+        // tree = new PRQuadTree();
     }
 
 
@@ -50,12 +43,13 @@ public class Database {
      * @param pair
      *            the KVPair to be inserted
      */
-    public void insert() {
-        // Param: KVPair<String, Point> pair
-
+    public void insert(KVPair<String, Point> pair) {
         // Delegates the decision mostly to SkipList, only
         // writing the correct message to the console from
         // that
+        
+        // list.insert(pair);
+        // tree.insert(pair);
 
     }
 
@@ -68,6 +62,14 @@ public class Database {
      *            the name of the rectangle to be removed
      */
     public void remove(String name) {
+        
+        // Remove by name, SkipList efficient
+        // Then remove from PRQuadTree by value
+        
+        // KVPair<String, Point> pair = list.remove(name);
+        // Point pt = pair.getValue();
+        // tree.remove(x, y);
+        
 
     }
 
@@ -82,6 +84,13 @@ public class Database {
      *            y-coordinate of the point to be removed
      */
     public void remove(int x, int y) {
+        
+        // Remove by value, PRQuadTree efficient
+        // Then remove from SkipList by name
+        
+        // KVPair<String, Point> pair = tree.remove(x, y);
+        // String name = pair.getKey();
+        // list.remove(name);
 
     }
 
@@ -102,6 +111,9 @@ public class Database {
      *            height of the region
      */
     public void regionsearch(int x, int y, int w, int h) {
+        
+        // Traverse PRQuadTree and report any points in the
+        // given region
 
     }
 
@@ -110,6 +122,8 @@ public class Database {
      * Report all points that have duplicate coordinates
      */
     public void duplicates() {
+        
+        // Traverse PRQuadTree and report any duplicates
 
     }
 
@@ -122,6 +136,9 @@ public class Database {
      *            name of the Rectangle to be searched for
      */
     public void search(String name) {
+        
+        // Search using SkipList and print all points with
+        // the same keys
 
     }
 
@@ -132,6 +149,9 @@ public class Database {
      * will all be delegated to the SkipList.
      */
     public void dump() {
+        
+        // SkipList.dump();
+        // PRQuadTree.dump();
 
     }
 

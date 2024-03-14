@@ -52,7 +52,12 @@ public class CommandProcessor {
         // their Integer equivalent, trimming the whitespace
         if (command.equals("insert")) {
             // Calls insert
-            data.insert(); // TODO: Add KVPair Param
+            String name = arr[1];
+            int x = Integer.parseInt(arr[2]);
+            int y = Integer.parseInt(arr[3]);
+            Point pt = new Point(x, y);
+            KVPair<String, Point> pair = new KVPair<String, Point>(name, pt);
+            data.insert(pair);
         }
         // calls the appropriate remove method based on the
         // number of white space delimited strings in the line
