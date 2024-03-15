@@ -106,9 +106,14 @@ public class LeafNode implements QuadNode {
         // We can insert if list is empty OR
         // if the given KVPair point coordinates match one of the lists
         boolean isEmpty = isEmptyList(list);
-        boolean containsPoint = listContainsPoint(list, it);
+        
+        Point pt = it.getValue();
+        boolean containsPoint = listContainsPoint(list, pt);
         
         return (isEmpty || containsPoint);
+        
+        // TODO: Make this canInsertList() for internal decisions
+        // and include canInsert() for external splitting decisions
     }
     
     /**
@@ -119,15 +124,14 @@ public class LeafNode implements QuadNode {
      *      The KVPair to check
      * @return true if match
      */
-    public boolean listContainsPoint(LinkedList<KVPair<String, Point>> list, KVPair<String, Point> it) {
+    public boolean listContainsPoint(LinkedList<KVPair<String, Point>> list, Point pt) {
         if (isEmptyList(list)) {
             return false;
         }
         
-        Point pt1 = it.getValue();
         Point pt2 = list.getFirst().getValue();
         
-        return pt1.equals(pt2);
+        return pt.equals(pt2);
     }
     
     /**
@@ -136,10 +140,10 @@ public class LeafNode implements QuadNode {
      *      The KVPair to check
      * @return true if node contains Point
      */
-    public boolean containsPoint(KVPair<String, Point> it) {
-        boolean point1Contains = listContainsPoint(point1, it);
-        boolean point2Contains = listContainsPoint(point2, it);
-        boolean point3Contains = listContainsPoint(point3, it);
+    public boolean containsPoint(Point pt) {
+        boolean point1Contains = listContainsPoint(point1, pt);
+        boolean point2Contains = listContainsPoint(point2, pt);
+        boolean point3Contains = listContainsPoint(point3, pt);
         
         return (point1Contains || point2Contains || point3Contains);
     }
