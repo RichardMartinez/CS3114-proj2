@@ -112,8 +112,8 @@ public class LeafNode implements QuadNode {
         
         return (isEmpty || containsPoint);
         
-        // TODO: Make this canInsertList() for internal decisions
-        // and include canInsert() for external splitting decisions
+        // TODO: Make this canInsertList(list, it) for internal decisions
+        // and include canInsert(it) for external splitting decisions
     }
     
     /**
@@ -121,7 +121,7 @@ public class LeafNode implements QuadNode {
      * @param list
      *      The list to check against
      * @param it
-     *      The KVPair to check
+     *      The point to check
      * @return true if match
      */
     public boolean listContainsPoint(LinkedList<KVPair<String, Point>> list, Point pt) {
@@ -137,7 +137,7 @@ public class LeafNode implements QuadNode {
     /**
      * Returns true if the overall node contains the point
      * @param it
-     *      The KVPair to check
+     *      The point to check
      * @return true if node contains Point
      */
     public boolean containsPoint(Point pt) {
@@ -148,6 +148,41 @@ public class LeafNode implements QuadNode {
         return (point1Contains || point2Contains || point3Contains);
     }
     
-    // TODO: List contains name to avoid duplicate names
+    /**
+     * Returns true if the given name is in the list
+     * @param list
+     *      The list to check against
+     * @param name
+     *      THe name to check
+     * @return
+     */
+    public boolean listContainsName(LinkedList<KVPair<String, Point>> list, String name) {
+        if (isEmptyList(list)) {
+            return false;
+        }
+        
+        for (KVPair<String, Point> pair : list) {
+            String name2 = pair.getKey();
+            if (name.equals(name2)) {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+    
+    /**
+     * Returns true if the overall node contains the name
+     * @param name
+     *      The name to check
+     * @return true if contains
+     */
+    public boolean containsName(String name) {
+        boolean point1Contains = listContainsName(point1, name);
+        boolean point2Contains = listContainsName(point2, name);
+        boolean point3Contains = listContainsName(point3, name);
+        
+        return (point1Contains || point2Contains || point3Contains);
+    }
 
 }

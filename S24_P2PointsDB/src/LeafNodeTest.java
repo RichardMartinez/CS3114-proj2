@@ -28,6 +28,7 @@ public class LeafNodeTest extends TestCase{
         KVPair<String, Point> pair = new KVPair<String, Point>(name, pt);
         node.insert(pair);
         assertTrue(node.containsPoint(pt));
+        assertTrue(node.containsName(name));
     }
     
     /**
@@ -49,10 +50,8 @@ public class LeafNodeTest extends TestCase{
         node.insert(pair);
         
         assertTrue(node.containsPoint(pt));
-        
-        // TODO: Node contains name
-        
-        
+        assertTrue(node.containsName("a"));
+        assertTrue(node.containsName("b"));   
     }
     
 //    /**
