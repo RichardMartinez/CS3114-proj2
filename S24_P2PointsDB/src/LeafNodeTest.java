@@ -90,7 +90,14 @@ public class LeafNodeTest extends TestCase{
         assertTrue(node.canInsert(pair));
         node.insert(pair);
         
-        assertTrue(node.containsName(name));
+        name = "b";
+        pt = new Point(7, 8);
+        pair = new KVPair<String, Point>(name, pt);
+        
+        assertFalse(node.canInsert(pair));
+        node.insert(pair);  // Nothing should happen
+        
+        assertTrue(node.containsName("a"));
         assertFalse(node.containsName("b"));
         
     }
