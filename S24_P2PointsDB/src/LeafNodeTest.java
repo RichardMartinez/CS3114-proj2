@@ -54,16 +54,33 @@ public class LeafNodeTest extends TestCase{
         assertTrue(node.containsName("b"));   
     }
     
-//    /**
-//     * Test inserting a duplicate name
-//     */
-//    public void testDuplicateName() {
-//        String name;
-//        Point pt;
-//        KVPair<String, Point> pair;
-//        
-//    }
-//    
+    /**
+     * Test inserting a duplicate name
+     */
+    public void testDuplicateName() {
+        String name;
+        Point pt;
+        KVPair<String, Point> pair;
+        
+        name = "a";
+        pt = new Point(1, 2);
+        pair = new KVPair<String, Point>(name, pt);
+        node.insert(pair);
+        
+        name = "a";
+        pt = new Point(3, 4);
+        pair = new KVPair<String, Point>(name, pt);
+        node.insert(pair);
+        
+        name = "a";
+        pt = new Point(5, 6);
+        pair = new KVPair<String, Point>(name, pt);
+        node.insert(pair);
+        
+        assertTrue(node.containsName(name));       
+        
+    }
+    
 //    /**
 //     * Test inserting an exact copy.
 //     * This should not be allowed.
@@ -72,6 +89,16 @@ public class LeafNodeTest extends TestCase{
 //        String name;
 //        Point pt;
 //        KVPair<String, Point> pair;
+//        
+//        name = "a";
+//        pt = new Point(1, 2);
+//        pair = new KVPair<String, Point>(name, pt);
+//        node.insert(pair);
+//        
+//        name = "a";
+//        pt = new Point(1, 2);
+//        pair = new KVPair<String, Point>(name, pt);
+//        node.insert(pair);
 //        
 //    }
 //    

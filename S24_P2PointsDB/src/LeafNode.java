@@ -46,6 +46,10 @@ public class LeafNode implements QuadNode {
         else if (canInsert(point3, it)) {
             point3.add(it);
         }
+        else {
+            // TODO: What happens when full?
+            // Should have split
+        }
         
     }
     
@@ -109,6 +113,8 @@ public class LeafNode implements QuadNode {
         
         Point pt = it.getValue();
         boolean containsPoint = listContainsPoint(list, pt);
+        
+        // Want to return false if exact copy attempted to insert
         
         return (isEmpty || containsPoint);
         
