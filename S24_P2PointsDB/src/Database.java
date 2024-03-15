@@ -65,6 +65,11 @@ public class Database {
         // Then remove from PRQuadTree by value
         
         KVPair<String, Point> pair = list.remove(name);
+        if (pair == null) {
+            // Not found
+            return;
+        }
+        
         Point pt = pair.getValue();
         tree.remove(pt);
     }
@@ -85,6 +90,11 @@ public class Database {
         
         Point pt = new Point(x, y);
         KVPair<String, Point> pair = tree.remove(pt);
+        if (pair == null) {
+            // Not Found
+            return;
+        }
+        
         String name = pair.getKey();
         list.remove(name);
     }
@@ -135,6 +145,10 @@ public class Database {
         // the same keys
         
         ArrayList<KVPair<String, Point>> found = list.search(name);
+        if (found.size() == 0) {
+            // Not found
+            return;
+        }
 
     }
 
