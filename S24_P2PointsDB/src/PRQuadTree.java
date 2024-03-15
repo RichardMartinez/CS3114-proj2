@@ -49,9 +49,11 @@ public class PRQuadTree {
         // Base case for flyweight node
         if (isFlyweight(node)) {
             node = new LeafNode();
-            node.insert(it);
             return;
         }
+        // TODO: How to use recursion here?
+        // Does this insert auto use recursion?
+        node.insert(it);
         
         
     }

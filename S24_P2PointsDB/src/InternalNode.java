@@ -34,5 +34,37 @@ public class InternalNode implements QuadNode {
         
         return null;
     }
+    
+    /**
+     * Return the northwest leaf node
+     * @return nw
+     */
+    public LeafNode northwest() {
+        return nw;
+    }
+    
+    /**
+     * Return the northeast leaf node
+     * @return ne
+     */
+    public LeafNode northeast() {
+        return ne;
+    }
+    
+    /**
+     * Return the southwest leaf node
+     * @return sw
+     */
+    public LeafNode southwest() {
+        return sw;
+    }
+    
+    /**
+     * Return the southeast leaf node
+     * @return se
+     */
+    public LeafNode southeast() {
+        return se;
+    }
 
 }
