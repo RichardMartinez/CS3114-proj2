@@ -5,5 +5,9 @@
  * conform to this interface.
  */
 public interface QuadNode {
+    
+//    public void insert(KVPair<String, Point> it);
+//    
+//    public KVPair<String, Point> remove()
 
 }

@@ -21,16 +21,16 @@ import java.util.Iterator;
  */
 public class Database {
 
-    // private SkipList<String, Point> list;
-    // private PRQuadTree tree;
+    private SkipList<String, Point> list;
+    private PRQuadTree tree;
 
     /**
      * The constructor for this class initializes a SkipList object with String
      * and Rectangle a its parameters.
      */
     public Database() {
-        // list = new SkipList<String, Point>();
-        // tree = new PRQuadTree();
+        list = new SkipList<String, Point>();
+        tree = new PRQuadTree();
     }
 
 
@@ -48,9 +48,8 @@ public class Database {
         // writing the correct message to the console from
         // that
         
-        // list.insert(pair);
-        // tree.insert(pair);
-
+        list.insert(pair);
+        tree.insert(pair);
     }
 
 
@@ -62,15 +61,12 @@ public class Database {
      *            the name of the rectangle to be removed
      */
     public void remove(String name) {
-        
         // Remove by name, SkipList efficient
         // Then remove from PRQuadTree by value
         
-        // KVPair<String, Point> pair = list.remove(name);
-        // Point pt = pair.getValue();
-        // tree.remove(x, y);
-        
-
+        KVPair<String, Point> pair = list.remove(name);
+        Point pt = pair.getValue();
+        tree.remove(pt);
     }
 
 
@@ -84,14 +80,13 @@ public class Database {
      *            y-coordinate of the point to be removed
      */
     public void remove(int x, int y) {
-        
         // Remove by value, PRQuadTree efficient
         // Then remove from SkipList by name
         
-        // KVPair<String, Point> pair = tree.remove(x, y);
-        // String name = pair.getKey();
-        // list.remove(name);
-
+        Point pt = new Point(x, y);
+        KVPair<String, Point> pair = tree.remove(pt);
+        String name = pair.getKey();
+        list.remove(name);
     }
 
 
@@ -111,10 +106,10 @@ public class Database {
      *            height of the region
      */
     public void regionsearch(int x, int y, int w, int h) {
-        
         // Traverse PRQuadTree and report any points in the
         // given region
-
+        
+        tree.regionsearch(x, y, w, h);
     }
 
 
@@ -122,9 +117,9 @@ public class Database {
      * Report all points that have duplicate coordinates
      */
     public void duplicates() {
-        
         // Traverse PRQuadTree and report any duplicates
-
+        
+        tree.duplicates();
     }
 
 
@@ -136,9 +131,10 @@ public class Database {
      *            name of the Rectangle to be searched for
      */
     public void search(String name) {
-        
         // Search using SkipList and print all points with
         // the same keys
+        
+        ArrayList<KVPair<String, Point>> found = list.search(name);
 
     }
 
@@ -149,10 +145,8 @@ public class Database {
      * will all be delegated to the SkipList.
      */
     public void dump() {
-        
-        // SkipList.dump();
-        // PRQuadTree.dump();
-
+         list.dump();
+         tree.dump();
     }
 
 }
