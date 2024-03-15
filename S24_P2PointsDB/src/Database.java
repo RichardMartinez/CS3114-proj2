@@ -49,6 +49,10 @@ public class Database {
         // Delegates the decision mostly to SkipList, only
         // writing the correct message to the console from
         // that
+        
+        // TODO: Check if pair is an EXACT match of another pair
+        // already stored
+        // Same name is OK, same coords is OK, BUT NOT BOTH
 
         list.insert(pair);
         tree.insert(pair);

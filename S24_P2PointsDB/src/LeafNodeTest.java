@@ -30,6 +30,73 @@ public class LeafNodeTest extends TestCase{
         assertTrue(node.containsPoint(pair));
     }
     
+    /**
+     * Test inserting a duplicate point
+     */
+    public void testDuplicatePoint() {
+        String name;
+        Point pt;
+        KVPair<String, Point> pair;
+        
+        name = "a";
+        pt = new Point(1, 2);
+        pair = new KVPair<String, Point>(name, pt);
+        node.insert(pair);
+        
+        name = "b";
+        pt = new Point(1, 2);
+        pair = new KVPair<String, Point>(name, pt);
+        node.insert(pair);
+        
+        
+        
+    }
+    
+//    /**
+//     * Test inserting a duplicate name
+//     */
+//    public void testDuplicateName() {
+//        String name;
+//        Point pt;
+//        KVPair<String, Point> pair;
+//        
+//    }
+//    
+//    /**
+//     * Test inserting an exact copy.
+//     * This should not be allowed.
+//     */
+//    public void testDuplicateCopy() {
+//        String name;
+//        Point pt;
+//        KVPair<String, Point> pair;
+//        
+//    }
+//    
+//    /**
+//     * Test insert method with multiple inserts
+//     */
+//    public void testInsert() {
+//        String name;
+//        Point pt;
+//        KVPair<String, Point> pair;
+//        
+//        name = "a";
+//        pt = new Point(1, 2);
+//        pair = new KVPair<String, Point>(name, pt);
+//        node.insert(pair);
+//        
+//        name = "b";
+//        pt = new Point(3, 4);
+//        pair = new KVPair<String, Point>(name, pt);
+//        node.insert(pair);
+//        
+//        name = "c";
+//        pt = new Point(5, 6);
+//        pair = new KVPair<String, Point>(name, pt);
+//        node.insert(pair);
+//    }
+    
 //    /**
 //     * Test the basic isFull method
 //     */

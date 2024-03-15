@@ -39,15 +39,12 @@ public class LeafNode implements QuadNode {
         // Insert the point if we can
         if (canInsert(point1, it)) {
             point1.add(it);
-            return;
         }
         else if (canInsert(point2, it)) {
             point2.add(it);
-            return;
         }
         else if (canInsert(point3, it)) {
             point3.add(it);
-            return;
         }
         
     }
@@ -146,5 +143,7 @@ public class LeafNode implements QuadNode {
         
         return (point1Contains || point2Contains || point3Contains);
     }
+    
+    // TODO: List contains name to avoid duplicate names
 
 }
