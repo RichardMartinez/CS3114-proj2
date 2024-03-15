@@ -46,10 +46,8 @@ public class LeafNode implements QuadNode {
         else if (canInsertList(point3, it)) {
             point3.add(it);
         }
-        else {
-            // TODO: What happens when full?
-            // Should have split
-        }
+        // Nothing happens here, node should have split
+        // before it got here
         
     }
     
@@ -75,29 +73,7 @@ public class LeafNode implements QuadNode {
     public boolean isEmptyList(LinkedList<KVPair<String, Point>> list) {
         return (list.size() == 0);
     }
-    
-//    /**
-//     * Return true if three unique points in the node
-//     * @return true if full
-//     */
-//    public boolean isFull() {
-//        boolean p1Empty = isEmptyList(point1);
-//        boolean p2Empty = isEmptyList(point2);
-//        boolean p3Empty = isEmptyList(point3);
-//        
-//        // If all are not empty, then we are full
-//        // If statements for better mutation testing
-//        if (!p1Empty) {
-//            if (!p2Empty) {
-//                if (!p3Empty) {
-//                    return true;
-//                }
-//            }
-//        }
-//        return false;
-//        
-//    }
-    
+        
     /**
      * Return true if KVPair can be inserted in List
      * Used for internal decisions
