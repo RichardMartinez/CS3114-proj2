@@ -6,8 +6,10 @@
  */
 public interface QuadNode {
 
-// public void insert(KVPair<String, Point> it);
-//
-// public KVPair<String, Point> remove()
+    public void insert(KVPair<String, Point> it);
+    
+    public KVPair<String, Point> remove(Point pt);
+    
+    // TODO: Add regionsearch, duplicates, dump
 
 }

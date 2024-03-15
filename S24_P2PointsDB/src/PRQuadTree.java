@@ -11,12 +11,23 @@
  * @version 2024-03-13
  */
 public class PRQuadTree {
+    
+    // The flyweight node
+    private QuadNode flyweight;
+    
+    // Root node
+    private QuadNode root;
+    
+    // TODO: Create recursive helper methods
+    // Then call them on root for overall method
 
     /**
      * Constructor for PRQuadTree
      */
     public PRQuadTree() {
-
+        // Initialize the flyweight and root
+        flyweight = new LeafNode();
+        root = flyweight;
     }
 
 
@@ -27,7 +38,22 @@ public class PRQuadTree {
      *            The KVPair to be inserted
      */
     public void insert(KVPair<String, Point> it) {
-
+        // Call the recursive helper function
+        inserthelp(it, root);
+    }
+    
+    /**
+     * Recursive helper function for insert
+     */
+    public void inserthelp(KVPair<String, Point> it, QuadNode node) {
+        // Base case for flyweight node
+        if (isFlyweight(node)) {
+            node = new LeafNode();
+            node.insert(it);
+            return;
+        }
+        
+        
     }
 
 
@@ -80,5 +106,13 @@ public class PRQuadTree {
      */
     public void dump() {
 
+    }
+    
+    /**
+     * Returns true if the node is flyweight
+     * @return true if node is flyweight
+     */
+    public boolean isFlyweight(QuadNode node) {
+        return (node == flyweight);
     }
 }

@@ -23,6 +23,8 @@ public class Database {
 
     private SkipList<String, Point> list;
     private PRQuadTree tree;
+    
+    // TODO: Output all results to standard out.
 
     /**
      * The constructor for this class initializes a SkipList object with String
