@@ -47,7 +47,7 @@ public class Database {
         // Delegates the decision mostly to SkipList, only
         // writing the correct message to the console from
         // that
-        
+
         list.insert(pair);
         tree.insert(pair);
     }
@@ -63,13 +63,13 @@ public class Database {
     public void remove(String name) {
         // Remove by name, SkipList efficient
         // Then remove from PRQuadTree by value
-        
+
         KVPair<String, Point> pair = list.remove(name);
         if (pair == null) {
             // Not found
             return;
         }
-        
+
         Point pt = pair.getValue();
         tree.remove(pt);
     }
@@ -87,14 +87,14 @@ public class Database {
     public void remove(int x, int y) {
         // Remove by value, PRQuadTree efficient
         // Then remove from SkipList by name
-        
+
         Point pt = new Point(x, y);
         KVPair<String, Point> pair = tree.remove(pt);
         if (pair == null) {
             // Not Found
             return;
         }
-        
+
         String name = pair.getKey();
         list.remove(name);
     }
@@ -118,7 +118,7 @@ public class Database {
     public void regionsearch(int x, int y, int w, int h) {
         // Traverse PRQuadTree and report any points in the
         // given region
-        
+
         tree.regionsearch(x, y, w, h);
     }
 
@@ -128,7 +128,7 @@ public class Database {
      */
     public void duplicates() {
         // Traverse PRQuadTree and report any duplicates
-        
+
         tree.duplicates();
     }
 
@@ -143,7 +143,7 @@ public class Database {
     public void search(String name) {
         // Search using SkipList and print all points with
         // the same keys
-        
+
         ArrayList<KVPair<String, Point>> found = list.search(name);
         if (found.size() == 0) {
             // Not found
@@ -159,8 +159,8 @@ public class Database {
      * will all be delegated to the SkipList.
      */
     public void dump() {
-         list.dump();
-         tree.dump();
+        list.dump();
+        tree.dump();
     }
 
 }
