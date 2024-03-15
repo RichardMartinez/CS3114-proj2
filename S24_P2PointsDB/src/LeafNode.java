@@ -15,7 +15,7 @@ public class LeafNode implements QuadNode {
      * Construct the LeafNode
      */
     public LeafNode() {
-        // Set up the Points List of Lists
+        // Set up the Points Lists
         point1 = new LinkedList<KVPair<String, Point>>();
         point2 = new LinkedList<KVPair<String, Point>>();
         point3 = new LinkedList<KVPair<String, Point>>();
@@ -37,13 +37,13 @@ public class LeafNode implements QuadNode {
         // before calling this
         
         // Insert the point if we can
-        if (canInsert(point1, it)) {
+        if (canInsertList(point1, it)) {
             point1.add(it);
         }
-        else if (canInsert(point2, it)) {
+        else if (canInsertList(point2, it)) {
             point2.add(it);
         }
-        else if (canInsert(point3, it)) {
+        else if (canInsertList(point3, it)) {
             point3.add(it);
         }
         else {
@@ -100,13 +100,20 @@ public class LeafNode implements QuadNode {
     
     /**
      * Return true if KVPair can be inserted in List
+     * Used for internal decisions
      * @param list
      *      List to check against
      * @param it
      *      KVPair to be inserted
      * @return true if can be inserted
      */
-    public boolean canInsert(LinkedList<KVPair<String, Point>> list, KVPair<String, Point> it) {
+    public boolean canInsertList(LinkedList<KVPair<String, Point>> list, KVPair<String, Point> it) {
+        // NOTE: Does this matter? Only takes effect if trying to insert
+        // exact copy
+//        if (listContainsExactCopy(list, it)) {
+//            return false;
+//        }
+        
         // We can insert if list is empty OR
         // if the given KVPair point coordinates match one of the lists
         boolean isEmpty = isEmptyList(list);
@@ -114,12 +121,22 @@ public class LeafNode implements QuadNode {
         Point pt = it.getValue();
         boolean containsPoint = listContainsPoint(list, pt);
         
-        // Want to return false if exact copy attempted to insert
-        
         return (isEmpty || containsPoint);
+    }
+    
+    /**
+     * Returns true if the overall node can insert it
+     * Used for external splitting decisions
+     * @param it
+     *      KVPair to be inserted
+     * @return true if can insert
+     */
+    public boolean canInsert(KVPair<String, Point> it) {
+        boolean point1Can = canInsertList(point1, it);
+        boolean point2Can = canInsertList(point2, it);
+        boolean point3Can = canInsertList(point3, it);
         
-        // TODO: Make this canInsertList(list, it) for internal decisions
-        // and include canInsert(it) for external splitting decisions
+        return (point1Can || point2Can || point3Can);
     }
     
     /**
@@ -190,5 +207,36 @@ public class LeafNode implements QuadNode {
         
         return (point1Contains || point2Contains || point3Contains);
     }
+    
+    /**
+     * NOTE: Should this be removed??
+     * If we can safely assume we will never insert exact
+     * copies, we can remove this.
+     * 
+     * Returns true if list contains exact copy
+     * @param list
+     *      List to check against
+     * @param pair
+     *      Pair to check
+     * @return true if contained
+     */
+//    public boolean listContainsExactCopy(LinkedList<KVPair<String, Point>> list, KVPair<String, Point> pair) {
+//        if (isEmptyList(list)) {
+//            return false;
+//        }
+//        
+//        String name = pair.getKey();
+//        Point pt = pair.getValue();
+//
+//        for (KVPair<String, Point> item : list) {
+//            String name2 = item.getKey();
+//            Point pt2 = item.getValue();
+//            if (name.equals(name2) && pt.equals(pt2)) {
+//                return true;
+//            }
+//        }
+//        
+//        return false;
+//    }
 
 }
