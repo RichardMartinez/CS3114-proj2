@@ -82,5 +82,35 @@ public class PointTest extends TestCase {
         pt1 = new Point(-1, -1);
         assertTrue(pt1.isInvalid());
     }
+    
+    /**
+     * Test direction methods
+     */
+    public void testDirections() {
+        Point A = new Point(256, 256);
+        Point B = new Point(256, 768);
+        Point C = new Point(768, 256);
+        Point D = new Point(768, 768);
+        
+        int x = 512;
+        int y = 512;
+        
+        assertTrue(A.isNorthOf(x, y));
+        assertTrue(A.isWestOf(x, y));
+        
+        assertFalse(B.isNorthOf(x, y));
+        assertTrue(B.isWestOf(x, y));
+        
+        assertTrue(C.isNorthOf(x, y));
+        assertFalse(C.isWestOf(x, y));
+        
+        assertFalse(D.isNorthOf(x, y));
+        assertFalse(D.isWestOf(x, y));
+        
+        assertEquals(A.getDirection(x, y), "nw");
+        assertEquals(B.getDirection(x, y), "sw");
+        assertEquals(C.getDirection(x, y), "ne");
+        assertEquals(D.getDirection(x, y), "se");
+    }
 
 }

@@ -1,4 +1,5 @@
 import student.TestCase;
+import java.util.LinkedList;
 
 /**
  * This class tests the methods of the LeafNode class.
@@ -180,6 +181,46 @@ public class LeafNodeTest extends TestCase{
         assertTrue(node.containsPoint(pt));
         pt = new Point(10, 10);
         assertFalse(node.containsPoint(pt));
+    }
+    
+    /**
+     * Test the getPoints method
+     */
+    public void testGetPoints() {
+        String name;
+        Point pt;
+        KVPair<String, Point> pair;
+        
+        name = "a";
+        pt = new Point(1, 2);
+        pair = new KVPair<String, Point>(name, pt);
+        node.insert(pair);
+        
+        name = "b";
+        pt = new Point(3, 4);
+        pair = new KVPair<String, Point>(name, pt);
+        node.insert(pair);
+        
+        name = "c";
+        pt = new Point(5, 6);
+        pair = new KVPair<String, Point>(name, pt);
+        node.insert(pair);
+        
+        name = "d";
+        pt = new Point(5, 6);
+        pair = new KVPair<String, Point>(name, pt);
+        assertTrue(node.canInsert(pair));
+        node.insert(pair);
+        
+        name = "e";
+        pt = new Point(1, 2);
+        pair = new KVPair<String, Point>(name, pt);
+        assertTrue(node.canInsert(pair));
+        node.insert(pair);
+        
+        LinkedList<KVPair<String, Point>> points = node.getPoints();
+        assertTrue(points.size() == 5);
+        
     }
 
 }

@@ -102,9 +102,69 @@ public class Point {
         return !valid;
     }
 
-
+    /**
+     * Return true if inside the world box
+     * @param a
+     * @return
+     */
     private boolean insideWorldBox(int a) {
         return (a >= 0) && (a <= 1024);
+    }
+    
+    /**
+     * Return true if this point is north of x, y
+     * @param x
+     * @param y
+     * @return
+     */
+    public boolean isNorthOf(int x, int y) {
+        return this.getY() < y;
+    }
+    
+    /**
+     * Return true if this point is west of x, y
+     * @param x
+     * @param y
+     * @return
+     */
+    public boolean isWestOf(int x, int y) {
+        return this.getX() < x;
+    }
+    
+    /**
+     * Returns the direction as a String from point x, y
+     * @param x
+     * @param y
+     * @return direction as a string
+     */
+    public String getDirection(int x, int y) {
+        boolean isNorth = this.isNorthOf(x, y);
+        boolean isWest = this.isWestOf(x, y);
+        
+        // If statement for better mutation testing
+        if (isNorth) {
+            // North
+            if (isWest) {
+                // West
+                return "nw";
+            }
+            else {
+                // East
+                return "ne";
+            }
+        }
+        else {
+            // South
+            if (isWest) {
+                // West
+                return "sw";
+                
+            }
+            else {
+                // East
+                return "se";
+            }
+        }
     }
 
 }

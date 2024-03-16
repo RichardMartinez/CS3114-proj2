@@ -23,6 +23,13 @@ public class LeafNode implements QuadNode {
     }
     
     /**
+     * Return true because this is a leaf node
+     */
+    public boolean isLeaf() {
+        return true;
+    }
+    
+    /**
      * Insert into the Node.
      * This is an leaf node, so we can add it here.
      * But, first we must check capacity and split if
@@ -182,6 +189,29 @@ public class LeafNode implements QuadNode {
         boolean point3Contains = listContainsName(point3, name);
         
         return (point1Contains || point2Contains || point3Contains);
+    }
+    
+    /**
+     * Return all the points in this node as a single list.
+     * This is used to split the leaf node.
+     * @return a linked list of all the points in this node
+     */
+    public LinkedList<KVPair<String, Point>> getPoints() {
+        LinkedList<KVPair<String, Point>> points = new LinkedList<KVPair<String, Point>>();
+        
+        for (KVPair<String, Point> pair : point1) {
+            points.add(pair);
+        }
+        
+        for (KVPair<String, Point> pair : point2) {
+            points.add(pair);
+        }
+        
+        for (KVPair<String, Point> pair : point3) {
+            points.add(pair);
+        }
+        
+        return points;
     }
     
     /**

@@ -1,3 +1,4 @@
+import java.util.LinkedList;
 
 /**
  * This class implements the PRQuadTree data structure.
@@ -39,23 +40,121 @@ public class PRQuadTree {
      */
     public void insert(KVPair<String, Point> it) {
         // Call the recursive helper function
-        inserthelp(it, root);
+        // TODO: Add parameters x, y, s (sidelength)
+        root = inserthelp(it, root, 512, 512, 1024);
     }
     
     /**
      * Recursive helper function for insert
+     * 
+     * @param it
+     *      KVPair to be inserted
+     * @param node
+     *      Node to insert to
+     * @param x
+     *      X coordinate of center of current region
+     * @param y
+     *      Y coordinate of center of current region
+     * @param s
+     *      Side length of the current region
      */
-    public void inserthelp(KVPair<String, Point> it, QuadNode node) {
+    public QuadNode inserthelp(KVPair<String, Point> it, QuadNode node, int x, int y, int s) {
         // Base case for flyweight node
         if (isFlyweight(node)) {
-            node = new LeafNode();
-            return;
+            LeafNode leaf = new LeafNode();
+            leaf.insert(it);
+            node = leaf;
+            return node;
         }
-        // TODO: How to use recursion here?
-        // Does this insert auto use recursion?
-        node.insert(it);
         
+        if (node.canInsert(it)) {
+            // Must be a leaf node with space available
+            node.insert(it);
+            return node;
+        }
         
+        // Is either an internal node or a leaf node that is full
+        
+        // Internal node -> traverse to correct child, call inserthelp(it, child)
+        // Full leaf node -> create new internal node and split into four new leaf nodes
+        //      Add all points from old leaf into correct children
+        //      Delete old leaf node and rearrange pointers
+        
+        if (node.isLeaf()) {
+            // It must be a full leaf node
+            // We have to split!
+            // Create new internal node to replace this one
+            // Redistribute all current points to next flyweights
+            // Change pointer to point to new internal node
+            
+            LeafNode leaf = (LeafNode) node;
+            
+            InternalNode internalNode = new InternalNode(flyweight, flyweight, flyweight, flyweight);
+            
+            // Iterate through points in this node and add them to the corresponding next one
+            LinkedList<KVPair<String, Point>> points = leaf.getPoints();
+            for (KVPair<String, Point> pair : points) {
+                Point pt = pair.getValue();
+                
+                String direction = pt.getDirection(x, y);
+                if (direction.equals("nw")) {
+                    QuadNode nw = internalNode.northwest();
+                    nw = inserthelp(pair, nw, x - s/2, y - s/2, s/2);
+                    internalNode.setNorthwest(nw);
+                }
+                else if (direction.equals("ne")) {
+                    QuadNode ne = internalNode.northeast();
+                    ne = inserthelp(pair, ne, x + s/2, y - s/2, s/2);
+                    internalNode.setNortheast(ne);
+                }
+                else if (direction.equals("sw")) {
+                    QuadNode sw = internalNode.southwest();
+                    sw = inserthelp(pair, sw, x - s/2, y + s/2, s/2);
+                    internalNode.setSouthwest(sw);
+                }
+                else if (direction.equals("se")) {
+                    QuadNode se = internalNode.southeast();
+                    se = inserthelp(pair, se, x + s/2, y + s/2, s/2);
+                    internalNode.setSoutheast(se);
+                }
+            }
+            
+            // Change the pointers
+            node = internalNode;
+            
+            // Now all the points have been spread out, insert it
+            node = inserthelp(it, node, x, y, s);
+            return node;
+        }
+        else {
+            // It must be an internal node
+            InternalNode internalNode = (InternalNode) node;
+            Point pt = it.getValue();
+            
+            String direction = pt.getDirection(x, y);
+            if (direction.equals("nw")) {
+                QuadNode nw = internalNode.northwest();
+                nw = inserthelp(it, nw, x - s/2, y - s/2, s/2);
+                internalNode.setNorthwest(nw);
+            }
+            else if (direction.equals("ne")) {
+                QuadNode ne = internalNode.northeast();
+                ne = inserthelp(it, ne, x + s/2, y - s/2, s/2);
+                internalNode.setNortheast(ne);
+            }
+            else if (direction.equals("sw")) {
+                QuadNode sw = internalNode.southwest();
+                sw = inserthelp(it, sw, x - s/2, y + s/2, s/2);
+                internalNode.setSouthwest(sw);
+            }
+            else if (direction.equals("se")) {
+                QuadNode se = internalNode.southeast();
+                se = inserthelp(it, se, x + s/2, y + s/2, s/2);
+                internalNode.setSoutheast(se);
+            }
+        }
+        
+        return node;
     }
 
 
@@ -117,4 +216,6 @@ public class PRQuadTree {
     public boolean isFlyweight(QuadNode node) {
         return (node == flyweight);
     }
+    
+    // TODO: Number of leaf nodes method? size()
 }
