@@ -147,17 +147,18 @@ public class LeafNodeTest extends TestCase{
         pair = new KVPair<String, Point>(name, pt);
         node.insert(pair);
         
+        // Changes now because of decomp rule
         name = "d";
         pt = new Point(5, 6);
         pair = new KVPair<String, Point>(name, pt);
-        assertTrue(node.canInsert(pair));
-        node.insert(pair);
+        assertFalse(node.canInsert(pair));
+        node.insert(pair);  // Nothing
         
         name = "e";
         pt = new Point(1, 2);
         pair = new KVPair<String, Point>(name, pt);
-        assertTrue(node.canInsert(pair));
-        node.insert(pair);
+        assertFalse(node.canInsert(pair));
+        node.insert(pair);  // Nothing
         
         name = "f";
         pt = new Point(10, 10);
@@ -169,8 +170,8 @@ public class LeafNodeTest extends TestCase{
         assertTrue(node.containsName("a"));
         assertTrue(node.containsName("b"));
         assertTrue(node.containsName("c"));
-        assertTrue(node.containsName("d"));
-        assertTrue(node.containsName("e"));
+        assertFalse(node.containsName("d"));
+        assertFalse(node.containsName("e"));
         assertFalse(node.containsName("f"));
         
         pt = new Point(1, 2);
@@ -206,20 +207,21 @@ public class LeafNodeTest extends TestCase{
         pair = new KVPair<String, Point>(name, pt);
         node.insert(pair);
         
+        // Changes because of decomp rule
         name = "d";
         pt = new Point(5, 6);
         pair = new KVPair<String, Point>(name, pt);
-        assertTrue(node.canInsert(pair));
-        node.insert(pair);
+        assertFalse(node.canInsert(pair));
+        node.insert(pair);  // Nothing
         
         name = "e";
         pt = new Point(1, 2);
         pair = new KVPair<String, Point>(name, pt);
-        assertTrue(node.canInsert(pair));
-        node.insert(pair);
+        assertFalse(node.canInsert(pair));
+        node.insert(pair);  // Nothing
         
         LinkedList<KVPair<String, Point>> points = node.getPoints();
-        assertTrue(points.size() == 5);
+        assertTrue(points.size() == 3);
         
     }
 

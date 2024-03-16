@@ -43,6 +43,10 @@ public class LeafNode implements QuadNode {
         // Helper method should check if node is full
         // before calling this
         
+        if (!canInsert(it)) {
+            return;
+        }
+        
         // Insert the point if we can
         if (canInsertList(point1, it)) {
             point1.add(it);

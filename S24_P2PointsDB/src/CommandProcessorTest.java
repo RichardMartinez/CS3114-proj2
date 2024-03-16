@@ -177,10 +177,10 @@ public class CommandProcessorTest extends TestCase {
         String expected = "Duplicate points:\n" +
             "(128, 128)\n" +
             "(384, 128)\n" +
-            "(768, 256)\n" +
             "(640, 128)\n" +
-            "(768, 768)\n" +
+            "(768, 256)\n" +
             "(640, 640)\n" +
+            "(768, 768)\n" +
             "(896, 896)\n";
         
         String actual = systemOut().getHistory();
