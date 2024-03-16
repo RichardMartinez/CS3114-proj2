@@ -115,25 +115,40 @@ public class LeafNode implements QuadNode {
      * @return true if can insert
      */
     public boolean canInsert(KVPair<String, Point> it) {
-//        Point pt = it.getValue();
-//        if (listContainsPoint(point1, pt)) {
-//            return true;
-//        }
+        // New canInsert method match the decomposition rule
+        int numPointsStored = point1.size() + point2.size() + point3.size();
+        if (numPointsStored < 3) {
+            return true;
+        }
         
-        boolean point1Can = canInsertList(point1, it);
-        boolean point2Can = canInsertList(point2, it);
-        boolean point3Can = canInsertList(point3, it);
+        if (point1.size() == numPointsStored) { // All points in point1
+            Point D = it.getValue();  // This is D
+            Point A = point1.getFirst().getValue();  // This is A
+            return D.equals(A);   
+        }
         
-//        // Here, should not be able to insert if more than three points
-//        // already stores
-//        int numPointsStored = point1.size() + point2.size() + point3.size();
+        return false;
+        // TODO: change this to correct decomposition rule
 //        
-//        // If numPointsStored > 3 AND point is not point1
-//        if (numPointsStored > 3) {
-//            return false;
-//        }
-        
-        return (point1Can || point2Can || point3Can);
+////        Point pt = it.getValue();
+////        if (listContainsPoint(point1, pt)) {
+////            return true;
+////        }
+//        
+//        boolean point1Can = canInsertList(point1, it);
+//        boolean point2Can = canInsertList(point2, it);
+//        boolean point3Can = canInsertList(point3, it);
+//        
+////        // Here, should not be able to insert if more than three points
+////        // already stores
+////        int numPointsStored = point1.size() + point2.size() + point3.size();
+////        
+////        // If numPointsStored > 3 AND point is not point1
+////        if (numPointsStored > 3) {
+////            return false;
+////        }
+//        
+//        return (point1Can || point2Can || point3Can);
     }
     
     /**

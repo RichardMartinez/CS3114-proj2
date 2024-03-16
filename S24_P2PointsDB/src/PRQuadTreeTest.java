@@ -453,15 +453,16 @@ public class PRQuadTreeTest extends TestCase {
         pair = new KVPair<String, Point>(name, pt);
         tree.insert(pair);
         
+        System.out.println("DUPLICATES");
         systemOut().clearHistory();
         tree.duplicates();
         String expected = "Duplicate points:\n" +
             "(128, 128)\n" +
             "(384, 128)\n" +
-            "(768, 256)\n" +
             "(640, 128)\n" +
-            "(768, 768)\n" +
+            "(768, 256)\n" +
             "(640, 640)\n" +
+            "(768, 768)\n" +
             "(896, 896)\n";
         
         String actual = systemOut().getHistory();
@@ -582,6 +583,84 @@ public class PRQuadTreeTest extends TestCase {
         String actual = systemOut().getHistory();
         
         assertFuzzyEquals(expected, actual);
+    }
+    
+    /**
+     * Test adding five duplicate points
+     * 
+     * Then add an sixth and observe the split
+     */
+    public void testFiveDuplicatePoints() {
+        String name;
+        Point pt;
+        KVPair<String, Point> pair;
+        
+        name = "A";
+        pt = new Point(256, 256);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+        
+        name = "B";
+        pt = new Point(256, 256);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+        
+        name = "C";
+        pt = new Point(256, 256);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+        
+        name = "D";
+        pt = new Point(256, 256);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+        
+        name = "E";
+        pt = new Point(256, 256);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+        
+        systemOut().clearHistory();
+        tree.dump();
+        String expected = "QuadTree dump:\n" +
+            "Node at 0, 0, 1024:\n" +
+            "(A, 256, 256)\n" +
+            "(B, 256, 256)\n" +
+            "(C, 256, 256)\n" +
+            "(D, 256, 256)\n" +
+            "(E, 256, 256)\n" +
+            "1 quadtree nodes printed\n";
+        
+        String actual = systemOut().getHistory();
+        
+        assertFuzzyEquals(expected, actual);
+        
+        // Now add a sixth and observe the split
+        name = "F";
+        pt = new Point(768, 768);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+        
+        systemOut().clearHistory();
+        tree.dump();
+        expected = "QuadTree dump:\n" +
+            "Node at 0, 0, 1024: Internal\n" +
+            "Node at 0, 0, 512:\n" +
+            "(A, 256, 256)\n" +
+            "(B, 256, 256)\n" +
+            "(C, 256, 256)\n" +
+            "(D, 256, 256)\n" +
+            "(E, 256, 256)\n" +
+            "Node at 512, 0, 512: Empty\n" +
+            "Node at 0, 512, 512: Empty\n" +
+            "Node at 512, 512, 512:\n" +
+            "(F, 768, 768)\n" +
+            "5 quadtree nodes printed\n";
+        
+        actual = systemOut().getHistory();
+        
+        assertFuzzyEquals(expected, actual);
+        
     }
     
 //    /**
