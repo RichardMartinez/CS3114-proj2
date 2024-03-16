@@ -166,5 +166,34 @@ public class Point {
             }
         }
     }
+    
+    /**
+     * Returns true if the point intersects the region
+     * @return true if intersect
+     */
+    public boolean intersectsRegion(int regionX, int regionY, int regionW, int regionH) {
+        int regionLeft = regionX;
+        int regionRight = regionX + regionW;
+        int regionTop = regionY;
+        int regionBottom = regionY + regionH;
+        
+        // Point is too far left
+        if (this.getX() <= regionLeft) {
+            return false;
+        }
+        
+        // Point it too far right
+        if (this.getX() >= regionRight) {
+            return false;
+        }
+        
+        // Point is too far down
+        if (this.getY() >= regionBottom) {
+            return false;
+        }
+        
+        // Point is too far up
+        return !(this.getY() <= regionTop);
+    }
 
 }

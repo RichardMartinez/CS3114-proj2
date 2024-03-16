@@ -118,5 +118,44 @@ public class PointTest extends TestCase {
         assertEquals(C.getDirection(x, y), "ne");
         assertEquals(D.getDirection(x, y), "se");
     }
+    
+    /**
+     * Test the region intersect method
+     */
+    public void testIntersectRegion() {
+        // Setup region
+        int regionX = 10;
+        int regionY = 10;
+        int regionW = 10;
+        int regionH = 10;
+        
+        Point pt = new Point(15, 15);
+        assertTrue(pt.intersectsRegion(regionX, regionY, regionW, regionH));
+        
+        // Point does not intersect
+        pt = new Point(5, 5);
+        assertFalse(pt.intersectsRegion(regionX, regionY, regionW, regionH));
+        
+        pt = new Point(5, 15);
+        assertFalse(pt.intersectsRegion(regionX, regionY, regionW, regionH));
+        
+        pt = new Point(5, 25);
+        assertFalse(pt.intersectsRegion(regionX, regionY, regionW, regionH));
+        
+        pt = new Point(15, 5);
+        assertFalse(pt.intersectsRegion(regionX, regionY, regionW, regionH));
+        
+        pt = new Point(15, 25);
+        assertFalse(pt.intersectsRegion(regionX, regionY, regionW, regionH));
+        
+        pt = new Point(25, 5);
+        assertFalse(pt.intersectsRegion(regionX, regionY, regionW, regionH));
+        
+        pt = new Point(25, 15);
+        assertFalse(pt.intersectsRegion(regionX, regionY, regionW, regionH));
+        
+        pt = new Point(25, 25);
+        assertFalse(pt.intersectsRegion(regionX, regionY, regionW, regionH));
+    }
 
 }

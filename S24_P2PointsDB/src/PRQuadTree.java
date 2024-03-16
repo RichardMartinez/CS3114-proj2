@@ -22,6 +22,9 @@ public class PRQuadTree {
     // Keep track for dump method
     private int numNodesPrinted = 0;
     
+    // Keep track for regionsearch method
+    private int numNodesVisited = 0;
+    
     // TODO: Create recursive helper methods
     // Then call them on root for overall method
 
@@ -211,7 +214,10 @@ public class PRQuadTree {
         String out = String.format("Points intersecting region (%d, %d, %d, %d)", x, y, w, h);
         System.out.println(out);
         
+        this.numNodesVisited = 0;
         regionsearchhelp(root, x, y, w, h, 512, 512, 1024);
+        
+        // TODO: Print num nodes visited
     }
     
     /**
@@ -227,20 +233,31 @@ public class PRQuadTree {
      */
     public void regionsearchhelp(QuadNode node, int regionX, int regionY, int regionW, int regionH,
                                 int currX, int currY, int currS) {
+        this.numNodesVisited++;
+        
         if (isFlyweight(node)) {
             // Nothing
             return;
         }
         
         // If region does not intersect curr -> return
-        // TODO
+        //  regionIntersectsCurr(int regionX, int regionY, int regionW, int regionH, int currX, int currY, int currS)
+        if (!this.regionIntersectsCurr(regionX, regionY, regionW, regionH, currX, currY, currS)) {
+            // Prune
+            return;
+        }
         
         if (node.isLeaf()) {
-            // Do stuff
+            LeafNode leaf = (LeafNode) node;
+            LinkedList<KVPair<String, Point>> points = leaf.getPoints();
             
-            // Need point.intersects(region)
-            
-            
+            for (KVPair<String, Point> pair : points) {
+                Point pt = pair.getValue();
+                
+                // Need point.intersects(region)
+                
+                
+            }
             return;
         }
         
