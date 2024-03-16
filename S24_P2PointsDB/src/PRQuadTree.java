@@ -43,7 +43,6 @@ public class PRQuadTree {
      */
     public void insert(KVPair<String, Point> it) {
         // Call the recursive helper function
-        // TODO: Add parameters x, y, s (sidelength)
         root = inserthelp(it, root, 512, 512, 1024);
     }
     
@@ -100,6 +99,7 @@ public class PRQuadTree {
                 Point pt = pair.getValue();
                 
                 String direction = pt.getDirection(x, y);
+                // TODO: move this if-else-if to a function?
                 if (direction.equals("nw")) {
                     QuadNode nw = internalNode.northwest();
                     nw = inserthelp(pair, nw, x - s/4, y - s/4, s/2);

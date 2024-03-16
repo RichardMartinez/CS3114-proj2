@@ -36,7 +36,7 @@ public class InternalNode implements QuadNode {
      *      The KVPair to be inserted
      */
     public void insert(KVPair<String, Point> it) {
-        
+        // Nothing to do because you can't insert
     }
     
     /**

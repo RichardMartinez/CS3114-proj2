@@ -47,7 +47,7 @@ public class PointsDatabase {
      *            argument.
      */
     public static void main(String[] args) {
-        System.out.println("This is working PDB");
+        // System.out.println("This is working PDB");
 
         if (args.length < 1) {
             String out = "Invalid file. No filename in command line arguments";
