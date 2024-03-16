@@ -21,9 +21,9 @@ public class PRQuadTreeTest extends TestCase {
     // TODO: Basic insert
     
     /**
-     * Test the insert method
+     * Test the first split of the tree
      */
-    public void testInsert() {
+    public void testFirstSplit() {
         String name;
         Point pt;
         KVPair<String, Point> pair;
@@ -49,7 +49,53 @@ public class PRQuadTreeTest extends TestCase {
         pair = new KVPair<String, Point>(name, pt);
         tree.insert(pair);
         
-        int x = 1;
+        // TODO: Test somehow the structure using dump?
+    }
+    
+    /**
+     * Test the second split of the tree
+     */
+    public void testSecondSplit() {
+        String name;
+        Point pt;
+        KVPair<String, Point> pair;
+        
+        name = "A";
+        pt = new Point(128, 128);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+        
+        name = "B";
+        pt = new Point(256, 768);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+        
+        name = "C";
+        pt = new Point(768, 256);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+        
+        name = "D";
+        pt = new Point(768, 768);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+        
+        name = "E";
+        pt = new Point(384, 128);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+        
+        name = "F";
+        pt = new Point(128, 384);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+        
+        name = "G";
+        pt = new Point(384, 384);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+        
+        
     }
 
 }

@@ -99,22 +99,22 @@ public class PRQuadTree {
                 String direction = pt.getDirection(x, y);
                 if (direction.equals("nw")) {
                     QuadNode nw = internalNode.northwest();
-                    nw = inserthelp(pair, nw, x - s/2, y - s/2, s/2);
+                    nw = inserthelp(pair, nw, x - s/4, y - s/4, s/2);
                     internalNode.setNorthwest(nw);
                 }
                 else if (direction.equals("ne")) {
                     QuadNode ne = internalNode.northeast();
-                    ne = inserthelp(pair, ne, x + s/2, y - s/2, s/2);
+                    ne = inserthelp(pair, ne, x + s/4, y - s/4, s/2);
                     internalNode.setNortheast(ne);
                 }
                 else if (direction.equals("sw")) {
                     QuadNode sw = internalNode.southwest();
-                    sw = inserthelp(pair, sw, x - s/2, y + s/2, s/2);
+                    sw = inserthelp(pair, sw, x - s/4, y + s/4, s/2);
                     internalNode.setSouthwest(sw);
                 }
                 else if (direction.equals("se")) {
                     QuadNode se = internalNode.southeast();
-                    se = inserthelp(pair, se, x + s/2, y + s/2, s/2);
+                    se = inserthelp(pair, se, x + s/4, y + s/4, s/2);
                     internalNode.setSoutheast(se);
                 }
             }
@@ -124,7 +124,7 @@ public class PRQuadTree {
             
             // Now all the points have been spread out, insert it
             node = inserthelp(it, node, x, y, s);
-            return node;
+            // return node;
         }
         else {
             // It must be an internal node
@@ -134,22 +134,22 @@ public class PRQuadTree {
             String direction = pt.getDirection(x, y);
             if (direction.equals("nw")) {
                 QuadNode nw = internalNode.northwest();
-                nw = inserthelp(it, nw, x - s/2, y - s/2, s/2);
+                nw = inserthelp(it, nw, x - s/4, y - s/4, s/2);
                 internalNode.setNorthwest(nw);
             }
             else if (direction.equals("ne")) {
                 QuadNode ne = internalNode.northeast();
-                ne = inserthelp(it, ne, x + s/2, y - s/2, s/2);
+                ne = inserthelp(it, ne, x + s/4, y - s/4, s/2);
                 internalNode.setNortheast(ne);
             }
             else if (direction.equals("sw")) {
                 QuadNode sw = internalNode.southwest();
-                sw = inserthelp(it, sw, x - s/2, y + s/2, s/2);
+                sw = inserthelp(it, sw, x - s/4, y + s/4, s/2);
                 internalNode.setSouthwest(sw);
             }
             else if (direction.equals("se")) {
                 QuadNode se = internalNode.southeast();
-                se = inserthelp(it, se, x + s/2, y + s/2, s/2);
+                se = inserthelp(it, se, x + s/4, y + s/4, s/2);
                 internalNode.setSoutheast(se);
             }
         }
