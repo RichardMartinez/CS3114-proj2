@@ -186,7 +186,52 @@ public class PRQuadTreeTest extends TestCase {
         pair = new KVPair<String, Point>(name, pt);
         tree.insert(pair);
         
-        tree.dump();
+        // TODO: tree.dump();
+    }
+    
+    /**
+     * Test inserting points with the same name
+     * or same coordinates BUT NOT BOTH
+     */
+    public void testDuplicateNamesAndPoints() {
+        String name;
+        Point pt;
+        KVPair<String, Point> pair;
+        
+        // Same name A
+        name = "A";
+        pt = new Point(256, 256);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+        
+        name = "A";
+        pt = new Point(768, 768);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+        
+        // Same Point 256, 768
+        name = "B";
+        pt = new Point(256, 768);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+        
+        name = "C";
+        pt = new Point(256, 768);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+        
+        // Same name D
+        name = "D";
+        pt = new Point(256, 768);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+        
+        name = "D";
+        pt = new Point(768, 256);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+        
+        // TODO: tree.dump();
     }
 
 }

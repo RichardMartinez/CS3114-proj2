@@ -153,7 +153,18 @@ public class Database {
         ArrayList<KVPair<String, Point>> found = list.search(name);
         if (found.size() == 0) {
             // Not found
+            // Point not found: name
+            String out = String.format("Point not found: %s", name);
+            System.out.println(out);
             return;
+        }
+        
+        // Iterate and print all
+        for (KVPair<String, Point> pair : found) {
+            String name1 = pair.getKey();
+            Point pt = pair.getValue();
+            String out = String.format("Found (%s, %s)", name1, pt);
+            System.out.println(out);
         }
 
     }
