@@ -466,8 +466,65 @@ public class PRQuadTreeTest extends TestCase {
         
         String actual = systemOut().getHistory();
         assertFuzzyEquals(expected, actual);
-        
-        
     }
+    
+//    /**
+//     * Test to make sure that we are splitting correctly
+//     */
+//    public void testSplitting() {
+//        String name;
+//        Point pt;
+//        KVPair<String, Point> pair;
+//        
+//        name = "A";
+//        pt = new Point(576, 576);
+//        pair = new KVPair<String, Point>(name, pt);
+//        tree.insert(pair);
+//
+//        name = "B";
+//        pt = new Point(640, 896);
+//        pair = new KVPair<String, Point>(name, pt);
+//        tree.insert(pair);
+//        
+//        name = "C";
+//        pt = new Point(896, 896);
+//        pair = new KVPair<String, Point>(name, pt);
+//        tree.insert(pair);
+//        
+//        name = "D";
+//        pt = new Point(704, 704);
+//        pair = new KVPair<String, Point>(name, pt);
+//        tree.insert(pair);
+//        
+//        name = "E";
+//        pt = new Point(704, 576);
+//        pair = new KVPair<String, Point>(name, pt);
+//        tree.insert(pair);
+//        
+//        name = "F";
+//        pt = new Point(576, 704);
+//        pair = new KVPair<String, Point>(name, pt);
+//        tree.insert(pair);
+//        
+//        System.out.println("HERE");
+//        tree.dump();
+//        
+//    }
+    
+//    /**
+//     * Test the dump method on an empty tree
+//     */
+//    public void testEmptyDump() {
+////        String name;
+////        Point pt;
+////        KVPair<String, Point> pair;
+////        
+////        name = "A";
+////        pt = new Point(128, 128);
+////        pair = new KVPair<String, Point>(name, pt);
+////        tree.insert(pair);
+//        
+//        tree.dump();
+//    }
 
 }
