@@ -18,8 +18,6 @@ public class PRQuadTreeTest extends TestCase {
         tree = new PRQuadTree();
     }
     
-    // TODO: Basic insert
-    
     /**
      * Test the first split of the tree
      */
@@ -49,7 +47,24 @@ public class PRQuadTreeTest extends TestCase {
         pair = new KVPair<String, Point>(name, pt);
         tree.insert(pair);
         
-        // TODO: Test somehow the structure using dump?
+        // Test structure using dump
+        systemOut().clearHistory();
+        tree.dump();
+        String actual = systemOut().getHistory();
+        
+        String expected = "QuadTree dump:\n" +
+            "Node at 0, 0, 1024: Internal\n" +
+            "Node at 0, 0, 512:\n" +
+            "(A, 256, 256)\n" +
+            "Node at 512, 0, 512:\n" +
+            "(C, 768, 256)\n" +
+            "Node at 0, 512, 512:\n" +
+            "(B, 256, 768)\n" +
+            "Node at 512, 512, 512:\n" +
+            "(D, 768, 768)\n" +
+            "5 quadtree nodes printed\n";
+        
+        assertFuzzyEquals(actual, expected);
     }
     
     /**
@@ -95,7 +110,31 @@ public class PRQuadTreeTest extends TestCase {
         pair = new KVPair<String, Point>(name, pt);
         tree.insert(pair);
 
-        // TODO: test with dump()?
+        // Test structure using dump
+        systemOut().clearHistory();
+        tree.dump();
+        String actual = systemOut().getHistory();
+        
+        String expected = "QuadTree dump:\n" +
+            "Node at 0, 0, 1024: Internal\n" +
+            "Node at 0, 0, 512: Internal\n" +
+            "Node at 0, 0, 256:\n" +
+            "(A, 128, 128)\n" +
+            "Node at 256, 0, 256:\n" +
+            "(E, 384, 128)\n" +
+            "Node at 0, 256, 256:\n" +
+            "(F, 128, 384)\n" +
+            "Node at 256, 256, 256:\n" +
+            "(G, 384, 384)\n" +
+            "Node at 512, 0, 512:\n" +
+            "(C, 768, 256)\n" +
+            "Node at 0, 512, 512:\n" +
+            "(B, 256, 768)\n" +
+            "Node at 512, 512, 512:\n" +
+            "(D, 768, 768)\n" +
+            "9 quadtree nodes printed\n";
+        
+        assertFuzzyEquals(actual, expected);
     }
     
     /**
@@ -186,7 +225,68 @@ public class PRQuadTreeTest extends TestCase {
         pair = new KVPair<String, Point>(name, pt);
         tree.insert(pair);
         
-        // TODO: tree.dump();
+        // Test structure using dump
+        systemOut().clearHistory();
+        tree.dump();
+        String actual = systemOut().getHistory();
+        
+        String expected = "QuadTree dump:\n" +
+            "Node at 0, 0, 1024: Internal\n" +
+            "Node at 0, 0, 512: Internal\n" +
+            "Node at 0, 0, 256: Internal\n" +
+            "Node at 0, 0, 128:\n" +
+            "(A, 64, 64)\n" +
+            "Node at 128, 0, 128:\n" +
+            "(B, 192, 64)\n" +
+            "Node at 0, 128, 128:\n" +
+            "(C, 64, 192)\n" +
+            "Node at 128, 128, 128:\n" +
+            "(D, 192, 192)\n" +
+            "Node at 256, 0, 256: Empty\n" +
+            "Node at 0, 256, 256: Empty\n" +
+            "Node at 256, 256, 256: Empty\n" +
+            "Node at 512, 0, 512: Internal\n" +
+            "Node at 512, 0, 256: Empty\n" +
+            "Node at 768, 0, 256: Internal\n" +
+            "Node at 768, 0, 128:\n" +
+            "(I, 832, 64)\n" +
+            "Node at 896, 0, 128:\n" +
+            "(J, 960, 64)\n" +
+            "Node at 768, 128, 128:\n" +
+            "(K, 832, 192)\n" +
+            "Node at 896, 128, 128:\n" +
+            "(L, 960, 192)\n" +
+            "Node at 512, 256, 256: Empty\n" +
+            "Node at 768, 256, 256: Empty\n" +
+            "Node at 0, 512, 512: Internal\n" +
+            "Node at 0, 512, 256: Empty\n" +
+            "Node at 256, 512, 256: Empty\n" +
+            "Node at 0, 768, 256: Internal\n" +
+            "Node at 0, 768, 128:\n" +
+            "(E, 64, 832)\n" +
+            "Node at 128, 768, 128:\n" +
+            "(F, 192, 832)\n" +
+            "Node at 0, 896, 128:\n" +
+            "(G, 64, 960)\n" +
+            "Node at 128, 896, 128:\n" +
+            "(H, 192, 960)\n" +
+            "Node at 256, 768, 256: Empty\n" +
+            "Node at 512, 512, 512: Internal\n" +
+            "Node at 512, 512, 256: Empty\n" +
+            "Node at 768, 512, 256: Empty\n" +
+            "Node at 512, 768, 256: Empty\n" +
+            "Node at 768, 768, 256: Internal\n" +
+            "Node at 768, 768, 128:\n" +
+            "(M, 832, 832)\n" +
+            "Node at 896, 768, 128:\n" +
+            "(N, 960, 832)\n" +
+            "Node at 768, 896, 128:\n" +
+            "(O, 832, 960)\n" +
+            "Node at 896, 896, 128:\n" +
+            "(P, 960, 960)\n" +
+            "37 quadtree nodes printed\n";
+        
+        assertFuzzyEquals(actual, expected);
     }
     
     /**
@@ -231,7 +331,26 @@ public class PRQuadTreeTest extends TestCase {
         pair = new KVPair<String, Point>(name, pt);
         tree.insert(pair);
         
-        // TODO: tree.dump();
+        // Test structure using dump
+        systemOut().clearHistory();
+        tree.dump();
+        String actual = systemOut().getHistory();
+        
+        String expected = "QuadTree dump:\n" +
+            "Node at 0, 0, 1024: Internal\n" +
+            "Node at 0, 0, 512:\n" +
+            "(A, 256, 256)\n" +
+            "Node at 512, 0, 512:\n" +
+            "(D, 768, 256)\n" +
+            "Node at 0, 512, 512:\n" +
+            "(B, 256, 768)\n" +
+            "(C, 256, 768)\n" +
+            "(D, 256, 768)\n" +
+            "Node at 512, 512, 512:\n" +
+            "(A, 768, 768)\n" +
+            "5 quadtree nodes printed\n";
+        
+        assertFuzzyEquals(actual, expected);
     }
 
 }
