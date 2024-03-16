@@ -214,6 +214,14 @@ public class LeafNode implements QuadNode {
         return points;
     }
     
+//    /**
+//     * Returns the LeafNode in a readable String format
+//     */
+//    @Override
+//    public String toString() {
+//        return String.format("", );
+//    }
+    
     /**
      * NOTE: Should this be removed??
      * If we can safely assume we will never insert exact

@@ -15,5 +15,7 @@ public interface QuadNode {
     public boolean canInsert(KVPair<String, Point> it);
     
     public boolean isLeaf();
+    
+//    public String toString();
 
 }

@@ -206,7 +206,77 @@ public class PRQuadTree {
      * of the tree at runtime.
      */
     public void dump() {
+        System.out.println("QuadTree dump:");
+        
+        dumphelp(root, 512, 512, 1024, 0);
+    }
+    
+    /**
+     * Recursive helper method for dump
+     * @param node
+     */
+    public void dumphelp(QuadNode node, int x, int y, int s, int level) {
+        // Give indentation for each level
+        for (int i = 0; i < level; i++) {
+            System.out.print("  ");
+        }
+        
+        int printableX = x - s/2;
+        int printableY = y - s/2;
+        
+        // Node at printableX, printableY, s: Internal
+        // If internal, say internal
+        // If leaf, print each point in the node
+        // If empty/flyweight, say empty
+        
+        if (isFlyweight(node)) {
+            // Print empty
+            String out = String.format("Node at %d, %d, %d: Empty",
+                printableX, printableY, s);
+            System.out.println(out);
+            return;
+        }
+        
+        if (node.isLeaf()) {
+            // Print all points
+            String out = String.format("Node at %d, %d, %d:",
+                printableX, printableY, s);
+            System.out.println(out);
+            
+            LeafNode leaf = (LeafNode) node;
+            LinkedList<KVPair<String, Point>> points = leaf.getPoints();
+            for (KVPair<String, Point> pair : points) {
+                String name = pair.getKey();
+                Point pt = pair.getValue();
+                
+                // Reprint indentation
+                for (int i = 0; i < level; i++) {
+                    System.out.print("  ");
+                }
+                
+                out = String.format("(%s, %s)", name, pt);
+                System.out.println(out);
+            }
+            return;
+        }
 
+        // Here is an internal node
+        // Call dumphelp recursively
+        String out = String.format("Node at %d, %d, %d: Internal",
+            printableX, printableY, s);
+        System.out.println(out);
+        
+        InternalNode internalNode = (InternalNode) node;
+        
+        QuadNode nw = internalNode.northwest();
+        QuadNode ne = internalNode.northeast();
+        QuadNode sw = internalNode.southwest();
+        QuadNode se = internalNode.southeast();
+        
+        dumphelp(nw, x - s/4, y - s/4, s/2, level+1);
+        dumphelp(ne, x + s/4, y - s/4, s/2, level+1);
+        dumphelp(sw, x - s/4, y + s/4, s/2, level+1);
+        dumphelp(se, x + s/4, y + s/4, s/2, level+1);
     }
     
     /**

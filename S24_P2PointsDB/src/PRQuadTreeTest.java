@@ -186,7 +186,7 @@ public class PRQuadTreeTest extends TestCase {
         pair = new KVPair<String, Point>(name, pt);
         tree.insert(pair);
         
-        // TODO: test with dump
+        tree.dump();
     }
 
 }
