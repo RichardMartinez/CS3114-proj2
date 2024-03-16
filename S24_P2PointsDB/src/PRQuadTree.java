@@ -100,27 +100,30 @@ public class PRQuadTree {
                 
                 String direction = pt.getDirection(x, y);
                 // TODO: move this if-else-if to a function?
+                // These are all flyweights at this point, 
+                // so x, y, s are ignored.
+                // Remove calculations for better mutation testing
                 if (direction.equals("nw")) {
                     QuadNode nw = internalNode.northwest();
-                    int newx = x - s/4;
-                    int newy = y - s/4;
-                    int news = s/2;
-                    nw = inserthelp(pair, nw, newx, newy, news);
+                    // x - s/4
+                    // y - s/4
+                    // s/2
+                    nw = inserthelp(pair, nw, x, y, s);
                     internalNode.setNorthwest(nw);
                 }
                 else if (direction.equals("ne")) {
                     QuadNode ne = internalNode.northeast();
-                    ne = inserthelp(pair, ne, x + s/4, y - s/4, s/2);
+                    ne = inserthelp(pair, ne, x, y, s);
                     internalNode.setNortheast(ne);
                 }
                 else if (direction.equals("sw")) {
                     QuadNode sw = internalNode.southwest();
-                    sw = inserthelp(pair, sw, x - s/4, y + s/4, s/2);
+                    sw = inserthelp(pair, sw, x, y, s);
                     internalNode.setSouthwest(sw);
                 }
                 else if (direction.equals("se")) {
                     QuadNode se = internalNode.southeast();
-                    se = inserthelp(pair, se, x + s/4, y + s/4, s/2);
+                    se = inserthelp(pair, se, x, y, s);
                     internalNode.setSoutheast(se);
                 }
             }
@@ -204,14 +207,14 @@ public class PRQuadTree {
     public void duplicates() {
         System.out.println("Duplicate points:");
         
-        duplicateshelp(root, 512, 512, 1024);
+        duplicateshelp(root);
 
     }
     
     /**
      * Recursive helper method for duplicates
      */
-    public void duplicateshelp(QuadNode node, int x, int y, int s) {
+    public void duplicateshelp(QuadNode node) {
         if (isFlyweight(node)) {
             // Nothing
             return;
@@ -242,10 +245,10 @@ public class PRQuadTree {
         QuadNode sw = internalNode.southwest();
         QuadNode se = internalNode.southeast();
         
-        duplicateshelp(nw, x - s/4, y - s/4, s/2);
-        duplicateshelp(ne, x + s/4, y - s/4, s/2);
-        duplicateshelp(sw, x - s/4, y + s/4, s/2);
-        duplicateshelp(se, x + s/4, y + s/4, s/2);
+        duplicateshelp(nw);
+        duplicateshelp(ne);
+        duplicateshelp(sw);
+        duplicateshelp(se);
         
     }
 
