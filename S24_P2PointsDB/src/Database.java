@@ -56,6 +56,11 @@ public class Database {
 
         list.insert(pair);
         tree.insert(pair);
+        
+        String name = pair.getKey();
+        Point pt = pair.getValue();
+        String out = String.format("Point inserted: (%s, %s)", name, pt);
+        System.out.println(out);
     }
 
 
