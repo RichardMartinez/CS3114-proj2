@@ -99,7 +99,6 @@ public class PRQuadTree {
                 Point pt = pair.getValue();
                 
                 String direction = pt.getDirection(x, y);
-                // TODO: move this if-else-if to a function?
                 // These are all flyweights at this point, 
                 // so x, y, s are ignored.
                 // Remove calculations for better mutation testing
@@ -208,7 +207,6 @@ public class PRQuadTree {
         System.out.println("Duplicate points:");
         
         duplicateshelp(root);
-
     }
     
     /**

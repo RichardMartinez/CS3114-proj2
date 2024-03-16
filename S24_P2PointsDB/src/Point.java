@@ -112,34 +112,34 @@ public class Point {
     }
     
     /**
-     * Return true if this point is north of x, y
-     * @param x
-     * @param y
+     * Return true if this point is north of x1, y1
+     * @param x1
+     * @param y1
      * @return
      */
-    public boolean isNorthOf(int x, int y) {
-        return this.getY() < y;
+    public boolean isNorthOf(int x1, int y1) {
+        return this.getY() < y1;
     }
     
     /**
-     * Return true if this point is west of x, y
-     * @param x
-     * @param y
+     * Return true if this point is west of x1, y1
+     * @param x1
+     * @param y1
      * @return
      */
-    public boolean isWestOf(int x, int y) {
-        return this.getX() < x;
+    public boolean isWestOf(int x1, int y1) {
+        return this.getX() < x1;
     }
     
     /**
-     * Returns the direction as a String from point x, y
-     * @param x
-     * @param y
+     * Returns the direction as a String from point x1, y1
+     * @param x1
+     * @param y1
      * @return direction as a string
      */
-    public String getDirection(int x, int y) {
-        boolean isNorth = this.isNorthOf(x, y);
-        boolean isWest = this.isWestOf(x, y);
+    public String getDirection(int x1, int y1) {
+        boolean isNorth = this.isNorthOf(x1, y1);
+        boolean isWest = this.isWestOf(x1, y1);
         
         // If statement for better mutation testing
         if (isNorth) {
