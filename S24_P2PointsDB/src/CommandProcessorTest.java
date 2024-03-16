@@ -133,4 +133,58 @@ public class CommandProcessorTest extends TestCase {
         String actual = systemOut().getHistory();
         assertFuzzyEquals(expected, actual);
     }
+    
+    /**
+     * Test the duplicates command
+     */
+    public void testDuplicates() {
+        // Set SkipList Levels to all 1's
+        TestableRandom.setNextBooleans(false, false, false, false, 
+            false, false, false, false, false, false, false, false, 
+            false, false, false, false);
+        
+        // Insert
+        cmdProc.processor("insert A 128 128");
+        cmdProc.processor("insert B 128 128");
+        
+        cmdProc.processor("insert C 384 128");
+        cmdProc.processor("insert D 384 128");
+        
+        cmdProc.processor("insert E 128 384");
+        
+        cmdProc.processor("insert F 384 384");
+        
+        cmdProc.processor("insert G 768 256");
+        cmdProc.processor("insert H 768 256");
+        
+        //cmdProc.processor("insert I 128 128");
+        
+        cmdProc.processor("insert J 768 768");
+        cmdProc.processor("insert K 768 768");
+        
+        cmdProc.processor("insert L 640 128");
+        cmdProc.processor("insert M 640 128");
+        
+        cmdProc.processor("insert N 640 640");
+        cmdProc.processor("insert O 640 640");
+        
+        cmdProc.processor("insert P 896 896");
+        cmdProc.processor("insert Q 896 896");
+        
+        systemOut().clearHistory();
+        cmdProc.processor("duplicates");
+        
+        String expected = "Duplicate points:\n" +
+            "(128, 128)\n" +
+            "(384, 128)\n" +
+            "(768, 256)\n" +
+            "(640, 128)\n" +
+            "(768, 768)\n" +
+            "(640, 640)\n" +
+            "(896, 896)\n";
+        
+        String actual = systemOut().getHistory();
+        
+        assertFuzzyEquals(expected, actual);
+    }
 }
