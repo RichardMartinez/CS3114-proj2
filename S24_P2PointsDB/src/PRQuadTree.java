@@ -198,7 +198,65 @@ public class PRQuadTree {
      *            height of the region
      */
     public void regionsearch(int x, int y, int w, int h) {
-
+        // Check if invalid rectangle
+        if (w <= 0) {
+            if (h <= 0) {
+                String out = String.format("Rectangle rejected: (%d, %d, %d, %d)", x, y, w, h);
+                System.out.println(out);
+                return;
+            }
+        }
+        
+        // Know valid rectangle
+        String out = String.format("Points intersecting region (%d, %d, %d, %d)", x, y, w, h);
+        System.out.println(out);
+        
+        regionsearchhelp(root, x, y, w, h, 512, 512, 1024);
+    }
+    
+    /**
+     * Recursive helper for regionsearch
+     * @param node
+     * @param regionX
+     * @param regionY
+     * @param regionW
+     * @param regionH
+     * @param currX
+     * @param currY
+     * @param currS
+     */
+    public void regionsearchhelp(QuadNode node, int regionX, int regionY, int regionW, int regionH,
+                                int currX, int currY, int currS) {
+        if (isFlyweight(node)) {
+            // Nothing
+            return;
+        }
+        
+        // If region does not intersect curr -> return
+        // TODO
+        
+        if (node.isLeaf()) {
+            // Do stuff
+            
+            // Need point.intersects(region)
+            
+            
+            return;
+        }
+        
+        // Internal Node
+        InternalNode internalNode = (InternalNode) node;
+        
+        QuadNode nw = internalNode.northwest();
+        QuadNode ne = internalNode.northeast();
+        QuadNode sw = internalNode.southwest();
+        QuadNode se = internalNode.southeast();
+        
+        // Recursively iterate
+        regionsearchhelp(nw, regionX, regionY, regionW, regionH, currX - currS/2, currY - currS/2, currS/2);
+        regionsearchhelp(ne, regionX, regionY, regionW, regionH, currX + currS/2, currY - currS/2, currS/2);
+        regionsearchhelp(sw, regionX, regionY, regionW, regionH, currX - currS/2, currY + currS/2, currS/2);
+        regionsearchhelp(se, regionX, regionY, regionW, regionH, currX + currS/2, currY + currS/2, currS/2);
     }
 
 
@@ -270,6 +328,7 @@ public class PRQuadTree {
         System.out.println(out);
     }
     
+    // TODO: Update params here
     /**
      * Recursive helper method for dump
      * @param node
@@ -350,5 +409,39 @@ public class PRQuadTree {
         return (node == flyweight);
     }
     
-    // TODO: Number of leaf nodes method? size()
+    /**
+     * Returns true if the region intersections the current boundary
+     * @return true if intersects
+     */
+    public boolean regionIntersectsCurr(int regionX, int regionY, int regionW, int regionH,
+                                        int currX, int currY, int currS) {
+        int currLeft = currX - currS/2;
+        int currRight = currX + currS/2;
+        int currTop = currY - currS/2;
+        int currBottom = currY + currS/2;
+        
+        int regionLeft = regionX;
+        int regionRight = regionX + regionW;
+        int regionTop = regionY;
+        int regionBottom = regionY + regionH;
+        
+        // Psuedocode taken from Project 1
+        
+        // One is too far left
+        if (currRight <= regionLeft) {
+            return false;
+        }
+        
+        if (regionRight <= currLeft) {
+            return false;
+        }
+        
+        // One if too far down
+        if (regionBottom <= currTop) {
+            return false;
+        }
+        
+        return !(currBottom <= regionTop);
+    }
+    
 }

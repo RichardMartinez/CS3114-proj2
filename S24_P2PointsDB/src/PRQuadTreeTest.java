@@ -663,6 +663,92 @@ public class PRQuadTreeTest extends TestCase {
         
     }
     
+    /**
+     * Test the region intersection method
+     */
+    public void testRegionIntersectsCurr() {
+        int regionX;
+        int regionY;
+        int regionW;
+        int regionH;
+        int currX;
+        int currY;
+        int currS;
+        
+        // Set curr
+        currX = 768;
+        currY = 256;
+        currS = 512;
+        
+        // Set region shape
+        regionW = 100;
+        regionH = 100;
+        
+        // Region intersects on the left
+        regionX = 500;
+        regionY = 200;
+        assertTrue(tree.regionIntersectsCurr(regionX, regionY, regionW, regionH,
+                                             currX, currY, currS));
+        
+        // Region intersects on the top
+        regionX = 700;
+        regionY = -50;
+        assertTrue(tree.regionIntersectsCurr(regionX, regionY, regionW, regionH,
+                                             currX, currY, currS));
+        
+        // Region intersects on the right
+        regionX = 1000;
+        regionY = 200;
+        assertTrue(tree.regionIntersectsCurr(regionX, regionY, regionW, regionH,
+                                             currX, currY, currS));
+        
+        // Region intersects on the bottom
+        regionX = 700;
+        regionY = 500;
+        assertTrue(tree.regionIntersectsCurr(regionX, regionY, regionW, regionH,
+                                             currX, currY, currS));
+        
+        // Region does not intersect
+        regionX = 100;
+        regionY = 600;
+        assertFalse(tree.regionIntersectsCurr(regionX, regionY, regionW, regionH,
+                                             currX, currY, currS));
+        
+        regionX = 100;
+        regionY = 100;
+        assertFalse(tree.regionIntersectsCurr(regionX, regionY, regionW, regionH,
+                                             currX, currY, currS));
+        
+        regionX = 100;
+        regionY = -200;
+        assertFalse(tree.regionIntersectsCurr(regionX, regionY, regionW, regionH,
+                                             currX, currY, currS));
+        
+        regionX = 600;
+        regionY = 600;
+        assertFalse(tree.regionIntersectsCurr(regionX, regionY, regionW, regionH,
+                                             currX, currY, currS));
+        regionX = 1100;
+        regionY = 600;
+        assertFalse(tree.regionIntersectsCurr(regionX, regionY, regionW, regionH,
+                                             currX, currY, currS));
+        
+        regionX = 1100;
+        regionY = 100;
+        assertFalse(tree.regionIntersectsCurr(regionX, regionY, regionW, regionH,
+                                             currX, currY, currS));
+        
+        regionX = 1100;
+        regionY = -200;
+        assertFalse(tree.regionIntersectsCurr(regionX, regionY, regionW, regionH,
+                                             currX, currY, currS));
+        
+        regionX = 600;
+        regionY = -200;
+        assertFalse(tree.regionIntersectsCurr(regionX, regionY, regionW, regionH,
+                                             currX, currY, currS));
+    }
+    
 //    /**
 //     * Test the dump method on an empty tree
 //     */
