@@ -468,48 +468,121 @@ public class PRQuadTreeTest extends TestCase {
         assertFuzzyEquals(expected, actual);
     }
     
-//    /**
-//     * Test to make sure that we are splitting correctly
-//     */
-//    public void testSplitting() {
-//        String name;
-//        Point pt;
-//        KVPair<String, Point> pair;
-//        
-//        name = "A";
-//        pt = new Point(576, 576);
-//        pair = new KVPair<String, Point>(name, pt);
-//        tree.insert(pair);
-//
-//        name = "B";
-//        pt = new Point(640, 896);
-//        pair = new KVPair<String, Point>(name, pt);
-//        tree.insert(pair);
-//        
-//        name = "C";
-//        pt = new Point(896, 896);
-//        pair = new KVPair<String, Point>(name, pt);
-//        tree.insert(pair);
-//        
-//        name = "D";
-//        pt = new Point(704, 704);
-//        pair = new KVPair<String, Point>(name, pt);
-//        tree.insert(pair);
-//        
-//        name = "E";
-//        pt = new Point(704, 576);
-//        pair = new KVPair<String, Point>(name, pt);
-//        tree.insert(pair);
-//        
-//        name = "F";
-//        pt = new Point(576, 704);
-//        pair = new KVPair<String, Point>(name, pt);
-//        tree.insert(pair);
-//        
-//        System.out.println("HERE");
-//        tree.dump();
-//        
-//    }
+    /**
+     * Test to make sure that we are splitting correctly
+     */
+    public void testSplitting() {
+        String name;
+        Point pt;
+        KVPair<String, Point> pair;
+        
+        name = "A";
+        pt = new Point(576, 576);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+
+        name = "B";
+        pt = new Point(640, 896);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+        
+        name = "C";
+        pt = new Point(896, 896);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+        
+        name = "D";
+        pt = new Point(704, 704);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+        
+        name = "E";
+        pt = new Point(704, 576);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+        
+        name = "F";
+        pt = new Point(576, 704);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+        
+        systemOut().clearHistory();
+        tree.dump();
+        String expected = "QuadTree dump:\n" +
+            "Node at 0, 0, 1024: Internal\n" +
+            "Node at 0, 0, 512: Empty\n" +
+            "Node at 512, 0, 512: Empty\n" +
+            "Node at 0, 512, 512: Empty\n" +
+            "Node at 512, 512, 512: Internal\n" +
+            "Node at 512, 512, 256: Internal\n" +
+            "Node at 512, 512, 128:\n" +
+            "(A, 576, 576)\n" +
+            "Node at 640, 512, 128:\n" +
+            "(E, 704, 576)\n" +
+            "Node at 512, 640, 128:\n" +
+            "(F, 576, 704)\n" +
+            "Node at 640, 640, 128:\n" +
+            "(D, 704, 704)\n" +
+            "Node at 768, 512, 256: Empty\n" +
+            "Node at 512, 768, 256:\n" +
+            "(B, 640, 896)\n" +
+            "Node at 768, 768, 256:\n" +
+            "(C, 896, 896)\n" +
+            "13 quadtree nodes printed\n";
+        
+        String actual = systemOut().getHistory();
+        assertFuzzyEquals(expected, actual);
+        
+    }
+    
+    /**
+     * Test the decomposition rule with duplicate points
+     */
+    public void testDecompositionRule() {
+        String name;
+        Point pt;
+        KVPair<String, Point> pair;
+        
+        name = "A";
+        pt = new Point(256, 256);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+        
+        name = "B";
+        pt = new Point(256, 256);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+        
+        name = "C";
+        pt = new Point(256, 256);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+        
+        name = "D";
+        pt = new Point(768, 768);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+        
+        System.out.println("DECOMP RULE");
+        
+        systemOut().clearHistory();
+        tree.dump();
+        String expected = "QuadTree dump:\n" +
+            "Node at 0, 0, 1024: Internal\n" +
+            "Node at 0, 0, 512:\n" +
+            "(A, 256, 256)\n" +
+            "(B, 256, 256)\n" +
+            "(C, 256, 256)\n" +
+            "Node at 512, 0, 512: Empty\n" +
+            "Node at 0, 512, 512: Empty\n" +
+            "Node at 512, 512, 512:\n" +
+            "(D, 768, 768)\n" +
+            "5 quadtree nodes printed\n";
+        
+        String actual = systemOut().getHistory();
+        
+        assertFuzzyEquals(expected, actual);
+    }
     
 //    /**
 //     * Test the dump method on an empty tree

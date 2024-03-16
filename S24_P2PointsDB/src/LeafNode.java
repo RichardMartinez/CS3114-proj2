@@ -115,9 +115,23 @@ public class LeafNode implements QuadNode {
      * @return true if can insert
      */
     public boolean canInsert(KVPair<String, Point> it) {
+//        Point pt = it.getValue();
+//        if (listContainsPoint(point1, pt)) {
+//            return true;
+//        }
+        
         boolean point1Can = canInsertList(point1, it);
         boolean point2Can = canInsertList(point2, it);
         boolean point3Can = canInsertList(point3, it);
+        
+//        // Here, should not be able to insert if more than three points
+//        // already stores
+//        int numPointsStored = point1.size() + point2.size() + point3.size();
+//        
+//        // If numPointsStored > 3 AND point is not point1
+//        if (numPointsStored > 3) {
+//            return false;
+//        }
         
         return (point1Can || point2Can || point3Can);
     }

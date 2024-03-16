@@ -160,6 +160,9 @@ public class PRQuadTree {
                 se = inserthelp(it, se, x + s/4, y + s/4, s/2);
                 internalNode.setSoutheast(se);
             }
+            
+            // TODO: Does this stay here?
+            node = internalNode;
         }
         
         return node;
