@@ -217,7 +217,9 @@ public class PRQuadTree {
         this.numNodesVisited = 0;
         regionsearchhelp(root, x, y, w, h, 512, 512, 1024);
         
-        // TODO: Print num nodes visited
+        // Print num nodes visited
+        out = String.format("%d quadtree nodes visited", this.numNodesVisited);
+        System.out.println(out);
     }
     
     /**
@@ -240,23 +242,20 @@ public class PRQuadTree {
             return;
         }
         
-        // If region does not intersect curr -> return
-        //  regionIntersectsCurr(int regionX, int regionY, int regionW, int regionH, int currX, int currY, int currS)
-        if (!this.regionIntersectsCurr(regionX, regionY, regionW, regionH, currX, currY, currS)) {
-            // Prune
-            return;
-        }
-        
         if (node.isLeaf()) {
             LeafNode leaf = (LeafNode) node;
             LinkedList<KVPair<String, Point>> points = leaf.getPoints();
             
             for (KVPair<String, Point> pair : points) {
+                String name = pair.getKey();
                 Point pt = pair.getValue();
                 
-                // Need point.intersects(region)
-                
-                
+                // Check point.intersects(region)
+                if (pt.intersectsRegion(regionX, regionY, regionW, regionH)) {
+                    // Print it
+                    String out = String.format("Point found: (%s, %s)", name, pt);
+                    System.out.println(out);
+                }
             }
             return;
         }
@@ -270,10 +269,39 @@ public class PRQuadTree {
         QuadNode se = internalNode.southeast();
         
         // Recursively iterate
-        regionsearchhelp(nw, regionX, regionY, regionW, regionH, currX - currS/2, currY - currS/2, currS/2);
-        regionsearchhelp(ne, regionX, regionY, regionW, regionH, currX + currS/2, currY - currS/2, currS/2);
-        regionsearchhelp(sw, regionX, regionY, regionW, regionH, currX - currS/2, currY + currS/2, currS/2);
-        regionsearchhelp(se, regionX, regionY, regionW, regionH, currX + currS/2, currY + currS/2, currS/2);
+        // Check for region intersect before exploring that node
+        
+        int newX = 0;
+        int newY = 0;
+        int newS = currS/2;
+        
+        // Northwest
+        newX = currX - currS/4;
+        newY = currY - currS/4;
+        if (this.regionIntersectsCurr(regionX, regionY, regionW, regionH, newX, newY, newS)) {
+            regionsearchhelp(nw, regionX, regionY, regionW, regionH, newX, newY, newS);
+        }
+        
+        // Northeast
+        newX = currX + currS/4;
+        newY = currY - currS/4;
+        if (this.regionIntersectsCurr(regionX, regionY, regionW, regionH, newX, newY, newS)) {
+            regionsearchhelp(ne, regionX, regionY, regionW, regionH, newX, newY, newS);
+        }
+        
+        // Southwest
+        newX = currX - currS/4;
+        newY = currY + currS/4;
+        if (this.regionIntersectsCurr(regionX, regionY, regionW, regionH, newX, newY, newS)) {
+            regionsearchhelp(sw, regionX, regionY, regionW, regionH, newX, newY, newS);
+        }
+        
+        // Southeast
+        newX = currX + currS/4;
+        newY = currY + currS/4;
+        if (this.regionIntersectsCurr(regionX, regionY, regionW, regionH, newX, newY, newS)) {
+            regionsearchhelp(se, regionX, regionY, regionW, regionH, newX, newY, newS);
+        }        
     }
 
 
