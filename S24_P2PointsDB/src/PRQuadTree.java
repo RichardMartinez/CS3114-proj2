@@ -19,6 +19,9 @@ public class PRQuadTree {
     // Root node
     private QuadNode root;
     
+    // Keep track for dump method
+    private int numNodesPrinted = 0;
+    
     // TODO: Create recursive helper methods
     // Then call them on root for overall method
 
@@ -206,9 +209,14 @@ public class PRQuadTree {
      * of the tree at runtime.
      */
     public void dump() {
+        this.numNodesPrinted = 0;
+        
         System.out.println("QuadTree dump:");
         
         dumphelp(root, 512, 512, 1024, 0);
+
+        String out = String.format("%d quadtree nodes printed", this.numNodesPrinted);
+        System.out.println(out);
     }
     
     /**
@@ -234,15 +242,18 @@ public class PRQuadTree {
             String out = String.format("Node at %d, %d, %d: Empty",
                 printableX, printableY, s);
             System.out.println(out);
+            this.numNodesPrinted++;
             return;
         }
         
         if (node.isLeaf()) {
-            // Print all points
+            // Show leaf node
             String out = String.format("Node at %d, %d, %d:",
                 printableX, printableY, s);
             System.out.println(out);
+            this.numNodesPrinted++;
             
+            // Print points
             LeafNode leaf = (LeafNode) node;
             LinkedList<KVPair<String, Point>> points = leaf.getPoints();
             for (KVPair<String, Point> pair : points) {
@@ -265,6 +276,7 @@ public class PRQuadTree {
         String out = String.format("Node at %d, %d, %d: Internal",
             printableX, printableY, s);
         System.out.println(out);
+        this.numNodesPrinted++;
         
         InternalNode internalNode = (InternalNode) node;
         
