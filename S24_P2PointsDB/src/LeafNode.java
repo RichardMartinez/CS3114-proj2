@@ -214,6 +214,34 @@ public class LeafNode implements QuadNode {
         return points;
     }
     
+    /**
+     * Returns a list of all the points that are duplicates.
+     * @return a linked list of all duplicate points
+     */
+    public LinkedList<KVPair<String, Point>> getDuplicates() {
+        LinkedList<KVPair<String, Point>> points = new LinkedList<KVPair<String, Point>>();
+        
+        if (point1.size() > 1) {
+            // There is a duplicate!
+            KVPair<String, Point> pair = point1.getFirst();
+            points.add(pair);
+        }
+        
+        if (point2.size() > 1) {
+            // There is a duplicate!
+            KVPair<String, Point> pair = point2.getFirst();
+            points.add(pair);
+        }
+        
+        if (point3.size() > 1) {
+            // There is a duplicate!
+            KVPair<String, Point> pair = point3.getFirst();
+            points.add(pair);
+        }
+        
+        return points;
+    }
+    
 //    /**
 //     * Returns the LeafNode in a readable String format
 //     */

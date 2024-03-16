@@ -102,7 +102,10 @@ public class PRQuadTree {
                 // TODO: move this if-else-if to a function?
                 if (direction.equals("nw")) {
                     QuadNode nw = internalNode.northwest();
-                    nw = inserthelp(pair, nw, x - s/4, y - s/4, s/2);
+                    int newx = x - s/4;
+                    int newy = y - s/4;
+                    int news = s/2;
+                    nw = inserthelp(pair, nw, newx, newy, news);
                     internalNode.setNorthwest(nw);
                 }
                 else if (direction.equals("ne")) {
@@ -199,7 +202,51 @@ public class PRQuadTree {
      * duplicate coordinates. Outputs to standard out.
      */
     public void duplicates() {
+        System.out.println("Duplicate points:");
+        
+        duplicateshelp(root, 512, 512, 1024);
 
+    }
+    
+    /**
+     * Recursive helper method for duplicates
+     */
+    public void duplicateshelp(QuadNode node, int x, int y, int s) {
+        if (isFlyweight(node)) {
+            // Nothing
+            return;
+        }
+        
+        if (node.isLeaf()) {
+            LeafNode leaf = (LeafNode) node;
+            LinkedList<KVPair<String, Point>> points = leaf.getDuplicates();
+            if (points.size() > 0) {
+                // There is a duplicate!
+                for (KVPair<String, Point> pair : points) {
+                    // Print the point only
+                    Point pt = pair.getValue();
+                    
+                    String out = String.format("(%s)", pt);
+                    System.out.println(out);
+                }
+            }
+            
+            return;
+        }
+        
+        // Internal Node        
+        InternalNode internalNode = (InternalNode) node;
+        
+        QuadNode nw = internalNode.northwest();
+        QuadNode ne = internalNode.northeast();
+        QuadNode sw = internalNode.southwest();
+        QuadNode se = internalNode.southeast();
+        
+        duplicateshelp(nw, x - s/4, y - s/4, s/2);
+        duplicateshelp(ne, x + s/4, y - s/4, s/2);
+        duplicateshelp(sw, x - s/4, y + s/4, s/2);
+        duplicateshelp(se, x + s/4, y + s/4, s/2);
+        
     }
 
 

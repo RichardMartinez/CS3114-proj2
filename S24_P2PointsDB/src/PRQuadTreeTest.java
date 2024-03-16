@@ -289,6 +289,13 @@ public class PRQuadTreeTest extends TestCase {
         assertFuzzyEquals(actual, expected);
     }
     
+//    /**
+//     * Test a different layout of the 16 points
+//     */
+//    public void testSixteenPoints2() {
+//        
+//    }
+    
     /**
      * Test inserting points with the same name
      * or same coordinates BUT NOT BOTH
@@ -351,6 +358,116 @@ public class PRQuadTreeTest extends TestCase {
             "5 quadtree nodes printed\n";
         
         assertFuzzyEquals(actual, expected);
+    }
+    
+    /**
+     * Test the duplicates method
+     */
+    public void testDuplicates() {
+        String name;
+        Point pt;
+        KVPair<String, Point> pair;
+        
+        name = "A";
+        pt = new Point(128, 128);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+        
+        name = "B";
+        pt = new Point(128, 128);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+        
+        name = "C";
+        pt = new Point(384, 128);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+        
+        name = "D";
+        pt = new Point(384, 128);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+        
+        name = "E";
+        pt = new Point(128, 384);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+        
+        name = "F";
+        pt = new Point(384, 384);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+        
+        name = "G";
+        pt = new Point(768, 256);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+        
+        name = "H";
+        pt = new Point(768, 256);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+        
+//        name = "I";
+//        pt = new Point(256, 768);
+//        pair = new KVPair<String, Point>(name, pt);
+//        tree.insert(pair);
+        
+        name = "J";
+        pt = new Point(768, 768);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+        
+        name = "K";
+        pt = new Point(768, 768);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+        
+        name = "L";
+        pt = new Point(640, 128);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+        
+        name = "M";
+        pt = new Point(640, 128);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+        
+        name = "N";
+        pt = new Point(640, 640);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+        
+        name = "O";
+        pt = new Point(640, 640);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+        
+        name = "P";
+        pt = new Point(896, 896);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+        
+        name = "Q";
+        pt = new Point(896, 896);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+        
+        systemOut().clearHistory();
+        tree.duplicates();
+        String expected = "Duplicate points:\n" +
+            "(128, 128)\n" +
+            "(384, 128)\n" +
+            "(768, 256)\n" +
+            "(640, 128)\n" +
+            "(768, 768)\n" +
+            "(640, 640)\n" +
+            "(896, 896)\n";
+        
+        String actual = systemOut().getHistory();
+        assertFuzzyEquals(expected, actual);
+        
+        
     }
 
 }
