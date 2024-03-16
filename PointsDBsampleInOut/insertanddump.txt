@@ -21,4 +21,9 @@ search P
 search G
 search Z
 
+insert test -1 1
+insert test2 1 -1
+insert test3 1024 1
+insert test4 1 1024
+
 dump

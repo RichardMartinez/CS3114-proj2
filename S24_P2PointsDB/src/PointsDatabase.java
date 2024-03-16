@@ -33,10 +33,20 @@ public class PointsDatabase {
      * Compiled using JRE 11 for CS 3114
      * Operating System: Windows 11
      * IDE: Eclipse
-     * Date Completed: TODO
+     * Date Completed: 03-16-2024
      * Created By: Richard Martinez
      * 
-     * TODO: Description
+     * This project is an extension of the previous.
+     * When only using a SkipList as our database, it was
+     * very inefficient to query based on spatial values.
+     * To fix this issue, this project introduces a second
+     * data structure that is designed for efficient spatial
+     * queries: PRQuadTree. This version of the project is
+     * managed by both data structures at the same time.
+     * 
+     * The overall motivation for doing this is to ensure that
+     * all operations are in O(logn) time. This was not the case
+     * for only SkipList.
      */
 
     /**

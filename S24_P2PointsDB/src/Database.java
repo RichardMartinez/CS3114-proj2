@@ -53,12 +53,21 @@ public class Database {
         // TODO: Check if pair is an EXACT match of another pair
         // already stored
         // Same name is OK, same coords is OK, BUT NOT BOTH
-
-        list.insert(pair);
-        tree.insert(pair);
         
         String name = pair.getKey();
         Point pt = pair.getValue();
+        
+        if (pt.isInvalid()) {
+            // Point rejected: ()
+            String out = String.format("Point rejected: (%s, %s)", name, pt);
+            System.out.println(out);
+            return;
+        }
+
+        // Insert it
+        list.insert(pair);
+        tree.insert(pair);
+
         String out = String.format("Point inserted: (%s, %s)", name, pt);
         System.out.println(out);
     }

@@ -1,5 +1,6 @@
 
 import student.TestCase;
+import student.TestableRandom;
 
 /**
  * This class tests the CommandProcessor class.
@@ -26,8 +27,110 @@ public class CommandProcessorTest extends TestCase {
     }
 
 
-    // TODO
-    public void test() {
-
+    /**
+     * Tests the insert command
+     */
+    public void testInsert() {
+        // Valid insert
+        systemOut().clearHistory();
+        cmdProc.processor("insert A 64 64");
+        String expected = "Point inserted: (A, 64, 64)";
+        String actual = systemOut().getHistory();
+        assertFuzzyEquals(expected, actual);
+        
+        // Invalid insert
+        systemOut().clearHistory();
+        cmdProc.processor("insert B -1 1");
+        expected = "Point rejected: (B, -1, 1)";
+        actual = systemOut().getHistory();
+        assertFuzzyEquals(expected, actual);
+        
+        systemOut().clearHistory();
+        cmdProc.processor("insert C 1 -1");
+        expected = "Point rejected: (C, 1, -1)";
+        actual = systemOut().getHistory();
+        assertFuzzyEquals(expected, actual);
+        
+        systemOut().clearHistory();
+        cmdProc.processor("insert D -1 -1");
+        expected = "Point rejected: (D, -1, -1)";
+        actual = systemOut().getHistory();
+        assertFuzzyEquals(expected, actual);
+    }
+    
+    /**
+     * Tests the search command
+     */
+    public void testSearch() {
+        // Insert
+        cmdProc.processor("insert A 256 256");
+        cmdProc.processor("insert B 768 256");
+        cmdProc.processor("insert C 256 768");
+        cmdProc.processor("insert D 768 768");
+        
+        // Valid search
+        systemOut().clearHistory();
+        cmdProc.processor("search A");
+        String expected = "Found (A, 256, 256)";
+        String actual = systemOut().getHistory();
+        assertFuzzyEquals(expected, actual);
+        
+        // Invalid search
+        systemOut().clearHistory();
+        cmdProc.processor("search Z");
+        expected = "Point not found: Z";
+        actual = systemOut().getHistory();
+        assertFuzzyEquals(expected, actual);
+    }
+    
+    /**
+     * Test the dump command
+     */
+    public void testDump() {
+        // Set SkipList Levels to all 1's
+        TestableRandom.setNextBooleans(false, false, false, false);
+        
+        // Insert
+        cmdProc.processor("insert A 256 256");
+        cmdProc.processor("insert B 768 256");
+        cmdProc.processor("insert C 256 768");
+        cmdProc.processor("insert D 768 768");
+        
+        systemOut().clearHistory();
+        cmdProc.processor("dump");
+        
+        String expected = "SkipList dump:\n" +
+            "Node with depth 1, Value null\n" +
+            "Node with depth 1, Value (A, 256, 256)\n" +
+            "Node with depth 1, Value (B, 768, 256)\n" +
+            "Node with depth 1, Value (C, 256, 768)\n" +
+            "Node with depth 1, Value (D, 768, 768)\n" +
+            "SkipList size is: 4\n" +
+            
+            "QuadTree dump:\n" +
+            "Node at 0, 0, 1024: Internal\n" +
+            "Node at 0, 0, 512:\n" +
+            "(A, 256, 256)\n" +
+            "Node at 512, 0, 512:\n" +
+            "(B, 768, 256)\n" +
+            "Node at 0, 512, 512:\n" +
+            "(C, 256, 768)\n" +
+            "Node at 512, 512, 512:\n" +
+            "(D, 768, 768)\n" +
+            "5 quadtree nodes printed\n";
+        
+        String actual = systemOut().getHistory();
+        assertFuzzyEquals(expected, actual);
+    }
+    
+    /**
+     * Test an invalid command
+     */
+    public void testUnrecognizedCommand() {
+        systemOut().clearHistory();
+        cmdProc.processor("invalid command");
+        String expected = "Unrecognized command.";
+        String actual = systemOut().getHistory();
+        assertFuzzyEquals(expected, actual);
     }
 }

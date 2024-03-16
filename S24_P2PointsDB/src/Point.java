@@ -108,7 +108,7 @@ public class Point {
      * @return
      */
     private boolean insideWorldBox(int a) {
-        return (a >= 0) && (a <= 1024);
+        return (a >= 0) && (a < 1024);
     }
     
     /**

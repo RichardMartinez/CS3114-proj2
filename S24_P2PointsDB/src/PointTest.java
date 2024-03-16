@@ -81,6 +81,12 @@ public class PointTest extends TestCase {
         
         pt1 = new Point(-1, -1);
         assertTrue(pt1.isInvalid());
+        
+        pt1 = new Point(1024, 1);
+        assertTrue(pt1.isInvalid());
+        
+        pt1 = new Point(1, 1024);
+        assertTrue(pt1.isInvalid());
     }
     
     /**
