@@ -426,6 +426,40 @@ public class PRQuadTreeTest extends TestCase {
 
 
     /**
+     * Test duplicates again
+     */
+    public void testDuplicates2() {
+        // Put duplicates in point2
+        String name;
+        Point pt;
+        KVPair<String, Point> pair;
+
+        name = "A";
+        pt = new Point(128, 128);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+
+        name = "B";
+        pt = new Point(384, 128);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+
+        name = "C";
+        pt = new Point(384, 128);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+
+        systemOut().clearHistory();
+        tree.duplicates();
+        String expected = "Duplicate points:\n" + "(384, 128)\n";
+
+        String actual = systemOut().getHistory();
+        assertFuzzyEquals(expected, actual);
+
+    }
+
+
+    /**
      * Test to make sure that we are splitting correctly
      */
     public void testSplitting() {

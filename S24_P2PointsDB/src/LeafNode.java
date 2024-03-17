@@ -64,7 +64,7 @@ public class LeafNode implements QuadNode {
         else if (canInsertList(point2, it)) {
             point2.add(it);
         }
-        else {  // canInsertList(point3, it)
+        else { // canInsertList(point3, it)
             point3.add(it);
         }
         // Nothing happens here, node should have split
@@ -317,24 +317,24 @@ public class LeafNode implements QuadNode {
         LinkedList<KVPair<String, Point>> points =
             new LinkedList<KVPair<String, Point>>();
 
-        // If duplicates exist, they must all be in point1
         if (point1.size() > 1) {
             // There is a duplicate!
             KVPair<String, Point> pair = point1.getFirst();
             points.add(pair);
         }
 
-// if (point2.size() > 1) {
-// // There is a duplicate!
-// KVPair<String, Point> pair = point2.getFirst();
-// points.add(pair);
-// }
-//
-// if (point3.size() > 1) {
-// // There is a duplicate!
-// KVPair<String, Point> pair = point3.getFirst();
-// points.add(pair);
-// }
+        if (point2.size() > 1) {
+            // There is a duplicate!
+            KVPair<String, Point> pair = point2.getFirst();
+            points.add(pair);
+        }
+
+        // Duplicates cannot exist in point3
+        // if (point3.size() > 1) {
+        //// There is a duplicate!
+        // KVPair<String, Point> pair = point3.getFirst();
+        // points.add(pair);
+        // }
 
         return points;
     }
@@ -342,6 +342,8 @@ public class LeafNode implements QuadNode {
 
     /**
      * Returns the number of points in this node
+     * 
+     * @return the number of points
      */
     public int numPoints() {
         return this.getPoints().size();

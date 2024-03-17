@@ -208,7 +208,7 @@ public class PRQuadTree {
     /**
      * Recursive helper for remove
      * 
-     * @param node
+     * @param nodeArray
      *            The node for recursion
      * @param pt
      *            Point to be removed

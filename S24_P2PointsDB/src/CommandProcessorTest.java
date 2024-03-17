@@ -300,7 +300,7 @@ public class CommandProcessorTest extends TestCase {
         String actual = systemOut().getHistory();
 
         assertFuzzyEquals(expected, actual);
-        
+
         systemOut().clearHistory();
         cmdProc.processor("remove -1 1");
         expected = "Point rejected: (-1, 1)\n";
@@ -308,7 +308,7 @@ public class CommandProcessorTest extends TestCase {
         actual = systemOut().getHistory();
 
         assertFuzzyEquals(expected, actual);
-        
+
         systemOut().clearHistory();
         cmdProc.processor("remove 1 -1");
         expected = "Point rejected: (1, -1)\n";
@@ -316,7 +316,7 @@ public class CommandProcessorTest extends TestCase {
         actual = systemOut().getHistory();
 
         assertFuzzyEquals(expected, actual);
-        
+
         systemOut().clearHistory();
         cmdProc.processor("remove -1 -1");
         expected = "Point rejected: (-1, -1)\n";

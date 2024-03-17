@@ -117,8 +117,7 @@ public class Database {
         // Remove by value, PRQuadTree efficient
         // Then remove from SkipList by name
         if (x < 0 || y < 0) {
-            String out = String.format("Point rejected: (%d, %d)",
-                x, y);
+            String out = String.format("Point rejected: (%d, %d)", x, y);
             System.out.println(out);
             return;
         }

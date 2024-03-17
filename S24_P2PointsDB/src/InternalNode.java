@@ -89,6 +89,8 @@ public class InternalNode implements QuadNode {
     /**
      * Returns the number of points from this internal node
      * recursively
+     * 
+     * @return the number of points
      */
     public int numPoints() {
         return nw.numPoints() + ne.numPoints() + sw.numPoints() + se
