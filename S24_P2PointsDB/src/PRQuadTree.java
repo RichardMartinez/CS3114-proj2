@@ -193,8 +193,16 @@ public class PRQuadTree {
      *         The KVPair that was removed
      */
     public KVPair<String, Point> remove(Point pt) {
+        // We want to modify the original node passed in
+        // So we create a single element array
+        QuadNode[] rootNode = new QuadNode[] {root};
+        
+        KVPair<String, Point> result = removehelp(rootNode, pt, 512, 512, 1024);
+        
+        // Update the root node with modified value
+        root = rootNode[0];
 
-        return removehelp(root, pt, 512, 512, 1024);
+        return result;
     }
 
 
@@ -214,11 +222,13 @@ public class PRQuadTree {
      * @return KVPair that was removed
      */
     public KVPair<String, Point> removehelp(
-        QuadNode node,
+        QuadNode[] nodeArray,
         Point pt,
         int x,
         int y,
         int s) {
+        
+        QuadNode node = nodeArray[0];
 
         if (isFlyweight(node)) {
             return null;
@@ -242,10 +252,11 @@ public class PRQuadTree {
             // TODO: This should become flyweight if empty after remove
             if (leaf.numPoints() == 0) {
                 // Needs to become flyweight
-                node = flyweight;
+                nodeArray[0] = flyweight;
                 return pair;
             }
 
+            // TODO: Make this nodeArray[0]?
             node = leaf;
             return pair;
         }
@@ -256,7 +267,9 @@ public class PRQuadTree {
 
         InternalNode internalNode = (InternalNode)node;
 
-        KVPair<String, Point> pair;
+        KVPair<String, Point> pair = null;
+        
+        QuadNode[] childNodeArray = new QuadNode[1];
         
         QuadNode nw = internalNode.northwest();
         QuadNode ne = internalNode.northeast();
@@ -265,20 +278,24 @@ public class PRQuadTree {
 
         String direction = pt.getDirection(x, y);
         if (direction.equals("nw")) {
-            nw = internalNode.northwest();
-            pair = removehelp(nw, pt, x - s / 4, y - s / 4, s / 2);
+            childNodeArray[0] = nw;
+            pair = removehelp(childNodeArray, pt, x - s / 4, y - s / 4, s / 2);
+            internalNode.setNorthwest(childNodeArray[0]);
         }
         else if (direction.equals("ne")) {
-            ne = internalNode.northeast();
-            pair = removehelp(ne, pt, x + s / 4, y - s / 4, s / 2);
+            childNodeArray[0] = ne;
+            pair = removehelp(childNodeArray, pt, x + s / 4, y - s / 4, s / 2);
+            internalNode.setNortheast(childNodeArray[0]);
         }
         else if (direction.equals("sw")) {
-            sw = internalNode.southwest();
-            pair = removehelp(sw, pt, x - s / 4, y + s / 4, s / 2);
+            childNodeArray[0] = sw;
+            pair = removehelp(childNodeArray, pt, x - s / 4, y + s / 4, s / 2);
+            internalNode.setSouthwest(childNodeArray[0]);
         }
         else if (direction.equals("se")) {
-            se = internalNode.southeast();
-            pair = removehelp(se, pt, x + s / 4, y + s / 4, s / 2);
+            childNodeArray[0] = se;
+            pair = removehelp(childNodeArray, pt, x + s / 4, y + s / 4, s / 2);
+            internalNode.setSoutheast(childNodeArray[0]);
         }
         else {
             // This will never run
