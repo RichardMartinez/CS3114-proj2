@@ -251,22 +251,27 @@ public class PRQuadTree {
         InternalNode internalNode = (InternalNode)node;
 
         KVPair<String, Point> pair;
+        
+        QuadNode nw = internalNode.northwest();
+        QuadNode ne = internalNode.northeast();
+        QuadNode sw = internalNode.southwest();
+        QuadNode se = internalNode.southeast();
 
         String direction = pt.getDirection(x, y);
         if (direction.equals("nw")) {
-            QuadNode nw = internalNode.northwest();
+            nw = internalNode.northwest();
             pair = removehelp(nw, pt, x - s / 4, y - s / 4, s / 2);
         }
         else if (direction.equals("ne")) {
-            QuadNode ne = internalNode.northeast();
+            ne = internalNode.northeast();
             pair = removehelp(ne, pt, x + s / 4, y - s / 4, s / 2);
         }
         else if (direction.equals("sw")) {
-            QuadNode sw = internalNode.southwest();
+            sw = internalNode.southwest();
             pair = removehelp(sw, pt, x - s / 4, y + s / 4, s / 2);
         }
         else if (direction.equals("se")) {
-            QuadNode se = internalNode.southeast();
+            se = internalNode.southeast();
             pair = removehelp(se, pt, x + s / 4, y + s / 4, s / 2);
         }
         else {
@@ -275,6 +280,13 @@ public class PRQuadTree {
         }
         
         // TODO: Here check if we need to merge by checking each of the children
+        // We need to merge if all children combined have 3 or less points
+        // It is impossible for multiple children to share the same coordinates, so
+        // we can safely ignore that requirement
+        
+        // Need num children method
+        // Leaf nodes -> size of getPoints()
+        // Internal Nodes -> recursively sum children
 
         return pair;
     }
