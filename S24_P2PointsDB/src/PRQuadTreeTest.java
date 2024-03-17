@@ -1232,6 +1232,53 @@ public class PRQuadTreeTest extends TestCase {
         assertFuzzyEquals(expected, actual);
     }
     
+    /**
+     * Test merge with duplicates
+     */
+    public void testMergeWithDuplicates() {
+        String name;
+        Point pt;
+        KVPair<String, Point> pair;
+
+        name = "A";
+        pt = new Point(256, 256);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+
+        name = "B";
+        pt = new Point(256, 256);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+
+        name = "C";
+        pt = new Point(256, 256);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+
+        name = "D";
+        pt = new Point(256, 256);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+        
+        name = "E";
+        pt = new Point(768, 768);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+        
+        System.out.println("BEFORE MERGE W/ DUPLICATES");
+        tree.dump();
+        
+        // Remove E
+        pt = new Point(768, 768);
+        pair = tree.remove(pt);
+        assertNotNull(pair);
+        Point pt2 = pair.getValue();
+        assertTrue(pt.equals(pt2));
+        
+        System.out.println("AFTER MERGE W/ DUPLICATES");
+        tree.dump();
+    }
+    
     // TODO: Test internal node collapsing to leaf node
     // Remember to check duplicate points!
     // Are duplicate points covered by canInsert check in merge?
