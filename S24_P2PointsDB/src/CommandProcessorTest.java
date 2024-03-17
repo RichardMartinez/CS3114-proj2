@@ -301,4 +301,57 @@ public class CommandProcessorTest extends TestCase {
 
         assertFuzzyEquals(expected, actual);
     }
+    
+    /**
+     * Test removing by name
+     */
+    public void testRemoveByName() {
+     // Set SkipList Levels to all 1's
+        TestableRandom.setNextBooleans(false, false, false, false, false,
+            false);
+
+        cmdProc.processor("insert A 128 128");
+        cmdProc.processor("insert B 384 128");
+        cmdProc.processor("insert C 768 256");
+        cmdProc.processor("insert D 256 768");
+        cmdProc.processor("insert E 640 640");
+        cmdProc.processor("insert F 896 640");
+
+        System.out.println("BEFORE");
+        cmdProc.processor("dump");
+
+        // Remove B and F
+        cmdProc.processor("remove B");
+        cmdProc.processor("remove F");
+
+        // Print and test
+        System.out.println("AFTER");
+
+        systemOut().clearHistory();
+        cmdProc.processor("dump");
+        String expected = "SkipList dump:\n" + "Node with depth 1, Value null\n"
+            + "Node with depth 1, Value (A, 128, 128)\n"
+            + "Node with depth 1, Value (C, 768, 256)\n"
+            + "Node with depth 1, Value (D, 256, 768)\n"
+            + "Node with depth 1, Value (E, 640, 640)\n"
+            + "SkipList size is: 4\n" + "QuadTree dump:\n"
+            + "Node at 0, 0, 1024: Internal\n" + "Node at 0, 0, 512:\n"
+            + "(A, 128, 128)\n" + "Node at 512, 0, 512:\n" + "(C, 768, 256)\n"
+            + "Node at 0, 512, 512:\n" + "(D, 256, 768)\n"
+            + "Node at 512, 512, 512:\n" + "(E, 640, 640)\n"
+            + "5 quadtree nodes printed\n";
+
+        String actual = systemOut().getHistory();
+
+        assertFuzzyEquals(expected, actual);
+
+        // Try to remove invalid point
+        systemOut().clearHistory();
+        cmdProc.processor("remove M");
+        expected = "Point not removed: M\n";
+
+        actual = systemOut().getHistory();
+
+        assertFuzzyEquals(expected, actual);
+    }
 }
