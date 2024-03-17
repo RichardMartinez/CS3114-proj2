@@ -80,11 +80,54 @@ public class LeafNode implements QuadNode {
      * 
      * @param pt
      *            The Point to be removed.
-     * @return KVPair that was removed
+     * @return KVPair that was removed or null if not found
      */
     public KVPair<String, Point> remove(Point pt) {
+        if (!containsPoint(pt)) {
+            return null;
+        }
 
-        return null;
+        KVPair<String, Point> pair;
+
+        // Check which list it is in
+        if (listContainsPoint(point1, pt)) {
+            // Remove it
+            pair = point1.removeFirst();
+            if (isEmptyList(point1)) {
+                // Need to shift everything
+                // Move everything from point2 to point1
+                while (!isEmptyList(point2)) {
+                    KVPair<String, Point> item = point2.removeFirst();
+                    point1.add(item);
+                }
+
+                // Move everything from point3 to point2
+                while (!isEmptyList(point3)) {
+                    KVPair<String, Point> item = point3.removeFirst();
+                    point2.add(item);
+                }
+            }
+        }
+        else if (listContainsPoint(point2, pt)) {
+            pair = point2.removeFirst();
+            if (isEmptyList(point2)) {
+                // Move everything from point3 to point2
+                while (!isEmptyList(point3)) {
+                    KVPair<String, Point> item = point3.removeFirst();
+                    point2.add(item);
+                }
+            }
+        }
+        else if (listContainsPoint(point3, pt)) {
+            pair = point3.removeFirst();
+            // No need to shift
+        }
+        else {
+            // This will never run
+            pair = null;
+        }
+
+        return pair;
     }
 
 

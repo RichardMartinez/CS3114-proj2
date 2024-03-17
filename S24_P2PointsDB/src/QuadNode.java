@@ -29,8 +29,6 @@ public interface QuadNode {
      */
     public KVPair<String, Point> remove(Point pt);
 
-    // TODO: Add regionsearch, duplicates, dump
-
 
     /**
      * Returns true if this node can insert it
