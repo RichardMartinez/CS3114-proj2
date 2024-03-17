@@ -865,6 +865,103 @@ public class PRQuadTreeTest extends TestCase {
         actual = systemOut().getHistory();
         
         assertFuzzyEquals(expected, actual);
+        
+        // Region 3
+        regionX = 768;
+        regionY = 0;
+        regionW = 256;
+        regionH = 256;
+        
+        systemOut().clearHistory();
+        tree.regionsearch(regionX, regionY, regionW, regionH);
+        expected = "Points intersecting region (768, 0, 256, 256)\n" +
+            "Point found: (B, 896, 128)\n" +
+            "2 quadtree nodes visited\n";
+        
+        actual = systemOut().getHistory();
+        
+        assertFuzzyEquals(expected, actual);
+    }
+    
+    /**
+     * Test invalid region search
+     */
+    public void testInvalidRegionSearch() {
+        systemOut().clearHistory();
+        tree.regionsearch(0, 0, -1, 1);
+        String expected = "Rectangle rejected: (0, 0, -1, 1)\n";
+        
+        String actual = systemOut().getHistory();
+        
+        assertFuzzyEquals(expected, actual);
+        
+        systemOut().clearHistory();
+        tree.regionsearch(0, 0, 1, -1);
+        expected = "Rectangle rejected: (0, 0, 1, -1)\n";
+        
+        actual = systemOut().getHistory();
+        
+        assertFuzzyEquals(expected, actual);
+        
+        systemOut().clearHistory();
+        tree.regionsearch(0, 0, -1, -1);
+        expected = "Rectangle rejected: (0, 0, -1, -1)\n";
+        
+        actual = systemOut().getHistory();
+        
+        assertFuzzyEquals(expected, actual);
+        
+    }
+    
+    /**
+     * Test simple region search
+     */
+    public void testSimpleRegionSearch() {
+        // TODO: write a simple test with at least one flyweight in the tree
+        // Try to get code coverage in recursive method for isFlyweight(node) return;
+        
+        // Insert all the points
+        String name;
+        Point pt;
+        KVPair<String, Point> pair;
+        
+        name = "A";
+        pt = new Point(128, 128);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+        
+        name = "B";
+        pt = new Point(128, 384);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+        
+        name = "C";
+        pt = new Point(768, 256);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+        
+        name = "D";
+        pt = new Point(256, 768);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+        
+        int regionX = 0;
+        int regionY = 0;
+        int regionW = 1024;
+        int regionH = 1024;
+        
+        systemOut().clearHistory();
+        tree.regionsearch(regionX, regionY, regionW, regionH);
+        String expected = "Points intersecting region (0, 0, 1024, 1024)\n" +
+            "Point found: (A, 128, 128)\n" +
+            "Point found: (B, 128, 384)\n" +
+            "Point found: (C, 768, 256)\n" +
+            "Point found: (D, 256, 768)\n" +
+            "5 quadtree nodes visited\n";
+        
+        String actual = systemOut().getHistory();
+        
+        assertFuzzyEquals(expected, actual);
     }
     
 //    /**

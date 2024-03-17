@@ -202,12 +202,10 @@ public class PRQuadTree {
      */
     public void regionsearch(int x, int y, int w, int h) {
         // Check if invalid rectangle
-        if (w <= 0) {
-            if (h <= 0) {
-                String out = String.format("Rectangle rejected: (%d, %d, %d, %d)", x, y, w, h);
-                System.out.println(out);
-                return;
-            }
+        if (w <= 0 || h <= 0) {
+            String out = String.format("Rectangle rejected: (%d, %d, %d, %d)", x, y, w, h);
+            System.out.println(out);
+            return;
         }
         
         // Know valid rectangle
