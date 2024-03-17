@@ -890,6 +890,44 @@ public class PRQuadTreeTest extends TestCase {
 
         assertFuzzyEquals(expected, actual);
     }
+    
+    /**
+     * Test a basic call to remove
+     */
+    public void testBasicRemove() {
+        String name;
+        Point pt;
+        KVPair<String, Point> pair;
+
+        name = "A";
+        pt = new Point(256, 256);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+
+        name = "B";
+        pt = new Point(768, 256);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+
+        name = "C";
+        pt = new Point(768, 768);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+        
+        System.out.println("BEFORE");
+        tree.dump();
+        
+        // Remove C
+        pt = new Point(768, 768);
+        pair = tree.remove(pt);
+        assertNotNull(pair);
+        Point pt2 = pair.getValue();
+        assertTrue(pt.equals(pt2));
+        
+        System.out.println("AFTER");
+        tree.dump();
+        
+    }
 
 // /**
 // * Test the dump method on an empty tree

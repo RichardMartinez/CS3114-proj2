@@ -67,7 +67,7 @@ public class InternalNode implements QuadNode {
      * @return KVPair that was removed
      */
     public KVPair<String, Point> remove(Point pt) {
-
+        // Nothing to do because you can't remove
         return null;
     }
 

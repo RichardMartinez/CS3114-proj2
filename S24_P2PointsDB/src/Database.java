@@ -107,6 +107,8 @@ public class Database {
     public void remove(int x, int y) {
         // Remove by value, PRQuadTree efficient
         // Then remove from SkipList by name
+        
+        // TODO: print to the console
 
         Point pt = new Point(x, y);
         KVPair<String, Point> pair = tree.remove(pt);
