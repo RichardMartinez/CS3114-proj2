@@ -187,4 +187,60 @@ public class CommandProcessorTest extends TestCase {
         
         assertFuzzyEquals(expected, actual);
     }
+    
+    /**
+     * Test the region search method
+     */
+    public void testRegionSearch() {
+        // Set SkipList Levels to all 1's
+        TestableRandom.setNextBooleans(false, false, false, false, 
+            false, false, false, false, false, false, false, false, 
+            false, false, false, false);
+        
+        // Insert
+        cmdProc.processor("insert A 128 128");
+        cmdProc.processor("insert B 128 128");
+        
+        cmdProc.processor("insert C 384 128");
+        cmdProc.processor("insert D 384 128");
+        
+        cmdProc.processor("insert E 128 384");
+        
+        cmdProc.processor("insert F 384 384");
+        
+        cmdProc.processor("insert G 768 256");
+        cmdProc.processor("insert H 768 256");
+        
+        //cmdProc.processor("insert I 128 128");
+        
+        cmdProc.processor("insert J 768 768");
+        cmdProc.processor("insert K 768 768");
+        
+        cmdProc.processor("insert L 640 128");
+        cmdProc.processor("insert M 640 128");
+        
+        cmdProc.processor("insert N 640 640");
+        cmdProc.processor("insert O 640 640");
+        
+        cmdProc.processor("insert P 896 896");
+        cmdProc.processor("insert Q 896 896");
+        
+        systemOut().clearHistory();
+        cmdProc.processor("regionsearch 0 0 512 512");
+        
+        String expected = "Points intersecting region (0, 0, 512, 512)\n" +
+            "Point found: (A, 128, 128)\n" +
+            "Point found: (B, 128, 128)\n" +
+            "Point found: (C, 384, 128)\n" +
+            "Point found: (D, 384, 128)\n" +
+            "Point found: (E, 128, 384)\n" +
+            "Point found: (F, 384, 384)\n" +
+            "6 quadtree nodes visited\n";
+        
+        String actual = systemOut().getHistory();
+        
+        assertFuzzyEquals(expected, actual);
+        
+        
+    }
 }
