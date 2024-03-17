@@ -25,9 +25,6 @@ public class PRQuadTree {
     // Keep track for regionsearch method
     private int numNodesVisited = 0;
 
-    // TODO: Create recursive helper methods
-    // Then call them on root for overall method
-
     /**
      * Constructor for PRQuadTree
      */

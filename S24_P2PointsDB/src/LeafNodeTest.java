@@ -290,8 +290,6 @@ public class LeafNodeTest extends TestCase {
         assertEquals(node.numPoints(), 0);
     }
 
-    // TODO: test remove shifting
-
 
     /**
      * Test shifting during remove

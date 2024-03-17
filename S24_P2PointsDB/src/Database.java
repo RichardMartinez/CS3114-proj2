@@ -24,8 +24,6 @@ public class Database {
     private SkipList<String, Point> list;
     private PRQuadTree tree;
 
-    // TODO: Output all results to standard out.
-
     /**
      * The constructor for this class initializes a SkipList object with String
      * and Rectangle a its parameters.
@@ -49,10 +47,6 @@ public class Database {
         // Delegates the decision mostly to SkipList, only
         // writing the correct message to the console from
         // that
-
-        // TODO: Check if pair is an EXACT match of another pair
-        // already stored
-        // Same name is OK, same coords is OK, BUT NOT BOTH
 
         String name = pair.getKey();
         Point pt = pair.getValue();
