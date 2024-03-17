@@ -335,6 +335,13 @@ public class LeafNode implements QuadNode {
 
         return points;
     }
+    
+    /**
+     * Returns the number of points in this node
+     */
+    public int numPoints() {
+        return this.getPoints().size();
+    }
 
 // /**
 // * Returns the LeafNode in a readable String format

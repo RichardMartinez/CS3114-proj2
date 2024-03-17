@@ -239,6 +239,12 @@ public class PRQuadTree {
             }
 
             // TODO: How to handle collapsing back down??
+            // TODO: This should become flyweight if empty after remove
+            if (leaf.numPoints() == 0) {
+                // Needs to become flyweight
+                node = flyweight;
+                return pair;
+            }
 
             node = leaf;
             return pair;
@@ -287,6 +293,17 @@ public class PRQuadTree {
         // Need num children method
         // Leaf nodes -> size of getPoints()
         // Internal Nodes -> recursively sum children
+        
+        //TODO: This won't work if there are too many duplicate points
+        // The num points might be more than 3 but we still need to merge
+        int numPoints = internalNode.numPoints();
+        if (numPoints > 3) {
+            // No need to merge
+            node = internalNode;
+            return pair;
+        }
+        
+        // We need to merge here!!
 
         return pair;
     }

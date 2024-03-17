@@ -260,7 +260,7 @@ public class LeafNodeTest extends TestCase {
         assertNull(pair);
 
         // Remove each of the three nodes in best order
-        assertEquals(node.getPoints().size(), 3);
+        assertEquals(node.numPoints(), 3);
 
         // Remove c
         pt = new Point(5, 6);
@@ -269,7 +269,7 @@ public class LeafNodeTest extends TestCase {
         Point pt2 = pair.getValue();
         assertTrue(pt.equals(pt2));
 
-        assertEquals(node.getPoints().size(), 2);
+        assertEquals(node.numPoints(), 2);
 
         // Remove b
         pt = new Point(3, 4);
@@ -278,7 +278,7 @@ public class LeafNodeTest extends TestCase {
         pt2 = pair.getValue();
         assertTrue(pt.equals(pt2));
 
-        assertEquals(node.getPoints().size(), 1);
+        assertEquals(node.numPoints(), 1);
 
         // Remove a
         pt = new Point(1, 2);
@@ -287,7 +287,7 @@ public class LeafNodeTest extends TestCase {
         pt2 = pair.getValue();
         assertTrue(pt.equals(pt2));
 
-        assertEquals(node.getPoints().size(), 0);
+        assertEquals(node.numPoints(), 0);
     }
 
     // TODO: test remove shifting
@@ -322,7 +322,7 @@ public class LeafNodeTest extends TestCase {
         assertNull(pair);
 
         // Remove each of the three nodes in best order
-        assertEquals(node.getPoints().size(), 3);
+        assertEquals(node.numPoints(), 3);
 
         // Remove a
         pt = new Point(1, 2);
@@ -331,7 +331,7 @@ public class LeafNodeTest extends TestCase {
         Point pt2 = pair.getValue();
         assertTrue(pt.equals(pt2));
 
-        assertEquals(node.getPoints().size(), 2);
+        assertEquals(node.numPoints(), 2);
 
         // Remove b
         pt = new Point(3, 4);
@@ -340,7 +340,7 @@ public class LeafNodeTest extends TestCase {
         pt2 = pair.getValue();
         assertTrue(pt.equals(pt2));
 
-        assertEquals(node.getPoints().size(), 1);
+        assertEquals(node.numPoints(), 1);
 
         // Remove c
         pt = new Point(5, 6);
@@ -349,7 +349,7 @@ public class LeafNodeTest extends TestCase {
         pt2 = pair.getValue();
         assertTrue(pt.equals(pt2));
 
-        assertEquals(node.getPoints().size(), 0);
+        assertEquals(node.numPoints(), 0);
     }
 
 
@@ -382,7 +382,7 @@ public class LeafNodeTest extends TestCase {
         assertNull(pair);
 
         // Remove each of the three nodes in best order
-        assertEquals(node.getPoints().size(), 3);
+        assertEquals(node.numPoints(), 3);
 
         // Remove a
         pt = new Point(1, 2);
@@ -391,7 +391,7 @@ public class LeafNodeTest extends TestCase {
         Point pt2 = pair.getValue();
         assertTrue(pt.equals(pt2));
 
-        assertEquals(node.getPoints().size(), 2);
+        assertEquals(node.numPoints(), 2);
     }
 
 
@@ -424,7 +424,7 @@ public class LeafNodeTest extends TestCase {
         assertNull(pair);
 
         // Remove each of the three nodes in best order
-        assertEquals(node.getPoints().size(), 3);
+        assertEquals(node.numPoints(), 3);
 
         // Remove b
         pt = new Point(5, 6);
@@ -433,7 +433,7 @@ public class LeafNodeTest extends TestCase {
         Point pt2 = pair.getValue();
         assertTrue(pt.equals(pt2));
 
-        assertEquals(node.getPoints().size(), 2);
+        assertEquals(node.numPoints(), 2);
     }
 
 
@@ -466,7 +466,7 @@ public class LeafNodeTest extends TestCase {
         assertNull(pair);
 
         // Remove each of the three nodes in best order
-        assertEquals(node.getPoints().size(), 3);
+        assertEquals(node.numPoints(), 3);
 
         // Remove b
         pt = new Point(3, 4);
@@ -475,7 +475,7 @@ public class LeafNodeTest extends TestCase {
         Point pt2 = pair.getValue();
         assertTrue(pt.equals(pt2));
 
-        assertEquals(node.getPoints().size(), 2);
+        assertEquals(node.numPoints(), 2);
     }
 
 }

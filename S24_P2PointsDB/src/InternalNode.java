@@ -84,6 +84,14 @@ public class InternalNode implements QuadNode {
     public boolean canInsert(KVPair<String, Point> it) {
         return false;
     }
+    
+    /**
+     * Returns the number of points from this internal node
+     * recursively
+     */
+    public int numPoints() {
+        return nw.numPoints() + ne.numPoints() + sw.numPoints() + se.numPoints();
+    }
 
 
     /**

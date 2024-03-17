@@ -1015,6 +1015,11 @@ public class PRQuadTreeTest extends TestCase {
         assertFuzzyEquals(expected, actual);
 
     }
+    
+    // TODO: Test leaf node collapsing to flyweight
+    
+    // TODO: Test internal node collapsing to leaf node
+    // Remember to check duplicate points!
 
 // /**
 // * Test the dump method on an empty tree
