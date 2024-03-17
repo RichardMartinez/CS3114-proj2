@@ -351,7 +351,8 @@ public class LeafNodeTest extends TestCase {
 
         assertEquals(node.getPoints().size(), 0);
     }
-    
+
+
     /**
      * Test shifting during remove
      */
@@ -389,10 +390,11 @@ public class LeafNodeTest extends TestCase {
         assertNotNull(pair);
         Point pt2 = pair.getValue();
         assertTrue(pt.equals(pt2));
-        
+
         assertEquals(node.getPoints().size(), 2);
     }
-    
+
+
     /**
      * Test shifting during remove
      */
@@ -430,10 +432,11 @@ public class LeafNodeTest extends TestCase {
         assertNotNull(pair);
         Point pt2 = pair.getValue();
         assertTrue(pt.equals(pt2));
-        
+
         assertEquals(node.getPoints().size(), 2);
     }
-    
+
+
     /**
      * Test shifting during remove
      */
@@ -471,7 +474,7 @@ public class LeafNodeTest extends TestCase {
         assertNotNull(pair);
         Point pt2 = pair.getValue();
         assertTrue(pt.equals(pt2));
-        
+
         assertEquals(node.getPoints().size(), 2);
     }
 

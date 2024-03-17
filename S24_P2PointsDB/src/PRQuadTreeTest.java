@@ -890,7 +890,8 @@ public class PRQuadTreeTest extends TestCase {
 
         assertFuzzyEquals(expected, actual);
     }
-    
+
+
     /**
      * Test a basic call to remove
      */
@@ -913,35 +914,34 @@ public class PRQuadTreeTest extends TestCase {
         pt = new Point(768, 768);
         pair = new KVPair<String, Point>(name, pt);
         tree.insert(pair);
-        
+
         System.out.println("BEFORE");
         tree.dump();
-        
+
         // Remove C
         pt = new Point(768, 768);
         pair = tree.remove(pt);
         assertNotNull(pair);
         Point pt2 = pair.getValue();
         assertTrue(pt.equals(pt2));
-        
+
         // Print
         System.out.println("AFTER");
-        
+
         systemOut().clearHistory();
         tree.dump();
-        
-        String expected = "QuadTree dump:\n" +
-            "Node at 0, 0, 1024:\n" +
-            "(A, 256, 256)\n" +
-            "(B, 768, 256)\n" +
-            "1 quadtree nodes printed\n";
-        
+
+        String expected = "QuadTree dump:\n" + "Node at 0, 0, 1024:\n"
+            + "(A, 256, 256)\n" + "(B, 768, 256)\n"
+            + "1 quadtree nodes printed\n";
+
         String actual = systemOut().getHistory();
-        
+
         assertFuzzyEquals(expected, actual);
-        
+
     }
-    
+
+
     /**
      * Test a remove with one split in the tree
      */
@@ -964,64 +964,57 @@ public class PRQuadTreeTest extends TestCase {
         pt = new Point(768, 256);
         pair = new KVPair<String, Point>(name, pt);
         tree.insert(pair);
-        
+
         name = "D";
         pt = new Point(256, 768);
         pair = new KVPair<String, Point>(name, pt);
         tree.insert(pair);
-        
+
         name = "E";
         pt = new Point(640, 640);
         pair = new KVPair<String, Point>(name, pt);
         tree.insert(pair);
-        
+
         name = "F";
         pt = new Point(896, 640);
         pair = new KVPair<String, Point>(name, pt);
         tree.insert(pair);
-        
+
         System.out.println("BEFORE");
         tree.dump();
-        
+
         // Remove B
         pt = new Point(384, 128);
         pair = tree.remove(pt);
         assertNotNull(pair);
         Point pt2 = pair.getValue();
         assertTrue(pt.equals(pt2));
-        
+
         // Remove F
         pt = new Point(896, 640);
         pair = tree.remove(pt);
         assertNotNull(pair);
         pt2 = pair.getValue();
         assertTrue(pt.equals(pt2));
-        
+
         // Print
         System.out.println("AFTER");
-        
+
         systemOut().clearHistory();
         tree.dump();
-        
-        String expected = "QuadTree dump:\n" +
-            "Node at 0, 0, 1024: Internal\n" +
-            "Node at 0, 0, 512:\n" +
-            "(A, 128, 128)\n" +
-            "Node at 512, 0, 512:\n" +
-            "(C, 768, 256)\n" +
-            "Node at 0, 512, 512:\n" +
-            "(D, 256, 768)\n" +
-            "Node at 512, 512, 512:\n" +
-            "(E, 640, 640)\n" +
-            "5 quadtree nodes printed\n";
-        
+
+        String expected = "QuadTree dump:\n" + "Node at 0, 0, 1024: Internal\n"
+            + "Node at 0, 0, 512:\n" + "(A, 128, 128)\n"
+            + "Node at 512, 0, 512:\n" + "(C, 768, 256)\n"
+            + "Node at 0, 512, 512:\n" + "(D, 256, 768)\n"
+            + "Node at 512, 512, 512:\n" + "(E, 640, 640)\n"
+            + "5 quadtree nodes printed\n";
+
         String actual = systemOut().getHistory();
-        
+
         assertFuzzyEquals(expected, actual);
-        
+
     }
-    
-    
 
 // /**
 // * Test the dump method on an empty tree

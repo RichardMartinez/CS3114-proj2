@@ -107,18 +107,26 @@ public class Database {
     public void remove(int x, int y) {
         // Remove by value, PRQuadTree efficient
         // Then remove from SkipList by name
-        
-        // TODO: print to the console
 
         Point pt = new Point(x, y);
         KVPair<String, Point> pair = tree.remove(pt);
         if (pair == null) {
             // Not Found
+            // Point not found: ()
+            String out = String.format("Point not found: (%s)", pt);
+            System.out.println(out);
             return;
         }
 
+        // Remove from SkipList too
         String name = pair.getKey();
         list.remove(name);
+
+        // Print to console
+        name = pair.getKey();
+        Point pt2 = pair.getValue();
+        String out = String.format("Point removed: (%s, %s)", name, pt2);
+        System.out.println(out);
     }
 
 

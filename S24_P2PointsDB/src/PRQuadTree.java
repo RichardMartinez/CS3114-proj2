@@ -196,33 +196,40 @@ public class PRQuadTree {
 
         return removehelp(root, pt, 512, 512, 1024);
     }
-    
+
+
     /**
      * Recursive helper for remove
+     * 
      * @param node
-     *      The node for recursion
+     *            The node for recursion
      * @param pt
-     *      Point to be removed
+     *            Point to be removed
      * @param x
-     *      x coordinate
+     *            x coordinate
      * @param y
-     *      y coordinate
+     *            y coordinate
      * @param s
-     *      side length
+     *            side length
      * @return KVPair that was removed
      */
-    public KVPair<String, Point> removehelp(QuadNode node, Point pt, int x, int y, int s) {
-        
+    public KVPair<String, Point> removehelp(
+        QuadNode node,
+        Point pt,
+        int x,
+        int y,
+        int s) {
+
         if (isFlyweight(node)) {
             return null;
         }
-        
+
         if (node.isLeaf()) {
             // Remove from the leaf node if it contains pt
             LeafNode leaf = (LeafNode)node;
-            
+
             KVPair<String, Point> pair;
-            
+
             if (leaf.containsPoint(pt)) {
                 // Remove it
                 pair = leaf.remove(pt);
@@ -230,43 +237,45 @@ public class PRQuadTree {
             else {
                 pair = null;
             }
-            
+
             // TODO: How to handle collapsing back down??
-            
+
             node = leaf;
             return pair;
         }
-        
+
         // Internal Node
         // Traverse recursively
         // If any of the paths return non-null, return that value instead
-        
+
         InternalNode internalNode = (InternalNode)node;
-        
+
         KVPair<String, Point> pair;
-        
+
         String direction = pt.getDirection(x, y);
         if (direction.equals("nw")) {
             QuadNode nw = internalNode.northwest();
-            pair = removehelp(nw, pt, x - s/4, y - s/4, s/2);
+            pair = removehelp(nw, pt, x - s / 4, y - s / 4, s / 2);
         }
         else if (direction.equals("ne")) {
             QuadNode ne = internalNode.northeast();
-            pair = removehelp(ne, pt, x + s/4, y - s/4, s/2);
+            pair = removehelp(ne, pt, x + s / 4, y - s / 4, s / 2);
         }
         else if (direction.equals("sw")) {
             QuadNode sw = internalNode.southwest();
-            pair = removehelp(sw, pt, x - s/4, y + s/4, s/2);
+            pair = removehelp(sw, pt, x - s / 4, y + s / 4, s / 2);
         }
         else if (direction.equals("se")) {
             QuadNode se = internalNode.southeast();
-            pair = removehelp(se, pt, x + s/4, y + s/4, s/2);
+            pair = removehelp(se, pt, x + s / 4, y + s / 4, s / 2);
         }
         else {
             // This will never run
             pair = null;
         }
- 
+        
+        // TODO: Here check if we need to merge by checking each of the children
+
         return pair;
     }
 
