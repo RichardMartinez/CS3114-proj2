@@ -118,8 +118,10 @@ public class Point {
      * Return true if this point is north of x1, y1
      * 
      * @param x1
+     *            x coordinate
      * @param y1
-     * @return
+     *            y coordinate
+     * @return true if north
      */
     public boolean isNorthOf(int x1, int y1) {
         return this.getY() < y1;
@@ -130,8 +132,10 @@ public class Point {
      * Return true if this point is west of x1, y1
      * 
      * @param x1
+     *            x coordinate
      * @param y1
-     * @return
+     *            y coordinate
+     * @return true if west
      */
     public boolean isWestOf(int x1, int y1) {
         return this.getX() < x1;
@@ -142,7 +146,9 @@ public class Point {
      * Returns the direction as a String from point x1, y1
      * 
      * @param x1
+     *            x coordinate
      * @param y1
+     *            y coordinate
      * @return direction as a string
      */
     public String getDirection(int x1, int y1) {
@@ -179,6 +185,14 @@ public class Point {
     /**
      * Returns true if the point intersects the region
      * 
+     * @param regionX
+     *            x coordinate of region
+     * @param regionY
+     *            y coordinate of region
+     * @param regionW
+     *            width of region
+     * @param regionH
+     *            height of region
      * @return true if intersect
      */
     public boolean intersectsRegion(

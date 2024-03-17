@@ -63,6 +63,7 @@ public class PRQuadTree {
      *            Y coordinate of center of current region
      * @param s
      *            Side length of the current region
+     * @return the quadnode of relevance
      */
     public QuadNode inserthelp(
         KVPair<String, Point> it,
@@ -237,13 +238,21 @@ public class PRQuadTree {
      * Recursive helper for regionsearch
      * 
      * @param node
+     *            The node for recursion
      * @param regionX
+     *            x coordinate of the region
      * @param regionY
+     *            y coordinate of the region
      * @param regionW
+     *            width of the region
      * @param regionH
+     *            height of the region
      * @param currX
+     *            x coordinate for recursion
      * @param currY
+     *            y coordinate for recursion
      * @param currS
+     *            side length for recursion
      */
     public void regionsearchhelp(
         QuadNode node,
@@ -346,6 +355,9 @@ public class PRQuadTree {
 
     /**
      * Recursive helper method for duplicates
+     * 
+     * @param node
+     *            The node for recursion
      */
     public void duplicateshelp(QuadNode node) {
         if (isFlyweight(node)) {
@@ -404,11 +416,19 @@ public class PRQuadTree {
     }
 
 
-    // TODO: Update params here
     /**
      * Recursive helper method for dump
      * 
      * @param node
+     *            The node for recursion
+     * @param x
+     *            x coordinate
+     * @param y
+     *            y coordinate
+     * @param s
+     *            side length
+     * @param level
+     *            current level of the tree
      */
     public void dumphelp(QuadNode node, int x, int y, int s, int level) {
         // Give indentation for each level
@@ -482,6 +502,9 @@ public class PRQuadTree {
     /**
      * Returns true if the node is flyweight
      * 
+     * @param node
+     *            The node to check
+     * 
      * @return true if node is flyweight
      */
     public boolean isFlyweight(QuadNode node) {
@@ -492,6 +515,20 @@ public class PRQuadTree {
     /**
      * Returns true if the region intersections the current boundary
      * 
+     * @param regionX
+     *            x coordinate of the region
+     * @param regionY
+     *            y coordinate of the region
+     * @param regionW
+     *            width of the region
+     * @param regionH
+     *            height of the region
+     * @param currX
+     *            x coordinate for recursion
+     * @param currY
+     *            y coordinate for recursion
+     * @param currS
+     *            side length for recursion
      * @return true if intersects
      */
     public boolean regionIntersectsCurr(

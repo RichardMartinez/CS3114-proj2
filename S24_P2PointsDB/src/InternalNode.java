@@ -3,6 +3,10 @@
  * This class represents and internal node in
  * the PRQuadTree. It contains no data other
  * than the pointers to its 4 children.
+ * 
+ * @author Richard Martinez
+ * 
+ * @version 2024-03-15
  */
 public class InternalNode implements QuadNode {
     private QuadNode nw;
@@ -12,6 +16,15 @@ public class InternalNode implements QuadNode {
 
     /**
      * Construct the internal node
+     * 
+     * @param nw
+     *            The northwest child
+     * @param ne
+     *            The northeast child
+     * @param sw
+     *            The southwest child
+     * @param se
+     *            The southeast child
      */
     public InternalNode(QuadNode nw, QuadNode ne, QuadNode sw, QuadNode se) {
         this.nw = nw;
@@ -23,6 +36,8 @@ public class InternalNode implements QuadNode {
 
     /**
      * Return false because this is an internal node
+     * 
+     * @return true if leaf
      */
     public boolean isLeaf() {
         return false;
@@ -49,6 +64,7 @@ public class InternalNode implements QuadNode {
      * 
      * @param pt
      *            The Point to be removed.
+     * @return KVPair that was removed
      */
     public KVPair<String, Point> remove(Point pt) {
 
@@ -59,6 +75,11 @@ public class InternalNode implements QuadNode {
     /**
      * canInsert method for Internal node.
      * You cannot insert into an internal node.
+     * 
+     * @param it
+     *            KVPair to check against
+     * 
+     * @return false
      */
     public boolean canInsert(KVPair<String, Point> it) {
         return false;
@@ -107,6 +128,9 @@ public class InternalNode implements QuadNode {
 
     /**
      * Set the nw child
+     * 
+     * @param node
+     *            The node to set
      */
     public void setNorthwest(QuadNode node) {
         nw = node;
@@ -115,6 +139,9 @@ public class InternalNode implements QuadNode {
 
     /**
      * Set the ne child
+     * 
+     * @param node
+     *            The node to set
      */
     public void setNortheast(QuadNode node) {
         ne = node;
@@ -123,6 +150,9 @@ public class InternalNode implements QuadNode {
 
     /**
      * Set the sw child
+     * 
+     * @param node
+     *            The node to set
      */
     public void setSouthwest(QuadNode node) {
         sw = node;
@@ -131,6 +161,9 @@ public class InternalNode implements QuadNode {
 
     /**
      * Set the se child
+     * 
+     * @param node
+     *            The node to set
      */
     public void setSoutheast(QuadNode node) {
         se = node;

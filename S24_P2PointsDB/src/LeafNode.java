@@ -3,6 +3,10 @@ import java.util.LinkedList;
 /**
  * This class represent the leaf nodes for
  * the PRQuadTree.
+ * 
+ * @author Richard Martinez
+ * 
+ * @version 2024-03-15
  */
 public class LeafNode implements QuadNode {
 
@@ -25,6 +29,8 @@ public class LeafNode implements QuadNode {
 
     /**
      * Return true because this is a leaf node
+     * 
+     * @return true
      */
     public boolean isLeaf() {
         return true;
@@ -74,6 +80,7 @@ public class LeafNode implements QuadNode {
      * 
      * @param pt
      *            The Point to be removed.
+     * @return KVPair that was removed
      */
     public KVPair<String, Point> remove(Point pt) {
 
@@ -83,6 +90,9 @@ public class LeafNode implements QuadNode {
 
     /**
      * Checks if the given linked list is empty
+     * 
+     * @param list
+     *            The list to check
      * 
      * @return true if empty
      */
@@ -137,33 +147,12 @@ public class LeafNode implements QuadNode {
         }
 
         if (point1.size() == numPointsStored) { // All points in point1
-            Point D = it.getValue(); // This is D
-            Point A = point1.getFirst().getValue(); // This is A
-            return D.equals(A);
+            Point d = it.getValue(); // This is D
+            Point a = point1.getFirst().getValue(); // This is A
+            return d.equals(a);
         }
 
         return false;
-        // TODO: change this to correct decomposition rule
-//
-//// Point pt = it.getValue();
-//// if (listContainsPoint(point1, pt)) {
-//// return true;
-//// }
-//
-// boolean point1Can = canInsertList(point1, it);
-// boolean point2Can = canInsertList(point2, it);
-// boolean point3Can = canInsertList(point3, it);
-//
-//// // Here, should not be able to insert if more than three points
-//// // already stores
-//// int numPointsStored = point1.size() + point2.size() + point3.size();
-////
-//// // If numPointsStored > 3 AND point is not point1
-//// if (numPointsStored > 3) {
-//// return false;
-//// }
-//
-// return (point1Can || point2Can || point3Can);
     }
 
 
@@ -172,7 +161,7 @@ public class LeafNode implements QuadNode {
      * 
      * @param list
      *            The list to check against
-     * @param it
+     * @param pt
      *            The point to check
      * @return true if match
      */
@@ -192,7 +181,7 @@ public class LeafNode implements QuadNode {
     /**
      * Returns true if the overall node contains the point
      * 
-     * @param it
+     * @param pt
      *            The point to check
      * @return true if node contains Point
      */
@@ -212,7 +201,7 @@ public class LeafNode implements QuadNode {
      *            The list to check against
      * @param name
      *            THe name to check
-     * @return
+     * @return true if contained
      */
     public boolean listContainsName(
         LinkedList<KVPair<String, Point>> list,

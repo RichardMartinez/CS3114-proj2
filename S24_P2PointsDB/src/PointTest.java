@@ -97,30 +97,30 @@ public class PointTest extends TestCase {
      * Test direction methods
      */
     public void testDirections() {
-        Point A = new Point(256, 256);
-        Point B = new Point(256, 768);
-        Point C = new Point(768, 256);
-        Point D = new Point(768, 768);
+        Point a = new Point(256, 256);
+        Point b = new Point(256, 768);
+        Point c = new Point(768, 256);
+        Point d = new Point(768, 768);
 
         int x = 512;
         int y = 512;
 
-        assertTrue(A.isNorthOf(x, y));
-        assertTrue(A.isWestOf(x, y));
+        assertTrue(a.isNorthOf(x, y));
+        assertTrue(a.isWestOf(x, y));
 
-        assertFalse(B.isNorthOf(x, y));
-        assertTrue(B.isWestOf(x, y));
+        assertFalse(b.isNorthOf(x, y));
+        assertTrue(b.isWestOf(x, y));
 
-        assertTrue(C.isNorthOf(x, y));
-        assertFalse(C.isWestOf(x, y));
+        assertTrue(c.isNorthOf(x, y));
+        assertFalse(c.isWestOf(x, y));
 
-        assertFalse(D.isNorthOf(x, y));
-        assertFalse(D.isWestOf(x, y));
+        assertFalse(d.isNorthOf(x, y));
+        assertFalse(d.isWestOf(x, y));
 
-        assertEquals(A.getDirection(x, y), "nw");
-        assertEquals(B.getDirection(x, y), "sw");
-        assertEquals(C.getDirection(x, y), "ne");
-        assertEquals(D.getDirection(x, y), "se");
+        assertEquals(a.getDirection(x, y), "nw");
+        assertEquals(b.getDirection(x, y), "sw");
+        assertEquals(c.getDirection(x, y), "ne");
+        assertEquals(d.getDirection(x, y), "se");
     }
 
 
