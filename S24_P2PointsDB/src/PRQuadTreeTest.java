@@ -1276,30 +1276,94 @@ public class PRQuadTreeTest extends TestCase {
         assertTrue(pt.equals(pt2));
         
         System.out.println("AFTER MERGE W/ DUPLICATES");
+
+        systemOut().clearHistory();
         tree.dump();
+
+        String expected = "QuadTree dump:\n" +
+            "Node at 0, 0, 1024:\n" +
+            "(A, 256, 256)\n" +
+            "(B, 256, 256)\n" +
+            "(C, 256, 256)\n" +
+            "(D, 256, 256)\n" +
+            "1 quadtree nodes printed\n";
+
+        String actual = systemOut().getHistory();
+
+        assertFuzzyEquals(expected, actual);
     }
     
-    // TODO: Test internal node collapsing to leaf node
-    // Remember to check duplicate points!
-    // Are duplicate points covered by canInsert check in merge?
-    
-    
-    
+    /**
+     * Test merging only a subnode
+     */
+    public void testSubMerge() {
+        String name;
+        Point pt;
+        KVPair<String, Point> pair;
 
-// /**
-// * Test the dump method on an empty tree
-// */
-// public void testEmptyDump() {
-//// String name;
-//// Point pt;
-//// KVPair<String, Point> pair;
-////
-//// name = "A";
-//// pt = new Point(128, 128);
-//// pair = new KVPair<String, Point>(name, pt);
-//// tree.insert(pair);
-//
-// tree.dump();
-// }
+        name = "A";
+        pt = new Point(128, 128);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+
+        name = "B";
+        pt = new Point(384, 128);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+
+        name = "C";
+        pt = new Point(128, 384);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+
+        name = "D";
+        pt = new Point(384, 384);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+        
+        name = "E";
+        pt = new Point(768, 256);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+        
+        name = "F";
+        pt = new Point(256, 768);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+        
+        System.out.println("BEFORE SUB MERGE");
+        tree.dump();
+        
+        // Remove D
+        pt = new Point(384, 384);
+        pair = tree.remove(pt);
+        assertNotNull(pair);
+        Point pt2 = pair.getValue();
+        assertTrue(pt.equals(pt2));
+        
+        System.out.println("AFTER SUB MERGE");
+
+        systemOut().clearHistory();
+        tree.dump();
+
+        String expected = "QuadTree dump:\n" +
+            "Node at 0, 0, 1024: Internal\n" +
+            "Node at 0, 0, 512:\n" +
+            "(A, 128, 128)\n" +
+            "(B, 384, 128)\n" +
+            "(C, 128, 384)\n" +
+            "Node at 512, 0, 512:\n" +
+            "(E, 768, 256)\n" +
+            "Node at 0, 512, 512:\n" +
+            "(F, 256, 768)\n" +
+            "Node at 512, 512, 512: Empty\n" +
+            "5 quadtree nodes printed\n";
+
+        String actual = systemOut().getHistory();
+
+        assertFuzzyEquals(expected, actual);
+    }
+    
+    
 
 }

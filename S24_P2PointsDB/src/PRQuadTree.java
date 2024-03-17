@@ -134,7 +134,7 @@ public class PRQuadTree {
                     sw = inserthelp(pair, sw, x, y, s);
                     internalNode.setSouthwest(sw);
                 }
-                else if (direction.equals("se")) {
+                else {  // direction.equals("se")
                     QuadNode se = internalNode.southeast();
                     se = inserthelp(pair, se, x, y, s);
                     internalNode.setSoutheast(se);
@@ -169,13 +169,12 @@ public class PRQuadTree {
                 sw = inserthelp(it, sw, x - s / 4, y + s / 4, s / 2);
                 internalNode.setSouthwest(sw);
             }
-            else if (direction.equals("se")) {
+            else {  // direction.equals("se")
                 QuadNode se = internalNode.southeast();
                 se = inserthelp(it, se, x + s / 4, y + s / 4, s / 2);
                 internalNode.setSoutheast(se);
             }
 
-            // TODO: Does this stay here?
             node = internalNode;
         }
 
@@ -290,14 +289,10 @@ public class PRQuadTree {
             pair = removehelp(childNodeArray, pt, x - s / 4, y + s / 4, s / 2);
             internalNode.setSouthwest(childNodeArray[0]);
         }
-        else if (direction.equals("se")) {
+        else {  // direction.equals("se")
             childNodeArray[0] = se;
             pair = removehelp(childNodeArray, pt, x + s / 4, y + s / 4, s / 2);
             internalNode.setSoutheast(childNodeArray[0]);
-        }
-        else {
-            // This will never run
-            pair = null;
         }
         
         // Here check if we need to merge by attempting to add all points
