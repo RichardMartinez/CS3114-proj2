@@ -1016,6 +1016,58 @@ public class PRQuadTreeTest extends TestCase {
 
     }
     
+    /**
+     * Test the merge logic with a single merge
+     */
+    public void testSingleMerge() {
+        String name;
+        Point pt;
+        KVPair<String, Point> pair;
+
+        name = "A";
+        pt = new Point(256, 256);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+
+        name = "B";
+        pt = new Point(768, 256);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+
+        name = "C";
+        pt = new Point(256, 768);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+
+        name = "D";
+        pt = new Point(768, 768);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+        
+        System.out.println("BEFORE MERGE");
+        tree.dump();
+        
+        // Remove D
+        pt = new Point(768, 768);
+        tree.remove(pt);
+        
+        System.out.println("AFTER MERGE");
+        
+        systemOut().clearHistory();
+        tree.dump();
+
+        String expected = "QuadTree dump:\n" +
+            "Node at 0, 0, 1024:\n" +
+            "(A, 256, 256)\n" +
+            "(B, 768, 256)\n" +
+            "(C, 256, 768)\n" +
+            "1 quadtree nodes printed\n";
+
+        String actual = systemOut().getHistory();
+
+        assertFuzzyEquals(expected, actual);
+    }
+    
     // TODO: Test leaf node collapsing to flyweight
     
     // TODO: Test internal node collapsing to leaf node
