@@ -1,0 +1,46 @@
+insert A 64 64
+insert B 192 64
+insert C 64 192
+insert D 192 192
+insert E 64 832
+insert F 192 832
+insert G 64 960
+insert H 192 960
+insert I 832 64
+insert J 960 64
+insert K 832 192
+insert L 960 192
+insert M 832 832
+insert N 960 832
+insert O 832 960
+insert P 960 960
+
+dump
+
+search A
+search M
+search P
+search G
+search Z
+
+insert test -1 1
+insert test2 1 -1
+insert test3 1024 1
+insert test4 1 1024
+
+remove B
+remove O
+
+remove 960 960
+remove 832 64
+
+dump
+
+regionsearch 0 0 512 512
+
+insert A2 64 64
+insert E2 64 832
+insert F2 192 832
+insert G2 64 960
+
+duplicates

@@ -1,0 +1,159 @@
+Point inserted: (A, 64, 64)
+Point inserted: (B, 192, 64)
+Point inserted: (C, 64, 192)
+Point inserted: (D, 192, 192)
+Point inserted: (E, 64, 832)
+Point inserted: (F, 192, 832)
+Point inserted: (G, 64, 960)
+Point inserted: (H, 192, 960)
+Point inserted: (I, 832, 64)
+Point inserted: (J, 960, 64)
+Point inserted: (K, 832, 192)
+Point inserted: (L, 960, 192)
+Point inserted: (M, 832, 832)
+Point inserted: (N, 960, 832)
+Point inserted: (O, 832, 960)
+Point inserted: (P, 960, 960)
+SkipList dump:
+Node with depth 1, Value null
+Node with depth 1, Value (A, 64, 64)
+Node with depth 1, Value (B, 192, 64)
+Node with depth 1, Value (C, 64, 192)
+Node with depth 1, Value (D, 192, 192)
+Node with depth 1, Value (E, 64, 832)
+Node with depth 1, Value (F, 192, 832)
+Node with depth 1, Value (G, 64, 960)
+Node with depth 1, Value (H, 192, 960)
+Node with depth 1, Value (I, 832, 64)
+Node with depth 1, Value (J, 960, 64)
+Node with depth 1, Value (K, 832, 192)
+Node with depth 1, Value (L, 960, 192)
+Node with depth 1, Value (M, 832, 832)
+Node with depth 1, Value (N, 960, 832)
+Node with depth 1, Value (O, 832, 960)
+Node with depth 1, Value (P, 960, 960)
+SkipList size is: 16
+QuadTree dump:
+Node at 0, 0, 1024: Internal
+  Node at 0, 0, 512: Internal
+    Node at 0, 0, 256: Internal
+      Node at 0, 0, 128:
+      (A, 64, 64)
+      Node at 128, 0, 128:
+      (B, 192, 64)
+      Node at 0, 128, 128:
+      (C, 64, 192)
+      Node at 128, 128, 128:
+      (D, 192, 192)
+    Node at 256, 0, 256: Empty
+    Node at 0, 256, 256: Empty
+    Node at 256, 256, 256: Empty
+  Node at 512, 0, 512: Internal
+    Node at 512, 0, 256: Empty
+    Node at 768, 0, 256: Internal
+      Node at 768, 0, 128:
+      (I, 832, 64)
+      Node at 896, 0, 128:
+      (J, 960, 64)
+      Node at 768, 128, 128:
+      (K, 832, 192)
+      Node at 896, 128, 128:
+      (L, 960, 192)
+    Node at 512, 256, 256: Empty
+    Node at 768, 256, 256: Empty
+  Node at 0, 512, 512: Internal
+    Node at 0, 512, 256: Empty
+    Node at 256, 512, 256: Empty
+    Node at 0, 768, 256: Internal
+      Node at 0, 768, 128:
+      (E, 64, 832)
+      Node at 128, 768, 128:
+      (F, 192, 832)
+      Node at 0, 896, 128:
+      (G, 64, 960)
+      Node at 128, 896, 128:
+      (H, 192, 960)
+    Node at 256, 768, 256: Empty
+  Node at 512, 512, 512: Internal
+    Node at 512, 512, 256: Empty
+    Node at 768, 512, 256: Empty
+    Node at 512, 768, 256: Empty
+    Node at 768, 768, 256: Internal
+      Node at 768, 768, 128:
+      (M, 832, 832)
+      Node at 896, 768, 128:
+      (N, 960, 832)
+      Node at 768, 896, 128:
+      (O, 832, 960)
+      Node at 896, 896, 128:
+      (P, 960, 960)
+37 quadtree nodes printed
+Found (A, 64, 64)
+Found (M, 832, 832)
+Found (P, 960, 960)
+Found (G, 64, 960)
+Point not found: Z
+Point rejected: (test, -1, 1)
+Point rejected: (test2, 1, -1)
+Point rejected: (test3, 1024, 1)
+Point rejected: (test4, 1, 1024)
+Point removed: (B, 192, 64)
+Point removed: (O, 832, 960)
+Point removed: (P, 960, 960)
+Point removed: (I, 832, 64)
+SkipList dump:
+Node with depth 1, Value null
+Node with depth 1, Value (A, 64, 64)
+Node with depth 1, Value (C, 64, 192)
+Node with depth 1, Value (D, 192, 192)
+Node with depth 1, Value (E, 64, 832)
+Node with depth 1, Value (F, 192, 832)
+Node with depth 1, Value (G, 64, 960)
+Node with depth 1, Value (H, 192, 960)
+Node with depth 1, Value (J, 960, 64)
+Node with depth 1, Value (K, 832, 192)
+Node with depth 1, Value (L, 960, 192)
+Node with depth 1, Value (M, 832, 832)
+Node with depth 1, Value (N, 960, 832)
+SkipList size is: 12
+QuadTree dump:
+Node at 0, 0, 1024: Internal
+  Node at 0, 0, 512:
+  (A, 64, 64)
+  (C, 64, 192)
+  (D, 192, 192)
+  Node at 512, 0, 512:
+  (J, 960, 64)
+  (K, 832, 192)
+  (L, 960, 192)
+  Node at 0, 512, 512: Internal
+    Node at 0, 512, 256: Empty
+    Node at 256, 512, 256: Empty
+    Node at 0, 768, 256: Internal
+      Node at 0, 768, 128:
+      (E, 64, 832)
+      Node at 128, 768, 128:
+      (F, 192, 832)
+      Node at 0, 896, 128:
+      (G, 64, 960)
+      Node at 128, 896, 128:
+      (H, 192, 960)
+    Node at 256, 768, 256: Empty
+  Node at 512, 512, 512:
+  (M, 832, 832)
+  (N, 960, 832)
+13 quadtree nodes printed
+Points intersecting region (0, 0, 512, 512)
+Point found: (A, 64, 64)
+Point found: (C, 64, 192)
+Point found: (D, 192, 192)
+2 quadtree nodes visited
+Point inserted: (A2, 64, 64)
+Point inserted: (E2, 64, 832)
+Point inserted: (F2, 192, 832)
+Point inserted: (G2, 64, 960)
+Duplicate points:
+(64, 64)
+(64, 832)
+(192, 832)
+(64, 960)
