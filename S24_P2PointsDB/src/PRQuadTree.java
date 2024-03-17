@@ -248,16 +248,14 @@ public class PRQuadTree {
                 pair = null;
             }
 
-            // TODO: How to handle collapsing back down??
-            // TODO: This should become flyweight if empty after remove
+            // If node is now empty, become flyweight
             if (leaf.numPoints() == 0) {
                 // Needs to become flyweight
                 nodeArray[0] = flyweight;
                 return pair;
             }
 
-            // TODO: Make this nodeArray[0]?
-            node = leaf;
+            nodeArray[0] = leaf;
             return pair;
         }
 
@@ -302,23 +300,10 @@ public class PRQuadTree {
             pair = null;
         }
         
-        // TODO: Here check if we need to merge by checking each of the children
-        // We need to merge if all children combined have 3 or less points
-        // It is impossible for multiple children to share the same coordinates, so
-        // we can safely ignore that requirement
-        
-        // Need num children method
-        // Leaf nodes -> size of getPoints()
-        // Internal Nodes -> recursively sum children
-        
-        //TODO: This won't work if there are too many duplicate points
-        // The num points might be more than 3 but we still need to merge
-//        int numPoints = internalNode.numPoints();
-//        if (numPoints > 3) {
-//            // No need to merge
-//            node = internalNode;
-//            return pair;
-//        }
+        // TODO: Here check if we need to merge by attempting to add all points
+        // from each of the children to a single leaf node. If all point inserts
+        // succeed, then merging was possible. Replace the current node with
+        // the newly created leaf node
         
         // Check if all four children are leaf nodes
         if (internalNode.allLeafChildren()) {
@@ -328,6 +313,23 @@ public class PRQuadTree {
             // Try creating a single leaf node with all the points in it
             // If we canInsert all the points to a single leaf, then we
             // must merge
+            
+            LeafNode nwLeaf = (LeafNode)nw;
+            LeafNode neLeaf = (LeafNode)ne;
+            LeafNode swLeaf = (LeafNode)sw;
+            LeafNode seLeaf = (LeafNode)se;
+            
+            LeafNode leaf = merge(nwLeaf, neLeaf, swLeaf, seLeaf);
+            if (leaf == null) {
+                // No merge necessary
+                return pair;
+            }
+            
+            // The merge was successful
+            // Replace this node with leaf
+            nodeArray[0] = leaf;
+            return pair;
+            
         }
         
         // We do not need to merge here
@@ -704,6 +706,62 @@ public class PRQuadTree {
         }
 
         return !(currBottom <= regionTop);
+    }
+    
+    /**
+     * Returns the merged leaf node if possible
+     * @param leaf1
+     *      Leaf Node
+     * @param leaf2
+     *      Leaf Node
+     * @param leaf3
+     *      Leaf Node
+     * @param leaf4
+     *      Leaf Node
+     * @return merged leaf node
+     */
+    public LeafNode merge(LeafNode leaf1, LeafNode leaf2, LeafNode leaf3, LeafNode leaf4) {
+        LeafNode testLeaf = new LeafNode();
+        
+        // Try adding all to this node, it at any point we cannot insert
+        // return null
+        for (KVPair<String, Point> item : leaf1.getPoints()) {
+            if (testLeaf.canInsert(item)) {
+                testLeaf.insert(item);
+            }
+            else {
+                return null;
+            }
+        }
+        
+        for (KVPair<String, Point> item : leaf2.getPoints()) {
+            if (testLeaf.canInsert(item)) {
+                testLeaf.insert(item);
+            }
+            else {
+                return null;
+            }
+        }
+        
+        for (KVPair<String, Point> item : leaf3.getPoints()) {
+            if (testLeaf.canInsert(item)) {
+                testLeaf.insert(item);
+            }
+            else {
+                return null;
+            }
+        }
+        
+        for (KVPair<String, Point> item : leaf4.getPoints()) {
+            if (testLeaf.canInsert(item)) {
+                testLeaf.insert(item);
+            }
+            else {
+                return null;
+            }
+        }
+        
+        return testLeaf;
     }
 
 }
