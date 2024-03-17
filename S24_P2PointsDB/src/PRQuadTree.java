@@ -721,12 +721,17 @@ public class PRQuadTree {
         // Try adding all to this node, it at any point we cannot insert
         // return null
         for (KVPair<String, Point> item : leaf1.getPoints()) {
-            if (testLeaf.canInsert(item)) {
+            if (testLeaf.canInsert(item)) {  // This will always be true, but be safe here
                 testLeaf.insert(item);
             }
-            else {
-                return null;
-            }
+//            else {  
+//                // Will this ever run?
+//                // No, because that would mean either:
+//                // point1 stores different coordinates (impossible)
+//                // point1 is empty (no contribution anyway) (flyweight)
+//                // the points in point1 were invalid (impossible)
+//                return null;
+//            }
         }
         
         for (KVPair<String, Point> item : leaf2.getPoints()) {
@@ -757,6 +762,14 @@ public class PRQuadTree {
         }
         
         return testLeaf;
+    }
+    
+    /**
+     * Returns the number of points stored in the tree
+     * @return the number of points
+     */
+    public int size() {
+        return root.numPoints();
     }
 
 }

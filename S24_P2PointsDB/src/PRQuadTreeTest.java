@@ -845,10 +845,6 @@ public class PRQuadTreeTest extends TestCase {
      * Test simple region search
      */
     public void testSimpleRegionSearch() {
-        // TODO: write a simple test with at least one flyweight in the tree
-        // Try to get code coverage in recursive method for isFlyweight(node)
-        // return;
-
         // Insert all the points
         String name;
         Point pt;
@@ -917,6 +913,8 @@ public class PRQuadTreeTest extends TestCase {
 
         System.out.println("BEFORE");
         tree.dump();
+        
+        assertEquals(tree.size(), 3);
 
         // Remove C
         pt = new Point(768, 768);
@@ -924,6 +922,8 @@ public class PRQuadTreeTest extends TestCase {
         assertNotNull(pair);
         Point pt2 = pair.getValue();
         assertTrue(pt.equals(pt2));
+        
+        assertEquals(tree.size(), 2);
 
         // Print
         System.out.println("AFTER");
@@ -981,6 +981,8 @@ public class PRQuadTreeTest extends TestCase {
 
         System.out.println("BEFORE");
         tree.dump();
+        
+        assertEquals(tree.size(), 6);
 
         // Remove B
         pt = new Point(384, 128);
@@ -995,6 +997,8 @@ public class PRQuadTreeTest extends TestCase {
         assertNotNull(pair);
         pt2 = pair.getValue();
         assertTrue(pt.equals(pt2));
+        
+        assertEquals(tree.size(), 4);
 
         // Print
         System.out.println("AFTER");
@@ -1046,12 +1050,16 @@ public class PRQuadTreeTest extends TestCase {
         System.out.println("BEFORE MERGE");
         tree.dump();
         
+        assertEquals(tree.size(), 4);
+        
         // Remove D
         pt = new Point(768, 768);
         pair = tree.remove(pt);
         assertNotNull(pair);
         Point pt2 = pair.getValue();
         assertTrue(pt.equals(pt2));
+        
+        assertEquals(tree.size(), 3);
         
         System.out.println("AFTER MERGE");
         
@@ -1104,9 +1112,13 @@ public class PRQuadTreeTest extends TestCase {
         tree.dump();
         String before = systemOut().getHistory();
         
+        assertEquals(tree.size(), 4);
+        
         pt = new Point(10, 10);
         pair = tree.remove(pt);
         assertNull(pair);
+        
+        assertEquals(tree.size(), 4);
         
         System.out.println("AFTER INVALID");
         
@@ -1147,6 +1159,8 @@ public class PRQuadTreeTest extends TestCase {
         
         System.out.println("BEFORE DOUBLE MERGE");
         tree.dump();
+        
+        assertEquals(tree.size(), 4);
          
         // Remove D
         pt = new Point(896, 384);
@@ -1154,6 +1168,8 @@ public class PRQuadTreeTest extends TestCase {
         assertNotNull(pair);
         Point pt2 = pair.getValue();
         assertTrue(pt.equals(pt2));
+        
+        assertEquals(tree.size(), 3);
         
         System.out.println("AFTER DOUBLE MERGE");
         
@@ -1203,6 +1219,8 @@ public class PRQuadTreeTest extends TestCase {
         System.out.println("BEFORE DOUBLE MERGE 2");
         tree.dump();
         
+        assertEquals(tree.size(), 4);
+        
         // Test Remove Flyweight
         pt = new Point(768, 256);
         pair = tree.remove(pt);
@@ -1214,6 +1232,8 @@ public class PRQuadTreeTest extends TestCase {
         assertNotNull(pair);
         Point pt2 = pair.getValue();
         assertTrue(pt.equals(pt2));
+        
+        assertEquals(tree.size(), 3);
         
         System.out.println("AFTER DOUBLE MERGE 2");
         
@@ -1268,12 +1288,16 @@ public class PRQuadTreeTest extends TestCase {
         System.out.println("BEFORE MERGE W/ DUPLICATES");
         tree.dump();
         
+        assertEquals(tree.size(), 5);
+        
         // Remove E
         pt = new Point(768, 768);
         pair = tree.remove(pt);
         assertNotNull(pair);
         Point pt2 = pair.getValue();
         assertTrue(pt.equals(pt2));
+        
+        assertEquals(tree.size(), 4);
         
         System.out.println("AFTER MERGE W/ DUPLICATES");
 
@@ -1334,12 +1358,16 @@ public class PRQuadTreeTest extends TestCase {
         System.out.println("BEFORE SUB MERGE");
         tree.dump();
         
+        assertEquals(tree.size(), 6);
+        
         // Remove D
         pt = new Point(384, 384);
         pair = tree.remove(pt);
         assertNotNull(pair);
         Point pt2 = pair.getValue();
         assertTrue(pt.equals(pt2));
+        
+        assertEquals(tree.size(), 5);
         
         System.out.println("AFTER SUB MERGE");
 
@@ -1358,6 +1386,102 @@ public class PRQuadTreeTest extends TestCase {
             "(F, 256, 768)\n" +
             "Node at 512, 512, 512: Empty\n" +
             "5 quadtree nodes printed\n";
+
+        String actual = systemOut().getHistory();
+
+        assertFuzzyEquals(expected, actual);
+    }
+    
+    /**
+     * Test removing all the points
+     */
+    public void testRemoveAll() {
+        String name;
+        Point pt;
+        KVPair<String, Point> pair;
+        
+        name = "A";
+        pt = new Point(128, 128);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+
+        name = "B";
+        pt = new Point(384, 128);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+
+        name = "C";
+        pt = new Point(128, 384);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+
+        name = "D";
+        pt = new Point(384, 384);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+        
+        name = "E";
+        pt = new Point(768, 256);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+        
+        name = "F";
+        pt = new Point(256, 768);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+        
+        // Remove all the points
+        // A
+        pt = new Point(128, 128);
+        pair = tree.remove(pt);
+        assertNotNull(pair);
+        Point pt2 = pair.getValue();
+        assertTrue(pt.equals(pt2));
+        
+        // B
+        pt = new Point(384, 128);
+        pair = tree.remove(pt);
+        assertNotNull(pair);
+        pt2 = pair.getValue();
+        assertTrue(pt.equals(pt2));
+        
+        // C
+        pt = new Point(128, 384);
+        pair = tree.remove(pt);
+        assertNotNull(pair);
+        pt2 = pair.getValue();
+        assertTrue(pt.equals(pt2));
+        
+        // D
+        pt = new Point(384, 384);
+        pair = tree.remove(pt);
+        assertNotNull(pair);
+        pt2 = pair.getValue();
+        assertTrue(pt.equals(pt2));
+        
+        // E
+        pt = new Point(768, 256);
+        pair = tree.remove(pt);
+        assertNotNull(pair);
+        pt2 = pair.getValue();
+        assertTrue(pt.equals(pt2));
+        
+        // F
+        pt = new Point(256, 768);
+        pair = tree.remove(pt);
+        assertNotNull(pair);
+        pt2 = pair.getValue();
+        assertTrue(pt.equals(pt2));
+        
+        assertEquals(tree.size(), 0);
+        
+        System.out.println("AFTER REMOVE ALL");
+        systemOut().clearHistory();
+        tree.dump();
+
+        String expected = "QuadTree dump:\n" +
+            "Node at 0, 0, 1024: Empty\n" +
+            "1 quadtree nodes printed\n";
 
         String actual = systemOut().getHistory();
 
