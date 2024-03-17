@@ -87,11 +87,20 @@ public class Database {
         KVPair<String, Point> pair = list.remove(name);
         if (pair == null) {
             // Not found
+            String out = String.format("Point not removed: %s", name);
+            System.out.println(out);
             return;
         }
 
         Point pt = pair.getValue();
         tree.remove(pt);
+
+        // Print to console
+        // Point removed: ()
+        String name1 = pair.getKey();
+        Point pt2 = pair.getValue();
+        String out = String.format("Point removed: (%s, %s)", name1, pt2);
+        System.out.println(out);
     }
 
 
