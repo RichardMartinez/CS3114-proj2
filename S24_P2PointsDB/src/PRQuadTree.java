@@ -300,7 +300,7 @@ public class PRQuadTree {
             pair = null;
         }
         
-        // TODO: Here check if we need to merge by attempting to add all points
+        // Here check if we need to merge by attempting to add all points
         // from each of the children to a single leaf node. If all point inserts
         // succeed, then merging was possible. Replace the current node with
         // the newly created leaf node
@@ -313,11 +313,11 @@ public class PRQuadTree {
             // Try creating a single leaf node with all the points in it
             // If we canInsert all the points to a single leaf, then we
             // must merge
-            
-            LeafNode nwLeaf = (LeafNode)nw;
-            LeafNode neLeaf = (LeafNode)ne;
-            LeafNode swLeaf = (LeafNode)sw;
-            LeafNode seLeaf = (LeafNode)se;
+
+            LeafNode nwLeaf = (LeafNode)internalNode.northwest();
+            LeafNode neLeaf = (LeafNode)internalNode.northeast();
+            LeafNode swLeaf = (LeafNode)internalNode.southwest();
+            LeafNode seLeaf = (LeafNode)internalNode.southeast();
             
             LeafNode leaf = merge(nwLeaf, neLeaf, swLeaf, seLeaf);
             if (leaf == null) {
