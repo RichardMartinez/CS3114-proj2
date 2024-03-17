@@ -92,6 +92,25 @@ public class InternalNode implements QuadNode {
     public int numPoints() {
         return nw.numPoints() + ne.numPoints() + sw.numPoints() + se.numPoints();
     }
+    
+    /**
+     * Returns true if all children are leaf nodes
+     * @return true if all leaf children
+     */
+    public boolean allLeafChildren() {
+        // Nest for mutation testing
+        if (nw.isLeaf()) {
+            if (ne.isLeaf()) {
+                if (sw.isLeaf()) {
+                    if (se.isLeaf()) {
+                        return true;
+                    }
+                }
+            }
+        }
+        
+        return false;
+    }
 
 
     /**

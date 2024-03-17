@@ -240,11 +240,11 @@ public class PRQuadTree {
 
             // TODO: How to handle collapsing back down??
             // TODO: This should become flyweight if empty after remove
-//            if (leaf.numPoints() == 0) {
-//                // Needs to become flyweight
-//                node = flyweight;
-//                return pair;
-//            }
+            if (leaf.numPoints() == 0) {
+                // Needs to become flyweight
+                node = flyweight;
+                return pair;
+            }
 
             node = leaf;
             return pair;
@@ -303,7 +303,17 @@ public class PRQuadTree {
 //            return pair;
 //        }
         
-        // We need to merge here!!
+        // Check if all four children are leaf nodes
+        if (internalNode.allLeafChildren()) {
+            // We might need to merge here
+            
+            // Get all points from all children into a single list
+            // Try creating a single leaf node with all the points in it
+            // If we canInsert all the points to a single leaf, then we
+            // must merge
+        }
+        
+        // We do not need to merge here
 
         return pair;
     }
