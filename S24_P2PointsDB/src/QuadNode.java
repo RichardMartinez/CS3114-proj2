@@ -46,10 +46,12 @@ public interface QuadNode {
      * @return true if leaf
      */
     public boolean isLeaf();
-    
+
+
     /**
      * Returns the number of points in this node recursively
-     * @return the number of points in tihs node
+     * 
+     * @return the number of points in this node
      */
     public int numPoints();
 

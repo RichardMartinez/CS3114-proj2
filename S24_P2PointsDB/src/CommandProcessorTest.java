@@ -300,13 +300,38 @@ public class CommandProcessorTest extends TestCase {
         String actual = systemOut().getHistory();
 
         assertFuzzyEquals(expected, actual);
+        
+        systemOut().clearHistory();
+        cmdProc.processor("remove -1 1");
+        expected = "Point rejected: (-1, 1)\n";
+
+        actual = systemOut().getHistory();
+
+        assertFuzzyEquals(expected, actual);
+        
+        systemOut().clearHistory();
+        cmdProc.processor("remove 1 -1");
+        expected = "Point rejected: (1, -1)\n";
+
+        actual = systemOut().getHistory();
+
+        assertFuzzyEquals(expected, actual);
+        
+        systemOut().clearHistory();
+        cmdProc.processor("remove -1 -1");
+        expected = "Point rejected: (-1, -1)\n";
+
+        actual = systemOut().getHistory();
+
+        assertFuzzyEquals(expected, actual);
     }
-    
+
+
     /**
      * Test removing by name
      */
     public void testRemoveByName() {
-     // Set SkipList Levels to all 1's
+        // Set SkipList Levels to all 1's
         TestableRandom.setNextBooleans(false, false, false, false, false,
             false);
 

@@ -51,6 +51,8 @@ public class LeafNode implements QuadNode {
         // Helper method should check if node is full
         // before calling this
 
+        // This will always be true in practice,
+        // but let's be safe
         if (!canInsert(it)) {
             return;
         }
@@ -62,7 +64,7 @@ public class LeafNode implements QuadNode {
         else if (canInsertList(point2, it)) {
             point2.add(it);
         }
-        else if (canInsertList(point3, it)) {
+        else {  // canInsertList(point3, it)
             point3.add(it);
         }
         // Nothing happens here, node should have split
@@ -322,28 +324,28 @@ public class LeafNode implements QuadNode {
             points.add(pair);
         }
 
-//        if (point2.size() > 1) {
-//            // There is a duplicate!
-//            KVPair<String, Point> pair = point2.getFirst();
-//            points.add(pair);
-//        }
+// if (point2.size() > 1) {
+// // There is a duplicate!
+// KVPair<String, Point> pair = point2.getFirst();
+// points.add(pair);
+// }
 //
-//        if (point3.size() > 1) {
-//            // There is a duplicate!
-//            KVPair<String, Point> pair = point3.getFirst();
-//            points.add(pair);
-//        }
+// if (point3.size() > 1) {
+// // There is a duplicate!
+// KVPair<String, Point> pair = point3.getFirst();
+// points.add(pair);
+// }
 
         return points;
     }
-    
+
+
     /**
      * Returns the number of points in this node
      */
     public int numPoints() {
         return this.getPoints().size();
     }
-    
 
 // /**
 // * Returns the LeafNode in a readable String format
