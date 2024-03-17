@@ -351,5 +351,128 @@ public class LeafNodeTest extends TestCase {
 
         assertEquals(node.getPoints().size(), 0);
     }
+    
+    /**
+     * Test shifting during remove
+     */
+    public void testRemoveShifting2() {
+        String name;
+        Point pt;
+        KVPair<String, Point> pair;
+
+        name = "a";
+        pt = new Point(1, 2);
+        pair = new KVPair<String, Point>(name, pt);
+        node.insert(pair);
+
+        name = "b";
+        pt = new Point(1, 2);
+        pair = new KVPair<String, Point>(name, pt);
+        node.insert(pair);
+
+        name = "c";
+        pt = new Point(5, 6);
+        pair = new KVPair<String, Point>(name, pt);
+        node.insert(pair);
+
+        // Try to remove a non-existent point
+        pt = new Point(10, 10);
+        pair = node.remove(pt);
+        assertNull(pair);
+
+        // Remove each of the three nodes in best order
+        assertEquals(node.getPoints().size(), 3);
+
+        // Remove a
+        pt = new Point(1, 2);
+        pair = node.remove(pt);
+        assertNotNull(pair);
+        Point pt2 = pair.getValue();
+        assertTrue(pt.equals(pt2));
+        
+        assertEquals(node.getPoints().size(), 2);
+    }
+    
+    /**
+     * Test shifting during remove
+     */
+    public void testRemoveShifting3() {
+        String name;
+        Point pt;
+        KVPair<String, Point> pair;
+
+        name = "a";
+        pt = new Point(1, 2);
+        pair = new KVPair<String, Point>(name, pt);
+        node.insert(pair);
+
+        name = "b";
+        pt = new Point(5, 6);
+        pair = new KVPair<String, Point>(name, pt);
+        node.insert(pair);
+
+        name = "c";
+        pt = new Point(5, 6);
+        pair = new KVPair<String, Point>(name, pt);
+        node.insert(pair);
+
+        // Try to remove a non-existent point
+        pt = new Point(10, 10);
+        pair = node.remove(pt);
+        assertNull(pair);
+
+        // Remove each of the three nodes in best order
+        assertEquals(node.getPoints().size(), 3);
+
+        // Remove b
+        pt = new Point(5, 6);
+        pair = node.remove(pt);
+        assertNotNull(pair);
+        Point pt2 = pair.getValue();
+        assertTrue(pt.equals(pt2));
+        
+        assertEquals(node.getPoints().size(), 2);
+    }
+    
+    /**
+     * Test shifting during remove
+     */
+    public void testRemoveShifting4() {
+        String name;
+        Point pt;
+        KVPair<String, Point> pair;
+
+        name = "a";
+        pt = new Point(1, 2);
+        pair = new KVPair<String, Point>(name, pt);
+        node.insert(pair);
+
+        name = "b";
+        pt = new Point(3, 4);
+        pair = new KVPair<String, Point>(name, pt);
+        node.insert(pair);
+
+        name = "c";
+        pt = new Point(5, 6);
+        pair = new KVPair<String, Point>(name, pt);
+        node.insert(pair);
+
+        // Try to remove a non-existent point
+        pt = new Point(10, 10);
+        pair = node.remove(pt);
+        assertNull(pair);
+
+        // Remove each of the three nodes in best order
+        assertEquals(node.getPoints().size(), 3);
+
+        // Remove b
+        pt = new Point(3, 4);
+        pair = node.remove(pt);
+        assertNotNull(pair);
+        Point pt2 = pair.getValue();
+        assertTrue(pt.equals(pt2));
+        
+        assertEquals(node.getPoints().size(), 2);
+    }
 
 }
