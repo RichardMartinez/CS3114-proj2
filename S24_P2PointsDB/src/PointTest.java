@@ -25,8 +25,8 @@ public class PointTest extends TestCase {
      * Test the getX and getY methods
      */
     public void testGetXY() {
-        assertTrue(pt1.getX() == 10);
-        assertTrue(pt1.getY() == 5);
+        assertEquals(pt1.getX(), 10);
+        assertEquals(pt1.getY(), 5);
 
         assertTrue(pt2.getX() == 5);
         assertTrue(pt2.getY() == 10);

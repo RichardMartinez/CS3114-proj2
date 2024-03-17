@@ -114,12 +114,4 @@ public class PointsDatabaseTest extends TestCase {
         assertTrue(actualOutput.contains("Invalid file"));
     }
 
-
-    /**
-     * This is a placeholder
-     */
-    public void test() {
-
-    }
-
 }
