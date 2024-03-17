@@ -12,19 +12,19 @@ import java.util.LinkedList;
  * @version 2024-03-13
  */
 public class PRQuadTree {
-    
+
     // The flyweight node
     private QuadNode flyweight;
-    
+
     // Root node
     private QuadNode root;
-    
+
     // Keep track for dump method
     private int numNodesPrinted = 0;
-    
+
     // Keep track for regionsearch method
     private int numNodesVisited = 0;
-    
+
     // TODO: Create recursive helper methods
     // Then call them on root for overall method
 
@@ -48,22 +48,28 @@ public class PRQuadTree {
         // Call the recursive helper function
         root = inserthelp(it, root, 512, 512, 1024);
     }
-    
+
+
     /**
      * Recursive helper function for insert
      * 
      * @param it
-     *      KVPair to be inserted
+     *            KVPair to be inserted
      * @param node
-     *      Node to insert to
+     *            Node to insert to
      * @param x
-     *      X coordinate of center of current region
+     *            X coordinate of center of current region
      * @param y
-     *      Y coordinate of center of current region
+     *            Y coordinate of center of current region
      * @param s
-     *      Side length of the current region
+     *            Side length of the current region
      */
-    public QuadNode inserthelp(KVPair<String, Point> it, QuadNode node, int x, int y, int s) {
+    public QuadNode inserthelp(
+        KVPair<String, Point> it,
+        QuadNode node,
+        int x,
+        int y,
+        int s) {
         // Base case for flyweight node
         if (isFlyweight(node)) {
             LeafNode leaf = new LeafNode();
@@ -71,38 +77,42 @@ public class PRQuadTree {
             node = leaf;
             return node;
         }
-        
+
         if (node.canInsert(it)) {
             // Must be a leaf node with space available
             node.insert(it);
             return node;
         }
-        
+
         // Is either an internal node or a leaf node that is full
-        
-        // Internal node -> traverse to correct child, call inserthelp(it, child)
-        // Full leaf node -> create new internal node and split into four new leaf nodes
-        //      Add all points from old leaf into correct children
-        //      Delete old leaf node and rearrange pointers
-        
+
+        // Internal node -> traverse to correct child, call inserthelp(it,
+        // child)
+        // Full leaf node -> create new internal node and split into four new
+        // leaf nodes
+        // Add all points from old leaf into correct children
+        // Delete old leaf node and rearrange pointers
+
         if (node.isLeaf()) {
             // It must be a full leaf node
             // We have to split!
             // Create new internal node to replace this one
             // Redistribute all current points to next flyweights
             // Change pointer to point to new internal node
-            
-            LeafNode leaf = (LeafNode) node;
-            
-            InternalNode internalNode = new InternalNode(flyweight, flyweight, flyweight, flyweight);
-            
-            // Iterate through points in this node and add them to the corresponding next one
+
+            LeafNode leaf = (LeafNode)node;
+
+            InternalNode internalNode = new InternalNode(flyweight, flyweight,
+                flyweight, flyweight);
+
+            // Iterate through points in this node and add them to the
+            // corresponding next one
             LinkedList<KVPair<String, Point>> points = leaf.getPoints();
             for (KVPair<String, Point> pair : points) {
                 Point pt = pair.getValue();
-                
+
                 String direction = pt.getDirection(x, y);
-                // These are all flyweights at this point, 
+                // These are all flyweights at this point,
                 // so x, y, s are ignored.
                 // Remove calculations for better mutation testing
                 if (direction.equals("nw")) {
@@ -129,45 +139,45 @@ public class PRQuadTree {
                     internalNode.setSoutheast(se);
                 }
             }
-            
+
             // Change the pointers
             node = internalNode;
-            
+
             // Now all the points have been spread out, insert it
             node = inserthelp(it, node, x, y, s);
             // return node;
         }
         else {
             // It must be an internal node
-            InternalNode internalNode = (InternalNode) node;
+            InternalNode internalNode = (InternalNode)node;
             Point pt = it.getValue();
-            
+
             String direction = pt.getDirection(x, y);
             if (direction.equals("nw")) {
                 QuadNode nw = internalNode.northwest();
-                nw = inserthelp(it, nw, x - s/4, y - s/4, s/2);
+                nw = inserthelp(it, nw, x - s / 4, y - s / 4, s / 2);
                 internalNode.setNorthwest(nw);
             }
             else if (direction.equals("ne")) {
                 QuadNode ne = internalNode.northeast();
-                ne = inserthelp(it, ne, x + s/4, y - s/4, s/2);
+                ne = inserthelp(it, ne, x + s / 4, y - s / 4, s / 2);
                 internalNode.setNortheast(ne);
             }
             else if (direction.equals("sw")) {
                 QuadNode sw = internalNode.southwest();
-                sw = inserthelp(it, sw, x - s/4, y + s/4, s/2);
+                sw = inserthelp(it, sw, x - s / 4, y + s / 4, s / 2);
                 internalNode.setSouthwest(sw);
             }
             else if (direction.equals("se")) {
                 QuadNode se = internalNode.southeast();
-                se = inserthelp(it, se, x + s/4, y + s/4, s/2);
+                se = inserthelp(it, se, x + s / 4, y + s / 4, s / 2);
                 internalNode.setSoutheast(se);
             }
-            
+
             // TODO: Does this stay here?
             node = internalNode;
         }
-        
+
         return node;
     }
 
@@ -203,25 +213,29 @@ public class PRQuadTree {
     public void regionsearch(int x, int y, int w, int h) {
         // Check if invalid rectangle
         if (w <= 0 || h <= 0) {
-            String out = String.format("Rectangle rejected: (%d, %d, %d, %d)", x, y, w, h);
+            String out = String.format("Rectangle rejected: (%d, %d, %d, %d)",
+                x, y, w, h);
             System.out.println(out);
             return;
         }
-        
+
         // Know valid rectangle
-        String out = String.format("Points intersecting region (%d, %d, %d, %d)", x, y, w, h);
+        String out = String.format(
+            "Points intersecting region (%d, %d, %d, %d)", x, y, w, h);
         System.out.println(out);
-        
+
         this.numNodesVisited = 0;
         regionsearchhelp(root, x, y, w, h, 512, 512, 1024);
-        
+
         // Print num nodes visited
         out = String.format("%d quadtree nodes visited", this.numNodesVisited);
         System.out.println(out);
     }
-    
+
+
     /**
      * Recursive helper for regionsearch
+     * 
      * @param node
      * @param regionX
      * @param regionY
@@ -231,75 +245,91 @@ public class PRQuadTree {
      * @param currY
      * @param currS
      */
-    public void regionsearchhelp(QuadNode node, int regionX, int regionY, int regionW, int regionH,
-                                int currX, int currY, int currS) {
+    public void regionsearchhelp(
+        QuadNode node,
+        int regionX,
+        int regionY,
+        int regionW,
+        int regionH,
+        int currX,
+        int currY,
+        int currS) {
         this.numNodesVisited++;
-        
+
         if (isFlyweight(node)) {
             // Nothing
             return;
         }
-        
+
         if (node.isLeaf()) {
-            LeafNode leaf = (LeafNode) node;
+            LeafNode leaf = (LeafNode)node;
             LinkedList<KVPair<String, Point>> points = leaf.getPoints();
-            
+
             for (KVPair<String, Point> pair : points) {
                 String name = pair.getKey();
                 Point pt = pair.getValue();
-                
+
                 // Check point.intersects(region)
                 if (pt.intersectsRegion(regionX, regionY, regionW, regionH)) {
                     // Print it
-                    String out = String.format("Point found: (%s, %s)", name, pt);
+                    String out = String.format("Point found: (%s, %s)", name,
+                        pt);
                     System.out.println(out);
                 }
             }
             return;
         }
-        
+
         // Internal Node
-        InternalNode internalNode = (InternalNode) node;
-        
+        InternalNode internalNode = (InternalNode)node;
+
         QuadNode nw = internalNode.northwest();
         QuadNode ne = internalNode.northeast();
         QuadNode sw = internalNode.southwest();
         QuadNode se = internalNode.southeast();
-        
+
         // Recursively iterate
         // Check for region intersect before exploring that node
-        
+
         int newX = 0;
         int newY = 0;
-        int newS = currS/2;
-        
+        int newS = currS / 2;
+
         // Northwest
-        newX = currX - currS/4;
-        newY = currY - currS/4;
-        if (this.regionIntersectsCurr(regionX, regionY, regionW, regionH, newX, newY, newS)) {
-            regionsearchhelp(nw, regionX, regionY, regionW, regionH, newX, newY, newS);
+        newX = currX - currS / 4;
+        newY = currY - currS / 4;
+        if (this.regionIntersectsCurr(regionX, regionY, regionW, regionH, newX,
+            newY, newS)) {
+            regionsearchhelp(nw, regionX, regionY, regionW, regionH, newX, newY,
+                newS);
         }
-        
+
         // Northeast
-        newX = currX + currS/4;
-        newY = currY - currS/4;
-        if (this.regionIntersectsCurr(regionX, regionY, regionW, regionH, newX, newY, newS)) {
-            regionsearchhelp(ne, regionX, regionY, regionW, regionH, newX, newY, newS);
+        newX = currX + currS / 4;
+        newY = currY - currS / 4;
+        if (this.regionIntersectsCurr(regionX, regionY, regionW, regionH, newX,
+            newY, newS)) {
+            regionsearchhelp(ne, regionX, regionY, regionW, regionH, newX, newY,
+                newS);
         }
-        
+
         // Southwest
-        newX = currX - currS/4;
-        newY = currY + currS/4;
-        if (this.regionIntersectsCurr(regionX, regionY, regionW, regionH, newX, newY, newS)) {
-            regionsearchhelp(sw, regionX, regionY, regionW, regionH, newX, newY, newS);
+        newX = currX - currS / 4;
+        newY = currY + currS / 4;
+        if (this.regionIntersectsCurr(regionX, regionY, regionW, regionH, newX,
+            newY, newS)) {
+            regionsearchhelp(sw, regionX, regionY, regionW, regionH, newX, newY,
+                newS);
         }
-        
+
         // Southeast
-        newX = currX + currS/4;
-        newY = currY + currS/4;
-        if (this.regionIntersectsCurr(regionX, regionY, regionW, regionH, newX, newY, newS)) {
-            regionsearchhelp(se, regionX, regionY, regionW, regionH, newX, newY, newS);
-        }        
+        newX = currX + currS / 4;
+        newY = currY + currS / 4;
+        if (this.regionIntersectsCurr(regionX, regionY, regionW, regionH, newX,
+            newY, newS)) {
+            regionsearchhelp(se, regionX, regionY, regionW, regionH, newX, newY,
+                newS);
+        }
     }
 
 
@@ -309,10 +339,11 @@ public class PRQuadTree {
      */
     public void duplicates() {
         System.out.println("Duplicate points:");
-        
+
         duplicateshelp(root);
     }
-    
+
+
     /**
      * Recursive helper method for duplicates
      */
@@ -321,37 +352,37 @@ public class PRQuadTree {
             // Nothing
             return;
         }
-        
+
         if (node.isLeaf()) {
-            LeafNode leaf = (LeafNode) node;
+            LeafNode leaf = (LeafNode)node;
             LinkedList<KVPair<String, Point>> points = leaf.getDuplicates();
             if (points.size() > 0) {
                 // There is a duplicate!
                 for (KVPair<String, Point> pair : points) {
                     // Print the point only
                     Point pt = pair.getValue();
-                    
+
                     String out = String.format("(%s)", pt);
                     System.out.println(out);
                 }
             }
-            
+
             return;
         }
-        
-        // Internal Node        
-        InternalNode internalNode = (InternalNode) node;
-        
+
+        // Internal Node
+        InternalNode internalNode = (InternalNode)node;
+
         QuadNode nw = internalNode.northwest();
         QuadNode ne = internalNode.northeast();
         QuadNode sw = internalNode.southwest();
         QuadNode se = internalNode.southeast();
-        
+
         duplicateshelp(nw);
         duplicateshelp(ne);
         duplicateshelp(sw);
         duplicateshelp(se);
-        
+
     }
 
 
@@ -362,18 +393,21 @@ public class PRQuadTree {
      */
     public void dump() {
         this.numNodesPrinted = 0;
-        
+
         System.out.println("QuadTree dump:");
-        
+
         dumphelp(root, 512, 512, 1024, 0);
 
-        String out = String.format("%d quadtree nodes printed", this.numNodesPrinted);
+        String out = String.format("%d quadtree nodes printed",
+            this.numNodesPrinted);
         System.out.println(out);
     }
-    
+
+
     // TODO: Update params here
     /**
      * Recursive helper method for dump
+     * 
      * @param node
      */
     public void dumphelp(QuadNode node, int x, int y, int s, int level) {
@@ -381,43 +415,43 @@ public class PRQuadTree {
         for (int i = 0; i < level; i++) {
             System.out.print("  ");
         }
-        
-        int printableX = x - s/2;
-        int printableY = y - s/2;
-        
+
+        int printableX = x - s / 2;
+        int printableY = y - s / 2;
+
         // Node at printableX, printableY, s: Internal
         // If internal, say internal
         // If leaf, print each point in the node
         // If empty/flyweight, say empty
-        
+
         if (isFlyweight(node)) {
             // Print empty
-            String out = String.format("Node at %d, %d, %d: Empty",
-                printableX, printableY, s);
+            String out = String.format("Node at %d, %d, %d: Empty", printableX,
+                printableY, s);
             System.out.println(out);
             this.numNodesPrinted++;
             return;
         }
-        
+
         if (node.isLeaf()) {
             // Show leaf node
-            String out = String.format("Node at %d, %d, %d:",
-                printableX, printableY, s);
+            String out = String.format("Node at %d, %d, %d:", printableX,
+                printableY, s);
             System.out.println(out);
             this.numNodesPrinted++;
-            
+
             // Print points
-            LeafNode leaf = (LeafNode) node;
+            LeafNode leaf = (LeafNode)node;
             LinkedList<KVPair<String, Point>> points = leaf.getPoints();
             for (KVPair<String, Point> pair : points) {
                 String name = pair.getKey();
                 Point pt = pair.getValue();
-                
+
                 // Reprint indentation
                 for (int i = 0; i < level; i++) {
                     System.out.print("  ");
                 }
-                
+
                 out = String.format("(%s, %s)", name, pt);
                 System.out.println(out);
             }
@@ -426,65 +460,75 @@ public class PRQuadTree {
 
         // Here is an internal node
         // Call dumphelp recursively
-        String out = String.format("Node at %d, %d, %d: Internal",
-            printableX, printableY, s);
+        String out = String.format("Node at %d, %d, %d: Internal", printableX,
+            printableY, s);
         System.out.println(out);
         this.numNodesPrinted++;
-        
-        InternalNode internalNode = (InternalNode) node;
-        
+
+        InternalNode internalNode = (InternalNode)node;
+
         QuadNode nw = internalNode.northwest();
         QuadNode ne = internalNode.northeast();
         QuadNode sw = internalNode.southwest();
         QuadNode se = internalNode.southeast();
-        
-        dumphelp(nw, x - s/4, y - s/4, s/2, level+1);
-        dumphelp(ne, x + s/4, y - s/4, s/2, level+1);
-        dumphelp(sw, x - s/4, y + s/4, s/2, level+1);
-        dumphelp(se, x + s/4, y + s/4, s/2, level+1);
+
+        dumphelp(nw, x - s / 4, y - s / 4, s / 2, level + 1);
+        dumphelp(ne, x + s / 4, y - s / 4, s / 2, level + 1);
+        dumphelp(sw, x - s / 4, y + s / 4, s / 2, level + 1);
+        dumphelp(se, x + s / 4, y + s / 4, s / 2, level + 1);
     }
-    
+
+
     /**
      * Returns true if the node is flyweight
+     * 
      * @return true if node is flyweight
      */
     public boolean isFlyweight(QuadNode node) {
         return (node == flyweight);
     }
-    
+
+
     /**
      * Returns true if the region intersections the current boundary
+     * 
      * @return true if intersects
      */
-    public boolean regionIntersectsCurr(int regionX, int regionY, int regionW, int regionH,
-                                        int currX, int currY, int currS) {
-        int currLeft = currX - currS/2;
-        int currRight = currX + currS/2;
-        int currTop = currY - currS/2;
-        int currBottom = currY + currS/2;
-        
+    public boolean regionIntersectsCurr(
+        int regionX,
+        int regionY,
+        int regionW,
+        int regionH,
+        int currX,
+        int currY,
+        int currS) {
+        int currLeft = currX - currS / 2;
+        int currRight = currX + currS / 2;
+        int currTop = currY - currS / 2;
+        int currBottom = currY + currS / 2;
+
         int regionLeft = regionX;
         int regionRight = regionX + regionW;
         int regionTop = regionY;
         int regionBottom = regionY + regionH;
-        
+
         // Psuedocode taken from Project 1
-        
+
         // One is too far left
         if (currRight <= regionLeft) {
             return false;
         }
-        
+
         if (regionRight <= currLeft) {
             return false;
         }
-        
+
         // One if too far down
         if (regionBottom <= currTop) {
             return false;
         }
-        
+
         return !(currBottom <= regionTop);
     }
-    
+
 }

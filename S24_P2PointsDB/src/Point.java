@@ -102,17 +102,21 @@ public class Point {
         return !valid;
     }
 
+
     /**
      * Return true if inside the world box
+     * 
      * @param a
      * @return
      */
     private boolean insideWorldBox(int a) {
         return (a >= 0) && (a < 1024);
     }
-    
+
+
     /**
      * Return true if this point is north of x1, y1
+     * 
      * @param x1
      * @param y1
      * @return
@@ -120,9 +124,11 @@ public class Point {
     public boolean isNorthOf(int x1, int y1) {
         return this.getY() < y1;
     }
-    
+
+
     /**
      * Return true if this point is west of x1, y1
+     * 
      * @param x1
      * @param y1
      * @return
@@ -130,9 +136,11 @@ public class Point {
     public boolean isWestOf(int x1, int y1) {
         return this.getX() < x1;
     }
-    
+
+
     /**
      * Returns the direction as a String from point x1, y1
+     * 
      * @param x1
      * @param y1
      * @return direction as a string
@@ -140,7 +148,7 @@ public class Point {
     public String getDirection(int x1, int y1) {
         boolean isNorth = this.isNorthOf(x1, y1);
         boolean isWest = this.isWestOf(x1, y1);
-        
+
         // If statement for better mutation testing
         if (isNorth) {
             // North
@@ -158,7 +166,7 @@ public class Point {
             if (isWest) {
                 // West
                 return "sw";
-                
+
             }
             else {
                 // East
@@ -166,32 +174,38 @@ public class Point {
             }
         }
     }
-    
+
+
     /**
      * Returns true if the point intersects the region
+     * 
      * @return true if intersect
      */
-    public boolean intersectsRegion(int regionX, int regionY, int regionW, int regionH) {
+    public boolean intersectsRegion(
+        int regionX,
+        int regionY,
+        int regionW,
+        int regionH) {
         int regionLeft = regionX;
         int regionRight = regionX + regionW;
         int regionTop = regionY;
         int regionBottom = regionY + regionH;
-        
+
         // Point is too far left
         if (this.getX() <= regionLeft) {
             return false;
         }
-        
+
         // Point it too far right
         if (this.getX() >= regionRight) {
             return false;
         }
-        
+
         // Point is too far down
         if (this.getY() >= regionBottom) {
             return false;
         }
-        
+
         // Point is too far up
         return !(this.getY() <= regionTop);
     }

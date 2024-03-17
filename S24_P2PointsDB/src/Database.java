@@ -23,7 +23,7 @@ public class Database {
 
     private SkipList<String, Point> list;
     private PRQuadTree tree;
-    
+
     // TODO: Output all results to standard out.
 
     /**
@@ -49,14 +49,14 @@ public class Database {
         // Delegates the decision mostly to SkipList, only
         // writing the correct message to the console from
         // that
-        
+
         // TODO: Check if pair is an EXACT match of another pair
         // already stored
         // Same name is OK, same coords is OK, BUT NOT BOTH
-        
+
         String name = pair.getKey();
         Point pt = pair.getValue();
-        
+
         if (pt.isInvalid()) {
             // Point rejected: ()
             String out = String.format("Point rejected: (%s, %s)", name, pt);
@@ -172,7 +172,7 @@ public class Database {
             System.out.println(out);
             return;
         }
-        
+
         // Iterate and print all
         for (KVPair<String, Point> pair : found) {
             String name1 = pair.getKey();

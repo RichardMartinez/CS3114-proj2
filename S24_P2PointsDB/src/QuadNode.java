@@ -7,15 +7,16 @@
 public interface QuadNode {
 
     public void insert(KVPair<String, Point> it);
-    
+
+
     public KVPair<String, Point> remove(Point pt);
-    
+
     // TODO: Add regionsearch, duplicates, dump
-    
+
+
     public boolean canInsert(KVPair<String, Point> it);
-    
+
+
     public boolean isLeaf();
-    
-//    public String toString();
 
 }

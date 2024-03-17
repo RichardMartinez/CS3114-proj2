@@ -37,27 +37,28 @@ public class CommandProcessorTest extends TestCase {
         String expected = "Point inserted: (A, 64, 64)";
         String actual = systemOut().getHistory();
         assertFuzzyEquals(expected, actual);
-        
+
         // Invalid insert
         systemOut().clearHistory();
         cmdProc.processor("insert B -1 1");
         expected = "Point rejected: (B, -1, 1)";
         actual = systemOut().getHistory();
         assertFuzzyEquals(expected, actual);
-        
+
         systemOut().clearHistory();
         cmdProc.processor("insert C 1 -1");
         expected = "Point rejected: (C, 1, -1)";
         actual = systemOut().getHistory();
         assertFuzzyEquals(expected, actual);
-        
+
         systemOut().clearHistory();
         cmdProc.processor("insert D -1 -1");
         expected = "Point rejected: (D, -1, -1)";
         actual = systemOut().getHistory();
         assertFuzzyEquals(expected, actual);
     }
-    
+
+
     /**
      * Tests the search command
      */
@@ -67,14 +68,14 @@ public class CommandProcessorTest extends TestCase {
         cmdProc.processor("insert B 768 256");
         cmdProc.processor("insert C 256 768");
         cmdProc.processor("insert D 768 768");
-        
+
         // Valid search
         systemOut().clearHistory();
         cmdProc.processor("search A");
         String expected = "Found (A, 256, 256)";
         String actual = systemOut().getHistory();
         assertFuzzyEquals(expected, actual);
-        
+
         // Invalid search
         systemOut().clearHistory();
         cmdProc.processor("search Z");
@@ -82,47 +83,43 @@ public class CommandProcessorTest extends TestCase {
         actual = systemOut().getHistory();
         assertFuzzyEquals(expected, actual);
     }
-    
+
+
     /**
      * Test the dump command
      */
     public void testDump() {
         // Set SkipList Levels to all 1's
         TestableRandom.setNextBooleans(false, false, false, false);
-        
+
         // Insert
         cmdProc.processor("insert A 256 256");
         cmdProc.processor("insert B 768 256");
         cmdProc.processor("insert C 256 768");
         cmdProc.processor("insert D 768 768");
-        
+
         systemOut().clearHistory();
         cmdProc.processor("dump");
-        
-        String expected = "SkipList dump:\n" +
-            "Node with depth 1, Value null\n" +
-            "Node with depth 1, Value (A, 256, 256)\n" +
-            "Node with depth 1, Value (B, 768, 256)\n" +
-            "Node with depth 1, Value (C, 256, 768)\n" +
-            "Node with depth 1, Value (D, 768, 768)\n" +
-            "SkipList size is: 4\n" +
-            
-            "QuadTree dump:\n" +
-            "Node at 0, 0, 1024: Internal\n" +
-            "Node at 0, 0, 512:\n" +
-            "(A, 256, 256)\n" +
-            "Node at 512, 0, 512:\n" +
-            "(B, 768, 256)\n" +
-            "Node at 0, 512, 512:\n" +
-            "(C, 256, 768)\n" +
-            "Node at 512, 512, 512:\n" +
-            "(D, 768, 768)\n" +
-            "5 quadtree nodes printed\n";
-        
+
+        String expected = "SkipList dump:\n" + "Node with depth 1, Value null\n"
+            + "Node with depth 1, Value (A, 256, 256)\n"
+            + "Node with depth 1, Value (B, 768, 256)\n"
+            + "Node with depth 1, Value (C, 256, 768)\n"
+            + "Node with depth 1, Value (D, 768, 768)\n"
+            + "SkipList size is: 4\n" +
+
+            "QuadTree dump:\n" + "Node at 0, 0, 1024: Internal\n"
+            + "Node at 0, 0, 512:\n" + "(A, 256, 256)\n"
+            + "Node at 512, 0, 512:\n" + "(B, 768, 256)\n"
+            + "Node at 0, 512, 512:\n" + "(C, 256, 768)\n"
+            + "Node at 512, 512, 512:\n" + "(D, 768, 768)\n"
+            + "5 quadtree nodes printed\n";
+
         String actual = systemOut().getHistory();
         assertFuzzyEquals(expected, actual);
     }
-    
+
+
     /**
      * Test an invalid command
      */
@@ -133,114 +130,107 @@ public class CommandProcessorTest extends TestCase {
         String actual = systemOut().getHistory();
         assertFuzzyEquals(expected, actual);
     }
-    
+
+
     /**
      * Test the duplicates command
      */
     public void testDuplicates() {
         // Set SkipList Levels to all 1's
-        TestableRandom.setNextBooleans(false, false, false, false, 
-            false, false, false, false, false, false, false, false, 
-            false, false, false, false);
-        
+        TestableRandom.setNextBooleans(false, false, false, false, false, false,
+            false, false, false, false, false, false, false, false, false,
+            false);
+
         // Insert
         cmdProc.processor("insert A 128 128");
         cmdProc.processor("insert B 128 128");
-        
+
         cmdProc.processor("insert C 384 128");
         cmdProc.processor("insert D 384 128");
-        
+
         cmdProc.processor("insert E 128 384");
-        
+
         cmdProc.processor("insert F 384 384");
-        
+
         cmdProc.processor("insert G 768 256");
         cmdProc.processor("insert H 768 256");
-        
-        //cmdProc.processor("insert I 128 128");
-        
+
+        // cmdProc.processor("insert I 128 128");
+
         cmdProc.processor("insert J 768 768");
         cmdProc.processor("insert K 768 768");
-        
+
         cmdProc.processor("insert L 640 128");
         cmdProc.processor("insert M 640 128");
-        
+
         cmdProc.processor("insert N 640 640");
         cmdProc.processor("insert O 640 640");
-        
+
         cmdProc.processor("insert P 896 896");
         cmdProc.processor("insert Q 896 896");
-        
+
         systemOut().clearHistory();
         cmdProc.processor("duplicates");
-        
-        String expected = "Duplicate points:\n" +
-            "(128, 128)\n" +
-            "(384, 128)\n" +
-            "(640, 128)\n" +
-            "(768, 256)\n" +
-            "(640, 640)\n" +
-            "(768, 768)\n" +
-            "(896, 896)\n";
-        
+
+        String expected = "Duplicate points:\n" + "(128, 128)\n"
+            + "(384, 128)\n" + "(640, 128)\n" + "(768, 256)\n" + "(640, 640)\n"
+            + "(768, 768)\n" + "(896, 896)\n";
+
         String actual = systemOut().getHistory();
-        
+
         assertFuzzyEquals(expected, actual);
     }
-    
+
+
     /**
      * Test the region search method
      */
     public void testRegionSearch() {
         // Set SkipList Levels to all 1's
-        TestableRandom.setNextBooleans(false, false, false, false, 
-            false, false, false, false, false, false, false, false, 
-            false, false, false, false);
-        
+        TestableRandom.setNextBooleans(false, false, false, false, false, false,
+            false, false, false, false, false, false, false, false, false,
+            false);
+
         // Insert
         cmdProc.processor("insert A 128 128");
         cmdProc.processor("insert B 128 128");
-        
+
         cmdProc.processor("insert C 384 128");
         cmdProc.processor("insert D 384 128");
-        
+
         cmdProc.processor("insert E 128 384");
-        
+
         cmdProc.processor("insert F 384 384");
-        
+
         cmdProc.processor("insert G 768 256");
         cmdProc.processor("insert H 768 256");
-        
-        //cmdProc.processor("insert I 128 128");
-        
+
+        // cmdProc.processor("insert I 128 128");
+
         cmdProc.processor("insert J 768 768");
         cmdProc.processor("insert K 768 768");
-        
+
         cmdProc.processor("insert L 640 128");
         cmdProc.processor("insert M 640 128");
-        
+
         cmdProc.processor("insert N 640 640");
         cmdProc.processor("insert O 640 640");
-        
+
         cmdProc.processor("insert P 896 896");
         cmdProc.processor("insert Q 896 896");
-        
+
         systemOut().clearHistory();
         cmdProc.processor("regionsearch 0 0 512 512");
-        
-        String expected = "Points intersecting region (0, 0, 512, 512)\n" +
-            "Point found: (A, 128, 128)\n" +
-            "Point found: (B, 128, 128)\n" +
-            "Point found: (C, 384, 128)\n" +
-            "Point found: (D, 384, 128)\n" +
-            "Point found: (E, 128, 384)\n" +
-            "Point found: (F, 384, 384)\n" +
-            "6 quadtree nodes visited\n";
-        
+
+        String expected = "Points intersecting region (0, 0, 512, 512)\n"
+            + "Point found: (A, 128, 128)\n" + "Point found: (B, 128, 128)\n"
+            + "Point found: (C, 384, 128)\n" + "Point found: (D, 384, 128)\n"
+            + "Point found: (E, 128, 384)\n" + "Point found: (F, 384, 384)\n"
+            + "6 quadtree nodes visited\n";
+
         String actual = systemOut().getHistory();
-        
+
         assertFuzzyEquals(expected, actual);
-        
-        
+
     }
 }
