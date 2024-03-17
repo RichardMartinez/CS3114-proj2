@@ -1147,7 +1147,7 @@ public class PRQuadTreeTest extends TestCase {
         
         System.out.println("BEFORE DOUBLE MERGE");
         tree.dump();
-        
+         
         // Remove D
         pt = new Point(896, 384);
         pair = tree.remove(pt);
@@ -1165,6 +1165,66 @@ public class PRQuadTreeTest extends TestCase {
             "(A, 640, 128)\n" +
             "(B, 896, 128)\n" +
             "(C, 640, 384)\n" +
+            "1 quadtree nodes printed\n";
+
+        String actual = systemOut().getHistory();
+
+        assertFuzzyEquals(expected, actual);
+    }
+    
+    /**
+     * Test double merge again
+     */
+    public void testDoubleMerge2() {
+        String name;
+        Point pt;
+        KVPair<String, Point> pair;
+
+        name = "A";
+        pt = new Point(128, 640);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+
+        name = "B";
+        pt = new Point(384, 640);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+
+        name = "C";
+        pt = new Point(128, 896);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+
+        name = "D";
+        pt = new Point(384, 896);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+        
+        System.out.println("BEFORE DOUBLE MERGE 2");
+        tree.dump();
+        
+        // Test Remove Flyweight
+        pt = new Point(768, 256);
+        pair = tree.remove(pt);
+        assertNull(pair);
+        
+        // Remove D
+        pt = new Point(384, 896);
+        pair = tree.remove(pt);
+        assertNotNull(pair);
+        Point pt2 = pair.getValue();
+        assertTrue(pt.equals(pt2));
+        
+        System.out.println("AFTER DOUBLE MERGE 2");
+        
+        systemOut().clearHistory();
+        tree.dump();
+
+        String expected = "QuadTree dump:\n" +
+            "Node at 0, 0, 1024:\n" +
+            "(A, 128, 640)\n" +
+            "(B, 384, 640)\n" +
+            "(C, 128, 896)\n" +
             "1 quadtree nodes printed\n";
 
         String actual = systemOut().getHistory();
