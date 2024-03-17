@@ -1488,6 +1488,247 @@ public class PRQuadTreeTest extends TestCase {
         assertFuzzyEquals(expected, actual);
     }
     
+    /**
+     * Test all leaf children method of internal node
+     */
+    public void testAllLeafChildren1() {
+        String name;
+        Point pt;
+        KVPair<String, Point> pair;
+        
+        // Make this easy to edit
+        int x = 256;
+        int y = 256;
+        int s = 512;
+        
+        name = "A";
+        pt = new Point(x-s/4, y-s/4);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+
+        name = "B";
+        pt = new Point(x+s/4, y-s/4);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+
+        name = "C";
+        pt = new Point(x-s/4, y+s/4);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+
+        name = "D";
+        pt = new Point(x+s/4, y+s/4);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+        
+        name = "E";
+        pt = new Point(768, 256);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+        
+        name = "F";
+        pt = new Point(256, 768);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+        
+        name = "G";
+        pt = new Point(768, 768);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+        
+        assertEquals(tree.size(), 7);
+        
+        // Remove G
+        pt = new Point(768, 768);
+        pair = tree.remove(pt);
+        assertNotNull(pair);
+        Point pt2 = pair.getValue();
+        assertTrue(pt.equals(pt2));
+        
+        assertEquals(tree.size(), 6);
+    }
+    
+    /**
+     * Test all leaf children method of internal node
+     */
+    public void testAllLeafChildren2() {
+        String name;
+        Point pt;
+        KVPair<String, Point> pair;
+        
+        // Make this easy to edit
+        int x = 768;
+        int y = 256;
+        int s = 512;
+        
+        name = "A";
+        pt = new Point(x-s/4, y-s/4);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+
+        name = "B";
+        pt = new Point(x+s/4, y-s/4);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+
+        name = "C";
+        pt = new Point(x-s/4, y+s/4);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+
+        name = "D";
+        pt = new Point(x+s/4, y+s/4);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+        
+        name = "E";
+        pt = new Point(256, 256);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+        
+        name = "F";
+        pt = new Point(256, 768);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+        
+        name = "G";
+        pt = new Point(768, 768);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+        
+        assertEquals(tree.size(), 7);
+        
+        // Remove G
+        pt = new Point(768, 768);
+        pair = tree.remove(pt);
+        assertNotNull(pair);
+        Point pt2 = pair.getValue();
+        assertTrue(pt.equals(pt2));
+        
+        assertEquals(tree.size(), 6);
+    }
+    
+    
+    /**
+     * Test all leaf children method of internal node
+     */
+    public void testAllLeafChildren3() {
+        String name;
+        Point pt;
+        KVPair<String, Point> pair;
+        
+        // Make this easy to edit
+        int x = 256;
+        int y = 768;
+        int s = 512;
+        
+        name = "A";
+        pt = new Point(x-s/4, y-s/4);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+
+        name = "B";
+        pt = new Point(x+s/4, y-s/4);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+
+        name = "C";
+        pt = new Point(x-s/4, y+s/4);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+
+        name = "D";
+        pt = new Point(x+s/4, y+s/4);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+        
+        name = "E";
+        pt = new Point(768, 256);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+        
+        name = "F";
+        pt = new Point(256, 256);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+        
+        name = "G";
+        pt = new Point(768, 768);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+        
+        assertEquals(tree.size(), 7);
+        
+        // Remove G
+        pt = new Point(768, 768);
+        pair = tree.remove(pt);
+        assertNotNull(pair);
+        Point pt2 = pair.getValue();
+        assertTrue(pt.equals(pt2));
+        
+        assertEquals(tree.size(), 6);
+    }
+    
+    /**
+     * Test all leaf children method of internal node
+     */
+    public void testAllLeafChildren4() {
+        String name;
+        Point pt;
+        KVPair<String, Point> pair;
+        
+        // Make this easy to edit
+        int x = 768;
+        int y = 768;
+        int s = 512;
+        
+        name = "A";
+        pt = new Point(x-s/4, y-s/4);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+
+        name = "B";
+        pt = new Point(x+s/4, y-s/4);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+
+        name = "C";
+        pt = new Point(x-s/4, y+s/4);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+
+        name = "D";
+        pt = new Point(x+s/4, y+s/4);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+        
+        name = "E";
+        pt = new Point(768, 256);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+        
+        name = "F";
+        pt = new Point(256, 768);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+        
+        name = "G";
+        pt = new Point(256, 256);
+        pair = new KVPair<String, Point>(name, pt);
+        tree.insert(pair);
+        
+        assertEquals(tree.size(), 7);
+        
+        // Remove G
+        pt = new Point(256, 256);
+        pair = tree.remove(pt);
+        assertNotNull(pair);
+        Point pt2 = pair.getValue();
+        assertTrue(pt.equals(pt2));
+        
+        assertEquals(tree.size(), 6);
+    }
+    
     
 
 }
